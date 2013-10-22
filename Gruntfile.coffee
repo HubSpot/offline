@@ -9,10 +9,11 @@ module.exports = (grunt) ->
       compile:
         files:
           'offline.js': 'offline.coffee'
+          'pegasus.js': 'pegasus.coffee'
 
     watch:
       coffee:
-        files: ['offline.coffee']
+        files: ['offline.coffee', 'pegasus.coffee']
         tasks: ["coffee", "uglify"]
 
     uglify:

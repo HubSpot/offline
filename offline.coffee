@@ -47,70 +47,93 @@ Offline.state = 'up'
 Offline.markUp = ->
   return if Offline.state is 'up'
 
+  console.log 'up'
   Offline.state = 'up'
   Offline.trigger 'up'
 
 Offline.markDown = ->
   return if Offline.state is 'down'
 
+  console.log 'down'
   Offline.state = 'down'
   Offline.trigger 'down'
 
-handlers = {up: [], down: []}
+handlers = {}
 
 Offline.on = (event, handler, ctx) ->
+  handlers[event] ?= []
   handlers[event].push [ctx, handler]
 
 Offline.off = (event, handler) ->
+  return unless handlers[event]?
+
   if not handler
     handlers[event] = []
   else
     i = 0
-    while i < handlers.length
-      [ctx, _handler] = handlers[i]
+    while i < handlers[event].length
+      [ctx, _handler] = handlers[event][i]
       if _handler is handler
-        handlers.splice i--, 1
+        handlers[event].splice i--, 1
 
 Offline.trigger = (event) ->
-  for [ctx, handler] in handlers[event]
-    handler.call(ctx)
+  if handlers[event]?
+    for [ctx, handler] in handlers[event]
+      handler.call(ctx)
 
 checkXHR = (xhr, onUp, onDown) ->
   checkStatus = ->
-    if xhr.status
+    console.log 'check', xhr
+    if xhr.status and xhr.status < 12000
       onUp()
     else
       onDown()
 
   if xhr.onprogress is null
-    # It would be undefined on older browsers
-    xhr.onerror = xhr.ontimeout = onDown
-    xhr.onload = checkStatus
+    # onprogress would be undefined on older browsers
+    xhr.addEventListener 'error', onDown, false
+    xhr.addEventListener 'load', checkStatus, false
   else
+    _onreadystatechange = xhr.onreadystatechange
     xhr.onreadystatechange = ->
       if xhr.readyState is 4
         checkStatus()
       else if xhr.readyState is 0
         onDown()
 
-Offline.check = ->
+      _onreadystatechange?(arguments...)
+
+Offline.checks = {}
+Offline.checks.xhr = ->
   xhr = new XMLHttpRequest
 
   # It doesn't matter what this hits, even a 404 is considered up.  It is important however that
   # it's on the same domain and port, so CORS issues don't come into play.
   xhr.open('GET', Offline.getOption('checkURL'), true)
 
-  checkXHR xhr, (=> Offline.markUp), (=> Offline.markDown)
+  checkXHR xhr, Offline.markUp, Offline.markDown
 
   xhr.send()
 
+  xhr
+
+Offline.checks.image = ->
+  img = document.createElement 'img'
+  img.onerror = Offline.markDown
+  img.onload = Offline.markUp
+  img.src = "http://dqakt69vkj09v.cloudfront.net/are-we-online.gif?_=#{ Math.floor(Math.random() * 1000000000) }"
+  
+  undefined
+
+Offline.check = Offline.checks.image
+
 Offline.confirmUp = Offline.confirmDown = Offline.check
 
-onXHR = (cb) ->
-  monitorXHR = (req) =>
+Offline.onXHR = (cb) ->
+  monitorXHR = (req, flags) ->
     _open = req.open
-    req.open = (type, url, async) =>
-      cb {type, url, request: req}
+    req.open = (type, url, async) ->
+      cb {type, url, async, flags, xhr: req}
 
       _open.apply req, arguments
 
@@ -118,7 +141,7 @@ onXHR = (cb) ->
   window.XMLHttpRequest = (flags) ->
     req = new _XMLHttpRequest(flags)
 
-    monitorXHR req
+    monitorXHR req, flags
 
     req
 
@@ -137,8 +160,8 @@ onXHR = (cb) ->
 
 init = ->
   if Offline.getOption 'interceptRequests'
-    onXHR ({request}) ->
-      checkXHR request, (=> Offline.confirmUp), (=> Offline.confirmDown)
+    Offline.onXHR ({xhr}) ->
+      checkXHR xhr, Offline.confirmUp, Offline.confirmDown)
 
   if Offline.getOption 'checkOnLoad'
     Offline.check()
@@ -147,3 +170,5 @@ init = ->
 setTimeout init, 0
 
 window.Offline = Offline
+Offline.on 'up', -> console.log 'up'
+Offline.on 'down', -> console.log 'down'
