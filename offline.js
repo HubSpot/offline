@@ -190,9 +190,15 @@
     };
     _XMLHttpRequest = window.XMLHttpRequest;
     window.XMLHttpRequest = function(flags) {
-      var req;
+      var req, _setRequestHeader;
       req = new _XMLHttpRequest(flags);
       monitorXHR(req, flags);
+      _setRequestHeader = req.setRequestHeader;
+      req.headers = {};
+      req.setRequestHeader = function(name, value) {
+        req.headers[name] = value;
+        return _setRequestHeader.call(req, name, value);
+      };
       return req;
     };
     extendNative(window.XMLHttpRequest, _XMLHttpRequest);

@@ -149,6 +149,13 @@ Offline.onXHR = (cb) ->
 
     monitorXHR req, flags
 
+    _setRequestHeader = req.setRequestHeader
+    req.headers = {}
+    req.setRequestHeader = (name, value) ->
+      req.headers[name] = value
+
+      _setRequestHeader.call req, name, value
+
     req
 
   extendNative window.XMLHttpRequest, _XMLHttpRequest

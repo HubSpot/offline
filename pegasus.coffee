@@ -3,10 +3,6 @@ unless window.Offline
 
 held = []
 
-# When a request fails we need to decide if the failure is systemic or not.
-# So we hold it until we know?  We'd need an event for up but was up
-
-
 waitingOnConfirm = false
 holdRequest = (req) ->
   console.log 'holding',req
@@ -15,10 +11,12 @@ holdRequest = (req) ->
 
   held.push req
 
-makeRequest = ({xhr}) ->
+makeRequest = ({xhr, url, type, body}) ->
   console.log 'remaking', xhr
   xhr.abort()
-  xhr.send()
+  xhr.open(type, url, true)
+  xhr.setRequestHeader(name, val) for name, val of xhr.headers
+  xhr.send(body)
 
 clear = ->
   console.log 'clearing'
@@ -54,7 +52,15 @@ Offline.on 'down', ->
 Offline.onXHR (request) ->
   {xhr, async} = request
 
-  hold = -> holdRequest
+  console.log 'on xhr', request
+  hold = -> holdRequest request
+
+  _send = xhr.send
+  xhr.send = (body) ->
+    console.log 'sending', body
+    request.body = body
+
+    _send.apply xhr, arguments
 
   return unless async
 

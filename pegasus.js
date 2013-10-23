@@ -18,11 +18,17 @@
   };
 
   makeRequest = function(_arg) {
-    var xhr;
-    xhr = _arg.xhr;
+    var body, name, type, url, val, xhr, _ref;
+    xhr = _arg.xhr, url = _arg.url, type = _arg.type, body = _arg.body;
     console.log('remaking', xhr);
     xhr.abort();
-    return xhr.send();
+    xhr.open(type, url, true);
+    _ref = xhr.headers;
+    for (name in _ref) {
+      val = _ref[name];
+      xhr.setRequestHeader(name, val);
+    }
+    return xhr.send(body);
   };
 
   clear = function() {
@@ -66,10 +72,17 @@
   });
 
   Offline.onXHR(function(request) {
-    var async, hold, xhr, _onreadystatechange;
+    var async, hold, xhr, _onreadystatechange, _send;
     xhr = request.xhr, async = request.async;
+    console.log('on xhr', request);
     hold = function() {
-      return holdRequest;
+      return holdRequest(request);
+    };
+    _send = xhr.send;
+    xhr.send = function(body) {
+      console.log('sending', body);
+      request.body = body;
+      return _send.apply(xhr, arguments);
     };
     if (!async) {
       return;
