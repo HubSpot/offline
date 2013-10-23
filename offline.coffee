@@ -138,8 +138,8 @@ Offline.confirmUp = Offline.confirmDown = Offline.check
 Offline.onXHR = (cb) ->
   monitorXHR = (req, flags) ->
     _open = req.open
-    req.open = (type, url, async) ->
-      cb {type, url, async, flags, xhr: req}
+    req.open = (type, url, async, user, password) ->
+      cb {type, url, async, flags, user, password, xhr: req}
 
       _open.apply req, arguments
 
@@ -155,6 +155,12 @@ Offline.onXHR = (cb) ->
       req.headers[name] = value
 
       _setRequestHeader.call req, name, value
+
+    _overrideMimeType = req.overrideMimeType
+    req.overrideMimeType = (type) ->
+      req.mimeType = type
+
+      _overrideMimeType.call req, type
 
     req
 

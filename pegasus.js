@@ -18,15 +18,18 @@
   };
 
   makeRequest = function(_arg) {
-    var body, name, type, url, val, xhr, _ref;
-    xhr = _arg.xhr, url = _arg.url, type = _arg.type, body = _arg.body;
+    var body, name, password, type, url, user, val, xhr, _ref;
+    xhr = _arg.xhr, url = _arg.url, type = _arg.type, user = _arg.user, password = _arg.password, body = _arg.body;
     console.log('remaking', xhr);
     xhr.abort();
-    xhr.open(type, url, true);
+    xhr.open(type, url, true, user, password);
     _ref = xhr.headers;
     for (name in _ref) {
       val = _ref[name];
       xhr.setRequestHeader(name, val);
+    }
+    if (xhr.mimeType) {
+      xhr.overrideMimeType(xhr.mimeType);
     }
     return xhr.send(body);
   };

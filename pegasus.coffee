@@ -11,11 +11,15 @@ holdRequest = (req) ->
 
   held.push req
 
-makeRequest = ({xhr, url, type, body}) ->
+makeRequest = ({xhr, url, type, user, password, body}) ->
   console.log 'remaking', xhr
   xhr.abort()
-  xhr.open(type, url, true)
+  xhr.open(type, url, true, user, password)
   xhr.setRequestHeader(name, val) for name, val of xhr.headers
+
+  if xhr.mimeType
+    xhr.overrideMimeType xhr.mimeType
+
   xhr.send(body)
 
 clear = ->

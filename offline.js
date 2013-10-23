@@ -177,12 +177,14 @@
     monitorXHR = function(req, flags) {
       var _open;
       _open = req.open;
-      return req.open = function(type, url, async) {
+      return req.open = function(type, url, async, user, password) {
         cb({
           type: type,
           url: url,
           async: async,
           flags: flags,
+          user: user,
+          password: password,
           xhr: req
         });
         return _open.apply(req, arguments);
@@ -190,7 +192,7 @@
     };
     _XMLHttpRequest = window.XMLHttpRequest;
     window.XMLHttpRequest = function(flags) {
-      var req, _setRequestHeader;
+      var req, _overrideMimeType, _setRequestHeader;
       req = new _XMLHttpRequest(flags);
       monitorXHR(req, flags);
       _setRequestHeader = req.setRequestHeader;
@@ -198,6 +200,11 @@
       req.setRequestHeader = function(name, value) {
         req.headers[name] = value;
         return _setRequestHeader.call(req, name, value);
+      };
+      _overrideMimeType = req.overrideMimeType;
+      req.overrideMimeType = function(type) {
+        req.mimeType = type;
+        return _overrideMimeType.call(req, type);
       };
       return req;
     };
