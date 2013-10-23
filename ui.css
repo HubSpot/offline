@@ -1,6 +1,12 @@
-.offline-ui-up::after {
+.offline-ui-up:after {
   content: "Up";
 }
-.offline-ui-down::after {
+.offline-ui-down:after {
   content: "Down";
+}
+.offline-ui-connecting:before {
+  content: "Connecting... "
+}
+.offline-ui-waiting:before {
+  content: "Retrying in " attr(data-retry-in) " ";
 }
