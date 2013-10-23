@@ -26,8 +26,15 @@ module.exports = (grunt) ->
         src: 'offline.js'
         dest: 'offline.min.js'
 
+    compass:
+      dist:
+        options:
+          sassDir: 'sass'
+          cssDir: 'themes'
+
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-contrib-uglify'
   grunt.loadNpmTasks 'grunt-contrib-coffee'
+  grunt.loadNpmTasks 'grunt-contrib-compass'
 
-  grunt.registerTask 'default', ['coffee', 'uglify']
+  grunt.registerTask 'default', ['coffee', 'uglify', 'compass']
