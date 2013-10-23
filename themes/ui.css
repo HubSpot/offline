@@ -1,0 +1,110 @@
+@-webkit-keyframes offline-fadein {
+  0% {
+    opacity: 0; }
+
+  100% {
+    opacity: 1; } }
+
+@-webkit-keyframes offline-fadeout-and-hide {
+  0% {
+    opacity: 1;
+    display: block; }
+
+  99% {
+    opacity: 0;
+    display: block; }
+
+  100% {
+    opacity: 0;
+    display: none; } }
+
+@-webkit-keyframes offline-rotation {
+  0% {
+    transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg); }
+
+  100% {
+    transform: rotate(359deg);
+    -webkit-transform: rotate(359deg);
+    -moz-transform: rotate(359deg);
+    -ms-transform: rotate(359deg);
+    -o-transform: rotate(359deg); } }
+
+.offline-ui {
+  font-family: "Helvetica Neue", sans-serif;
+  display: none;
+  position: fixed;
+  background: white;
+  z-index: 800;
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 30em;
+  max-width: 100%;
+  padding: 1em; }
+  .offline-ui:before, .offline-ui:after {
+    display: inline; }
+  .offline-ui.offline-ui-up {
+    animation: offline-fadeout-and-hide 0.5s 2s;
+    -webkit-animation: offline-fadeout-and-hide 0.5s 2s;
+    -moz-animation: offline-fadeout-and-hide 0.5s 2s;
+    -ms-animation: offline-fadeout-and-hide 0.5s 2s;
+    -o-animation: offline-fadeout-and-hide 0.5s 2s;
+    -webkit-backface-visibility: hidden;
+    display: block;
+    background: #aacbf5;
+    color: #1f4779; }
+    .offline-ui.offline-ui-up:before {
+      content: "Your computer has an internet connection."; }
+  .offline-ui.offline-ui-down {
+    animation: offline-fadein 0.5s 2s;
+    -webkit-animation: offline-fadein 0.5s 2s;
+    -moz-animation: offline-fadein 0.5s 2s;
+    -ms-animation: offline-fadein 0.5s 2s;
+    -o-animation: offline-fadein 0.5s 2s;
+    -webkit-backface-visibility: hidden;
+    display: block;
+    background: #ec8787;
+    color: #551313; }
+    .offline-ui.offline-ui-down:before {
+      content: "Your computer has lost its internet connection."; }
+  .offline-ui.offline-ui-connecting, .offline-ui.offline-ui-reconnecting {
+    display: block;
+    background: #f8ecad;
+    color: #7c6d1f;
+    padding-right: 3em; }
+    .offline-ui.offline-ui-connecting:before, .offline-ui.offline-ui-reconnecting:before {
+      content: "Attempting to reconnect your computer."; }
+    .offline-ui.offline-ui-connecting:after, .offline-ui.offline-ui-reconnecting:after {
+      animation: offline-rotation 0.7s linear infinite;
+      -webkit-animation: offline-rotation 0.7s linear infinite;
+      -moz-animation: offline-rotation 0.7s linear infinite;
+      -ms-animation: offline-rotation 0.7s linear infinite;
+      -o-animation: offline-rotation 0.7s linear infinite;
+      -webkit-backface-visibility: hidden;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      -ms-border-radius: 50%;
+      -o-border-radius: 50%;
+      border-radius: 50%;
+      content: " ";
+      display: block;
+      position: absolute;
+      right: 1em;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      height: 1em;
+      width: 1em;
+      border: 2px solid rgba(0, 0, 0, 0);
+      border-top-color: #7c6d1f;
+      border-left-color: #7c6d1f;
+      opacity: 0.7; }
+  .offline-ui.offline-ui-waiting {
+    display: block; }
+    .offline-ui.offline-ui-waiting:before {
+      content: "Attempting to reconnect your computer. Retrying in " attr(data-retry-in) " seconds..."; }

@@ -1,0 +1,77 @@
+@import compass/css3
+
+@import colors
+@import mixins
+@import keyframes
+
++keyframes-offline-fadein
++keyframes-offline-fadeout-and-hide
+
++keyframes-offline-rotation
+
+.offline-ui
+    font-family: "Helvetica Neue", sans-serif
+    display: none
+    position: fixed
+    background: #fff
+    z-index: 800
+    margin: auto
+    top: 0
+    left: 0
+    right: 0
+    width: 30em
+    max-width: 100%
+    padding: 1em
+
+    &:before, &:after
+        display: inline
+
+    &.offline-ui-up
+        +offline-animation(offline-fadeout-and-hide .5s 2s)
+        display: block
+        background: $blue
+        color: $darkBlue
+
+        &:before
+            content: "Your computer is connected to the internet."
+
+    &.offline-ui-down
+        +offline-animation(offline-fadein .5s 2s)
+        display: block
+        background: $red
+        color: $darkRed
+
+        &:before
+            content: "Your computer has lost its internet connection."
+
+    &.offline-ui-connecting, &.offline-ui-reconnecting
+        display: block
+        background: $yellow
+        color: $darkYellow
+        padding-right: 3em
+
+        &:before
+            content: "Attempting to reconnect your computer."
+
+        &:after
+            +offline-animation(offline-rotation .7s linear infinite)
+            +border-radius(50%)
+            content: " "
+            display: block
+            position: absolute
+            right: 1em
+            top: 0
+            bottom: 0
+            margin: auto
+            height: 1em
+            width: 1em
+            border: 2px solid rgba(0, 0, 0, 0)
+            border-top-color: $darkYellow
+            border-left-color: $darkYellow
+            opacity: 0.7
+
+    &.offline-ui-waiting
+        display: block
+
+        &:before
+            content: "Attempting to reconnect your computer. Retrying in " attr(data-retry-in) " seconds..."
