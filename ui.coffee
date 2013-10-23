@@ -10,15 +10,15 @@ createFromHTML = (html) ->
 
 el = null
 do render = ->
-  if el
-    el.parentNode.removeChild el
-
-  el = createFromHTML TEMPLATE
-  document.body.appendChild el
+  unless el?
+    el = createFromHTML TEMPLATE
+    document.body.appendChild el
 
   if Offline.state is 'up'
+    el.className = el.className.replace 'offline-ui-down', ''
     el.className += ' offline-ui-up'
   else
+    el.className = el.className.replace 'offline-ui-up', ''
     el.className += ' offline-ui-down'
   
 Offline.on 'up down', render

@@ -17,14 +17,15 @@
   el = null;
 
   (render = function() {
-    if (el) {
-      el.parentNode.removeChild(el);
+    if (el == null) {
+      el = createFromHTML(TEMPLATE);
+      document.body.appendChild(el);
     }
-    el = createFromHTML(TEMPLATE);
-    document.body.appendChild(el);
     if (Offline.state === 'up') {
+      el.className = el.className.replace('offline-ui-down', '');
       return el.className += ' offline-ui-up';
     } else {
+      el.className = el.className.replace('offline-ui-up', '');
       return el.className += ' offline-ui-down';
     }
   })();
