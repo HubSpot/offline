@@ -2,23 +2,21 @@
 @import mixins
 
 =keyframes-offline-fadein
-    //+offline-keyframes("offline-fadein")
-    @-webkit-keyframes offline-fadein
+    +offline-keyframes("offline-fadein")
         0%
             opacity: 0
         100%
             opacity: 1
 
-// =keyframes-offline-fadeout
-//     +offline-keyframes("offline-fadeout")
-//         0%
-//             opacity: 1
-//         100%
-//             opacity: 0
+=keyframes-offline-fadeout
+    +offline-keyframes("offline-fadeout")
+        0%
+            opacity: 1
+        100%
+            opacity: 0
 
 =keyframes-offline-fadeout-and-hide
-    //+offline-keyframes("offline-fadeout-and-hide")
-    @-webkit-keyframes offline-fadeout-and-hide
+    +offline-keyframes("offline-fadeout-and-hide")
         0%
             opacity: 1
             display: block
@@ -29,77 +27,76 @@
             opacity: 0
             display: none
 
-// =keyframes-offline-flyin
-//     +offline-keyframes("offline-flyin")
-//         0%
-//             opacity: 0
-//             +offline-transform(translateY(-40px))
-//         100%
-//             opacity: 1
-//             +offline-transform(translateY(0))
+=keyframes-offline-flyin
+    +offline-keyframes("offline-flyin")
+        0%
+            opacity: 0
+            +offline-transform(translateY(-40px))
+        100%
+            opacity: 1
+            +offline-transform(translateY(0))
 
-// =keyframes-offline-flyout
-//     +offline-keyframes("offline-flyout")
-//         0%
-//             opacity: 1
-//             +offline-transform(translateY(0))
-//         100%
-//             opacity: 0
-//             +offline-transform(translateY(-40px))
+=keyframes-offline-flyout
+    +offline-keyframes("offline-flyout")
+        0%
+            opacity: 1
+            +offline-transform(translateY(0))
+        100%
+            opacity: 0
+            +offline-transform(translateY(-40px))
 
-// =keyframes-offline-dropin
-//     +offline-keyframes("offline-dropin")
-//         // We start at 0 first and, while hidden
-//         // move to -800px, where the animation
-//         // really begins. This was necessary because
-//         // otherwise, when starting the animation
-//         // at -800px, the browser scrolls up 800px
-//         // to try to display this object positioned
-//         // above the page.
-//         // https://github.com/HubSpot/vex/issues/21
-//         0%
-//             +offline-transform(translateY(0))
-//             opacity: 0
-//         1%
-//             +offline-transform(translateY(-800px))
-//             opacity: 0
+=keyframes-offline-dropin
+    +offline-keyframes("offline-dropin")
+        // We start at 0 first and, while hidden
+        // move to -800px, where the animation
+        // really begins. This was necessary because
+        // otherwise, when starting the animation
+        // at -800px, the browser scrolls up 800px
+        // to try to display this object positioned
+        // above the page.
+        // https://github.com/HubSpot/vex/issues/21
+        0%
+            +offline-transform(translateY(0))
+            opacity: 0
+        1%
+            +offline-transform(translateY(-800px))
+            opacity: 0
 
-//         // Real animation begins here
-//         2%
-//             +offline-transform(translateY(-800px))
-//             opacity: 1
-//         100%
-//             +offline-transform(translateY(0))
-//             opacity: 1
+        // Real animation begins here
+        2%
+            +offline-transform(translateY(-800px))
+            opacity: 1
+        100%
+            +offline-transform(translateY(0))
+            opacity: 1
 
-// =keyframes-offline-dropout
-//     +offline-keyframes("offline-dropout")
-//         0%
-//             +offline-transform(translateY(0))
-//         100%
-//             +offline-transform(translateY(-800px))
+=keyframes-offline-dropout
+    +offline-keyframes("offline-dropout")
+        0%
+            +offline-transform(translateY(0))
+        100%
+            +offline-transform(translateY(-800px))
 
-// =keyframes-offline-flipin-horizontal
-//     +offline-keyframes("offline-flipin-horizontal")
-//         0%
-//             opacity: 0
-//             +offline-transform(rotateY(-90deg))
-//         100%
-//             opacity: 1
-//             +offline-transform(rotateY(0deg))
+=keyframes-offline-flipin-horizontal
+    +offline-keyframes("offline-flipin-horizontal")
+        0%
+            opacity: 0
+            +offline-transform(rotateY(-90deg))
+        100%
+            opacity: 1
+            +offline-transform(rotateY(0deg))
 
-// =keyframes-offline-flipout-horizontal
-//     +offline-keyframes("offline-flipout-horizontal")
-//         0%
-//             opacity: 1
-//             +offline-transform(rotateY(0deg))
-//         100%
-//             opacity: 0
-//             +offline-transform(rotateY(90deg))
+=keyframes-offline-flipout-horizontal
+    +offline-keyframes("offline-flipout-horizontal")
+        0%
+            opacity: 1
+            +offline-transform(rotateY(0deg))
+        100%
+            opacity: 0
+            +offline-transform(rotateY(90deg))
 
 =keyframes-offline-rotation
-    //+offline-keyframes("offline-rotation")
-    @-webkit-keyframes offline-rotation
+    +offline-keyframes("offline-rotation")
         0%
             +offline-transform(rotate(0deg))
         100%
