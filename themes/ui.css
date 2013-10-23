@@ -49,23 +49,28 @@
   .offline-ui:before, .offline-ui:after {
     display: inline; }
   .offline-ui.offline-ui-up {
-    animation: offline-fadeout-and-hide 0.5s 2s;
     -webkit-animation: offline-fadeout-and-hide 0.5s 2s;
     -moz-animation: offline-fadeout-and-hide 0.5s 2s;
     -ms-animation: offline-fadeout-and-hide 0.5s 2s;
     -o-animation: offline-fadeout-and-hide 0.5s 2s;
+    animation: offline-fadeout-and-hide 0.5s 2s;
     -webkit-backface-visibility: hidden;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    -ms-animation-fill-mode: forwards;
+    -o-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
     display: block;
     background: #aacbf5;
     color: #1f4779; }
     .offline-ui.offline-ui-up:before {
-      content: "Your computer has an internet connection."; }
+      content: "Your computer is connected to the internet."; }
   .offline-ui.offline-ui-down {
-    animation: offline-fadein 0.5s 2s;
-    -webkit-animation: offline-fadein 0.5s 2s;
-    -moz-animation: offline-fadein 0.5s 2s;
-    -ms-animation: offline-fadein 0.5s 2s;
-    -o-animation: offline-fadein 0.5s 2s;
+    -webkit-animation: offline-fadein 0.5s;
+    -moz-animation: offline-fadein 0.5s;
+    -ms-animation: offline-fadein 0.5s;
+    -o-animation: offline-fadein 0.5s;
+    animation: offline-fadein 0.5s;
     -webkit-backface-visibility: hidden;
     display: block;
     background: #ec8787;
@@ -80,11 +85,11 @@
     .offline-ui.offline-ui-connecting:before, .offline-ui.offline-ui-reconnecting:before {
       content: "Attempting to reconnect your computer."; }
     .offline-ui.offline-ui-connecting:after, .offline-ui.offline-ui-reconnecting:after {
-      animation: offline-rotation 0.7s linear infinite;
       -webkit-animation: offline-rotation 0.7s linear infinite;
       -moz-animation: offline-rotation 0.7s linear infinite;
       -ms-animation: offline-rotation 0.7s linear infinite;
       -o-animation: offline-rotation 0.7s linear infinite;
+      animation: offline-rotation 0.7s linear infinite;
       -webkit-backface-visibility: hidden;
       -webkit-border-radius: 50%;
       -moz-border-radius: 50%;
