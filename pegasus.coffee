@@ -3,8 +3,16 @@ unless window.Offline
 
 held = []
 
+# When a request fails we need to decide if the failure is systemic or not.
+# So we hold it until we know?  We'd need an event for up but was up
+
+
+waitingOnConfirm = false
 holdRequest = (req) ->
   console.log 'holding',req
+  if Offline.state isnt 'down'
+    waitingOnConfirm = true
+
   held.push req
 
 makeRequest = ({xhr}) ->
@@ -13,17 +21,17 @@ makeRequest = ({xhr}) ->
   xhr.send()
 
 clear = ->
+  console.log 'clearing'
   held = []
 
 flush = ->
   requests = {}
   # Dedup requests, favoring the later request
-  # TODO: Don't hang onto cross origin requests if we're not already down
   # TODO: Throw out PUT/POST/DELETE requests after too much time?
   console.log 'flush'
   for request in held
-    # Ignore jQuery cache breaking
-    url = url.replace /(?|&)_=[0-9]+/, (match, char) ->
+    # Break cache breaking
+    url = request.url.replace /(\?|&)_=[0-9]+/, (match, char) ->
       if char is '?' then char else ''
 
     requests["#{ request.type.toUpperCase() } - #{ url }"] = request
@@ -33,15 +41,26 @@ flush = ->
 
   clear()
 
+Offline.on 'confirmed-up', ->
+  if waitingOnConfirm
+    waitingOnConfirm = false
+    clear()
+
 Offline.on 'up', flush
 
-Offline.onXHR ({xhr, async}) ->
-  hold = -> holdRequest arguments[0]
+Offline.on 'down', ->
+  waitingOnConfirm = false
+
+Offline.onXHR (request) ->
+  {xhr, async} = request
+
+  hold = -> holdRequest
 
   return unless async
 
   if xhr.onprogress is null
     xhr.addEventListener 'error', hold, false
+    xhr.addEventListener 'timeout', hold, false
   else
     _onreadystatechange = xhr.onreadystatechange
     xhr.onreadystatechange = ->

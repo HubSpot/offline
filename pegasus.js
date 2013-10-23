@@ -1,5 +1,5 @@
 (function() {
-  var clear, flush, held, holdRequest, makeRequest;
+  var clear, flush, held, holdRequest, makeRequest, waitingOnConfirm;
 
   if (!window.Offline) {
     throw new Error("Pegasus brought in without offline.js");
@@ -7,8 +7,13 @@
 
   held = [];
 
+  waitingOnConfirm = false;
+
   holdRequest = function(req) {
     console.log('holding', req);
+    if (Offline.state !== 'down') {
+      waitingOnConfirm = true;
+    }
     return held.push(req);
   };
 
@@ -21,6 +26,7 @@
   };
 
   clear = function() {
+    console.log('clearing');
     return held = [];
   };
 
@@ -30,7 +36,7 @@
     console.log('flush');
     for (_i = 0, _len = held.length; _i < _len; _i++) {
       request = held[_i];
-      url = url.replace(/(?|&)_=[0-9]+/, function(match, char) {
+      url = request.url.replace(/(\?|&)_=[0-9]+/, function(match, char) {
         if (char === '?') {
           return char;
         } else {
@@ -46,19 +52,31 @@
     return clear();
   };
 
+  Offline.on('confirmed-up', function() {
+    if (waitingOnConfirm) {
+      waitingOnConfirm = false;
+      return clear();
+    }
+  });
+
   Offline.on('up', flush);
 
-  Offline.onXHR(function(_arg) {
+  Offline.on('down', function() {
+    return waitingOnConfirm = false;
+  });
+
+  Offline.onXHR(function(request) {
     var async, hold, xhr, _onreadystatechange;
-    xhr = _arg.xhr, async = _arg.async;
+    xhr = request.xhr, async = request.async;
     hold = function() {
-      return holdRequest(arguments[0]);
+      return holdRequest;
     };
     if (!async) {
       return;
     }
     if (xhr.onprogress === null) {
-      return xhr.addEventListener('error', hold, false);
+      xhr.addEventListener('error', hold, false);
+      return xhr.addEventListener('timeout', hold, false);
     } else {
       _onreadystatechange = xhr.onreadystatechange;
       return xhr.onreadystatechange = function() {

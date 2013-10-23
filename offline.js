@@ -45,7 +45,7 @@
 
   if (typeof window.addEventListener === "function") {
     window.addEventListener('online', function() {
-      return Offline.confirmUp();
+      return setTimeout(Offline.confirmUp, 100);
     }, false);
   }
 
@@ -58,19 +58,21 @@
   Offline.state = 'up';
 
   Offline.markUp = function() {
+    console.log('mark up');
+    Offline.trigger('confirmed-up');
     if (Offline.state === 'up') {
       return;
     }
-    console.log('up');
     Offline.state = 'up';
     return Offline.trigger('up');
   };
 
   Offline.markDown = function() {
+    console.log('mark down');
+    Offline.trigger('confirmed-down');
     if (Offline.state === 'down') {
       return;
     }
-    console.log('down');
     Offline.state = 'down';
     return Offline.trigger('down');
   };
@@ -131,6 +133,7 @@
     };
     if (xhr.onprogress === null) {
       xhr.addEventListener('error', onDown, false);
+      xhr.addEventListener('timeout', onDown, false);
       return xhr.addEventListener('load', checkStatus, false);
     } else {
       _onreadystatechange = xhr.onreadystatechange;
@@ -152,7 +155,8 @@
     xhr = new XMLHttpRequest;
     xhr.open('GET', Offline.getOption('checkURL'), true);
     checkXHR(xhr, Offline.markUp, Offline.markDown);
-    return xhr.send();
+    xhr.send();
+    return xhr;
   };
 
   Offline.checks.image = function() {
@@ -160,7 +164,8 @@
     img = document.createElement('img');
     img.onerror = Offline.markDown;
     img.onload = Offline.markUp;
-    return img.src = "https://s3.amazonaws.com/are-we-online/are-we-online.gif?_=" + (Math.floor(Math.random() * 1000000000));
+    img.src = "http://dqakt69vkj09v.cloudfront.net/are-we-online.gif?_=" + (Math.floor(Math.random() * 1000000000));
+    return void 0;
   };
 
   Offline.check = Offline.checks.image;

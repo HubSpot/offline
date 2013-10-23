@@ -5,9 +5,10 @@
 <script>
 var run = function(){
   var req = new XMLHttpRequest();
-  req.open('GET', 'http://localhost:5646/walter/0', true);
+  req.timeout = 5000;
+  req.open('GET', 'http://localhost:8888/walter/0', true);
   req.send();
 }
 
-//setInterval(run, 3000);
+setInterval(run, 3000);
 </script>

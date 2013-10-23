@@ -35,7 +35,8 @@ Offline.getOption = (key) ->
 # In FF and IE they mean the user has explicitly entered "Offline Mode"
 # In Chrome they mean that the internet connection was lost or restored
 window.addEventListener? 'online', ->
-  Offline.confirmUp()
+  # The event fires slightly before the browser is ready to make a request
+  setTimeout Offline.confirmUp, 100
 , false
 
 window.addEventListener? 'offline', ->
@@ -45,16 +46,20 @@ window.addEventListener? 'offline', ->
 Offline.state = 'up'
 
 Offline.markUp = ->
+  console.log 'mark up'
+  Offline.trigger 'confirmed-up'
+
   return if Offline.state is 'up'
 
-  console.log 'up'
   Offline.state = 'up'
   Offline.trigger 'up'
 
 Offline.markDown = ->
+  console.log 'mark down'
+  Offline.trigger 'confirmed-down'
+
   return if Offline.state is 'down'
 
-  console.log 'down'
   Offline.state = 'down'
   Offline.trigger 'down'
 
@@ -92,6 +97,7 @@ checkXHR = (xhr, onUp, onDown) ->
   if xhr.onprogress is null
     # onprogress would be undefined on older browsers
     xhr.addEventListener 'error', onDown, false
+    xhr.addEventListener 'timeout', onDown, false
     xhr.addEventListener 'load', checkStatus, false
   else
     _onreadystatechange = xhr.onreadystatechange
@@ -161,7 +167,7 @@ Offline.onXHR = (cb) ->
 init = ->
   if Offline.getOption 'interceptRequests'
     Offline.onXHR ({xhr}) ->
-      checkXHR xhr, Offline.confirmUp, Offline.confirmDown)
+      checkXHR xhr, Offline.confirmUp, Offline.confirmDown
 
   if Offline.getOption 'checkOnLoad'
     Offline.check()
