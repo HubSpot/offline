@@ -80,10 +80,21 @@
   handlers = {};
 
   Offline.on = function(event, handler, ctx) {
-    if (handlers[event] == null) {
-      handlers[event] = [];
+    var e, events, _i, _len, _results;
+    events = event.split(' ');
+    if (events.length > 1) {
+      _results = [];
+      for (_i = 0, _len = events.length; _i < _len; _i++) {
+        e = events[_i];
+        _results.push(Offline.on(e, handler, ctx));
+      }
+      return _results;
+    } else {
+      if (handlers[event] == null) {
+        handlers[event] = [];
+      }
+      return handlers[event].push([ctx, handler]);
     }
-    return handlers[event].push([ctx, handler]);
   };
 
   Offline.off = function(event, handler) {

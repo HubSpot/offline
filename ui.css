@@ -1,0 +1,6 @@
+.offline-ui-up::after {
+  content: "Up";
+}
+.offline-ui-down::after {
+  content: "Down";
+}

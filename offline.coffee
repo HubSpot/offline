@@ -66,8 +66,13 @@ Offline.markDown = ->
 handlers = {}
 
 Offline.on = (event, handler, ctx) ->
-  handlers[event] ?= []
-  handlers[event].push [ctx, handler]
+  events = event.split(' ')
+
+  if events.length > 1
+    Offline.on(e, handler, ctx) for e in events
+  else
+    handlers[event] ?= []
+    handlers[event].push [ctx, handler]
 
 Offline.off = (event, handler) ->
   return unless handlers[event]?
