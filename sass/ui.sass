@@ -36,6 +36,9 @@
         &:before
             content: "Your computer is connected to the internet."
 
+        .offline-ui-retry
+            display: none
+
     &.offline-ui-down
         +offline-animation(offline-fadein .5s)
         display: block
@@ -71,8 +74,16 @@
             border-left-color: $darkYellow
             opacity: 0.7
 
+    &.offline-ui-connecting
+        .offline-ui-retry
+            display: none
+
     &.offline-ui-waiting
         display: block
 
         &:before
             content: "Attempting to reconnect your computer. Retrying in " attr(data-retry-in) " seconds..."
+
+        .offline-ui-retry
+            display: inline-block
+            padding-left: 5px

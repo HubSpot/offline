@@ -136,7 +136,9 @@ Offline.checks.image = ->
   
   undefined
 
-Offline.check = Offline.checks.image
+Offline.check = ->
+  Offline.trigger 'checking'
+  Offline.checks.image()
 
 Offline.confirmUp = Offline.confirmDown = Offline.check
 

@@ -23,12 +23,17 @@ tick = ->
   rc.remaining -= 1
 
   if rc.remaining is 0
-    Offline.trigger 'reconnect:connecting'
-    rc.state = 'connecting'
-
-    Offline.check()
+    tryNow()
   else
     Offline.trigger 'reconnect:tick'
+
+tryNow = ->
+  return if rc.state isnt 'waiting'
+
+  Offline.trigger 'reconnect:connecting'
+  rc.state = 'connecting'
+
+  Offline.check()
 
 down = ->
   rc.state = 'waiting'
@@ -50,3 +55,5 @@ nope = ->
 Offline.on 'down', down
 Offline.on 'confirmed-down', nope
 Offline.on 'up', up
+
+rc.tryNow = tryNow

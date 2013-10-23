@@ -1,5 +1,5 @@
 (function() {
-  var INITIAL_DELAY, down, next, nope, rc, reset, retryIntv, tick, up;
+  var INITIAL_DELAY, down, next, nope, rc, reset, retryIntv, tick, tryNow, up;
 
   if (!window.Offline) {
     throw new Error("Offline Reconnect brought in without offline.js");
@@ -29,12 +29,19 @@
     }
     rc.remaining -= 1;
     if (rc.remaining === 0) {
-      Offline.trigger('reconnect:connecting');
-      rc.state = 'connecting';
-      return Offline.check();
+      return tryNow();
     } else {
       return Offline.trigger('reconnect:tick');
     }
+  };
+
+  tryNow = function() {
+    if (rc.state !== 'waiting') {
+      return;
+    }
+    Offline.trigger('reconnect:connecting');
+    rc.state = 'connecting';
+    return Offline.check();
   };
 
   down = function() {
@@ -63,5 +70,7 @@
   Offline.on('confirmed-down', nope);
 
   Offline.on('up', up);
+
+  rc.tryNow = tryNow;
 
 }).call(this);

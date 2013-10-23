@@ -5,7 +5,7 @@
     throw new Error("Offline UI brought in without offline.js");
   }
 
-  TEMPLATE = '<div class="offline-ui"></div>';
+  TEMPLATE = '<div class="offline-ui"><a href class="offline-ui-retry">Retry Now</a></div>';
 
   createFromHTML = function(html) {
     var el;
@@ -15,6 +15,7 @@
   };
 
   addClass = function(el, name) {
+    removeClass(el, name);
     return el.className += " " + name;
   };
 
@@ -28,6 +29,10 @@
     if (el == null) {
       el = createFromHTML(TEMPLATE);
       document.body.appendChild(el);
+      el.querySelector('.offline-ui-retry').addEventListener('click', function(e) {
+        e.preventDefault();
+        return Offline.reconnect.tryNow();
+      }, false);
     }
     if (Offline.state === 'up') {
       removeClass(el, 'offline-ui-down');

@@ -15,8 +15,8 @@ module.exports = (grunt) ->
 
     watch:
       coffee:
-        files: ['offline.coffee', 'pegasus.coffee', 'ui.coffee', 'reconnect.coffee']
-        tasks: ["coffee", "uglify"]
+        files: ['offline.coffee', 'pegasus.coffee', 'ui.coffee', 'reconnect.coffee', 'sass/*']
+        tasks: ["coffee", "uglify", "compass"]
 
     uglify:
       options:

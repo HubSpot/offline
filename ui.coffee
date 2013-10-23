@@ -1,7 +1,7 @@
 unless window.Offline
   throw new Error "Offline UI brought in without offline.js"
 
-TEMPLATE = '<div class="offline-ui"></div>'
+TEMPLATE = '<div class="offline-ui"><a href class="offline-ui-retry">Retry Now</a></div>'
 
 createFromHTML = (html) ->
   el = document.createElement('div')
@@ -9,6 +9,7 @@ createFromHTML = (html) ->
   el.children[0]
 
 addClass = (el, name) ->
+  removeClass el, name
   el.className += " #{ name }"
 
 removeClass = (el, name) ->
@@ -19,6 +20,13 @@ do render = ->
   unless el?
     el = createFromHTML TEMPLATE
     document.body.appendChild el
+
+    # TODO: IE8
+    el.querySelector('.offline-ui-retry').addEventListener 'click', (e) ->
+      e.preventDefault()
+
+      Offline.reconnect.tryNow()
+    , false
 
   if Offline.state is 'up'
     removeClass el, 'offline-ui-down'

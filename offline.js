@@ -179,7 +179,10 @@
     return void 0;
   };
 
-  Offline.check = Offline.checks.image;
+  Offline.check = function() {
+    Offline.trigger('checking');
+    return Offline.checks.image();
+  };
 
   Offline.confirmUp = Offline.confirmDown = Offline.check;
 
