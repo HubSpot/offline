@@ -12,13 +12,14 @@ module.exports = (grunt) ->
           'pegasus.js': 'pegasus.coffee'
           'ui.js': 'ui.coffee'
           'reconnect.js': 'reconnect.coffee'
+          'snake.js': 'snake.coffee'
 
     watch:
       options:
         atBegin:
           true
       coffee:
-        files: ['offline.coffee', 'pegasus.coffee', 'ui.coffee', 'reconnect.coffee', 'sass/*']
+        files: ['offline.coffee', 'pegasus.coffee', 'ui.coffee', 'reconnect.coffee', 'snake.coffee', 'sass/*']
         tasks: ["coffee", "uglify", "compass"]
 
     uglify:
