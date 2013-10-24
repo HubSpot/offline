@@ -1,5 +1,5 @@
 (function() {
-  var RETRY_TEMPLATE, TEMPLATE, addClass, createFromHTML, el, formatTime, reconnectFailureTimeouts, reconnectSuccessTimeouts, removeClass, render;
+  var RETRY_TEMPLATE, TEMPLATE, addClass, content, createFromHTML, el, flashClass, flashTimeouts, formatTime, removeClass, render;
 
   if (!window.Offline) {
     throw new Error("Offline UI brought in without offline.js");
@@ -16,13 +16,28 @@
     return el.children[0];
   };
 
-  addClass = function(el, name) {
-    removeClass(el, name);
+  el = content = null;
+
+  addClass = function(name) {
+    removeClass(name);
     return el.className += " " + name;
   };
 
-  removeClass = function(el, name) {
+  removeClass = function(name) {
     return el.className = el.className.replace(new RegExp("(^| )" + (name.split(' ').join('|')) + "( |$)", 'gi'), ' ');
+  };
+
+  flashTimeouts = {};
+
+  flashClass = function(name, time) {
+    addClass(name);
+    if (flashTimeouts[name] != null) {
+      clearTimeout(flashTimeouts[name]);
+    }
+    return flashTimeouts[name] = setTimeout(function() {
+      removeClass(name);
+      return delete flashTimeouts[name];
+    }, time * 1000);
   };
 
   formatTime = function(sec) {
@@ -45,83 +60,60 @@
     return out.trim();
   };
 
-  el = null;
-
   (render = function() {
-    if (el == null) {
-      el = createFromHTML(TEMPLATE);
-      document.body.appendChild(el);
-      if (Offline.reconnect != null) {
-        el.appendChild(createFromHTML(RETRY_TEMPLATE));
-        el.querySelector('.offline-ui-retry').addEventListener('click', function(e) {
-          e.preventDefault();
-          return Offline.reconnect.tryNow();
-        }, false);
-      }
+    el = createFromHTML(TEMPLATE);
+    document.body.appendChild(el);
+    if (Offline.reconnect != null) {
+      el.appendChild(createFromHTML(RETRY_TEMPLATE));
+      el.querySelector('.offline-ui-retry').addEventListener('click', function(e) {
+        e.preventDefault();
+        return Offline.reconnect.tryNow();
+      }, false);
     }
-    if (Offline.state === 'up') {
-      removeClass(el, 'offline-ui-down');
-      return addClass(el, 'offline-ui-up');
-    } else {
-      removeClass(el, 'offline-ui-up');
-      return addClass(el, 'offline-ui-down');
-    }
+    addClass("offline-ui-" + Offline.state);
+    return content = el.querySelector('.offline-ui-content');
   })();
 
+  Offline.on('up', function() {
+    removeClass('offline-ui-down');
+    addClass('offline-ui-up');
+    flashClass('offline-ui-up-2s', 2);
+    return flashClass('offline-ui-up-5s', 5);
+  });
+
+  Offline.on('down', function() {
+    removeClass('offline-ui-up');
+    addClass('offline-ui-down');
+    flashClass('offline-ui-down-2s', 2);
+    return flashClass('offline-ui-down-5s', 5);
+  });
+
   Offline.on('reconnect:connecting', function() {
-    addClass(el, 'offline-ui-connecting');
-    return removeClass(el, 'offline-ui-waiting');
+    addClass('offline-ui-connecting');
+    return removeClass('offline-ui-waiting');
   });
 
   Offline.on('reconnect:tick', function() {
-    addClass(el, 'offline-ui-waiting');
-    removeClass(el, 'offline-ui-connecting');
-    el.querySelector('.offline-ui-content').setAttribute('data-retry-in-seconds', Offline.reconnect.remaining);
-    return el.querySelector('.offline-ui-content').setAttribute('data-retry-in', formatTime(Offline.reconnect.remaining));
+    addClass('offline-ui-waiting');
+    removeClass('offline-ui-connecting');
+    content.setAttribute('data-retry-in-seconds', Offline.reconnect.remaining);
+    return content.setAttribute('data-retry-in', formatTime(Offline.reconnect.remaining));
   });
 
   Offline.on('reconnect:stopped', function() {
-    removeClass(el, 'offline-ui-connecting offline-ui-waiting');
-    el.querySelector('.offline-ui-content').setAttribute('data-retry-in-seconds', null);
-    return el.querySelector('.offline-ui-content').setAttribute('data-retry-in', null);
+    removeClass('offline-ui-connecting offline-ui-waiting');
+    content.setAttribute('data-retry-in-seconds', null);
+    return content.setAttribute('data-retry-in', null);
   });
-
-  reconnectFailureTimeouts = [];
 
   Offline.on('reconnect:failure', function() {
-    var timeout, _i, _len;
-    addClass(el, 'offline-ui-reconnect-failed-2s offline-ui-reconnect-failed-5s');
-    for (_i = 0, _len = reconnectFailureTimeouts.length; _i < _len; _i++) {
-      timeout = reconnectFailureTimeouts[_i];
-      clearTimeout(timeout);
-    }
-    reconnectFailureTimeouts = [];
-    reconnectFailureTimeouts.push(setTimeout(function() {
-      return removeClass(el, 'offline-ui-reconnect-failed-2s');
-    }, 2000));
-    return reconnectFailureTimeouts.push(setTimeout(function() {
-      return removeClass(el, 'offline-ui-reconnect-failed-5s');
-    }, 5000));
+    flashClass('offline-ui-reconnect-failed-2s', 2);
+    return flashClass('offline-ui-reconnect-failed-5s', 5);
   });
-
-  reconnectSuccessTimeouts = [];
 
   Offline.on('reconnect:success', function() {
-    var timeout, _i, _len;
-    addClass(el, 'offline-ui-reconnect-succeeded-2s offline-ui-reconnect-succeeded-5s');
-    for (_i = 0, _len = reconnectSuccessTimeouts.length; _i < _len; _i++) {
-      timeout = reconnectSuccessTimeouts[_i];
-      clearTimeout(timeout);
-    }
-    reconnectSuccessTimeouts = [];
-    reconnectSuccessTimeouts.push(setTimeout(function() {
-      return removeClass('offline-ui-reconnect-succeeded-2s');
-    }, 2000));
-    return reconnectSuccessTimeouts.push(setTimeout(function() {
-      return removeClass('offline-ui-reconnect-succeeded-5s');
-    }, 5000));
+    flashClass('offline-ui-reconnect-succeeded-2s', 2);
+    return flashClass('offline-ui-reconnect-succeeded-5s', 5);
   });
-
-  Offline.on('up down', render);
 
 }).call(this);

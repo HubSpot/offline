@@ -9,12 +9,25 @@ createFromHTML = (html) ->
   el.innerHTML = html
   el.children[0]
 
-addClass = (el, name) ->
-  removeClass el, name
+el = content = null
+addClass = (name) ->
+  removeClass name
   el.className += " #{ name }"
 
-removeClass = (el, name) ->
+removeClass = (name) ->
   el.className = el.className.replace new RegExp("(^| )#{ name.split(' ').join('|') }( |$)", 'gi'), ' '
+
+flashTimeouts = {}
+flashClass = (name, time) ->
+  addClass name
+
+  if flashTimeouts[name]?
+    clearTimeout flashTimeouts[name]
+
+  flashTimeouts[name] = setTimeout ->
+    removeClass name
+    delete flashTimeouts[name]
+  , time * 1000
 
 formatTime = (sec) ->
   formatters =
@@ -32,74 +45,59 @@ formatTime = (sec) ->
   out or= 'now'
   out.trim()
 
-el = null
 do render = ->
-  unless el?
-    el = createFromHTML TEMPLATE
-    document.body.appendChild el
+  el = createFromHTML TEMPLATE
+  document.body.appendChild el
 
-    if Offline.reconnect?
-      el.appendChild createFromHTML RETRY_TEMPLATE
+  if Offline.reconnect?
+    el.appendChild createFromHTML RETRY_TEMPLATE
 
-      # TODO: IE8
-      el.querySelector('.offline-ui-retry').addEventListener 'click', (e) ->
-        e.preventDefault()
+    # TODO: IE8
+    el.querySelector('.offline-ui-retry').addEventListener 'click', (e) ->
+      e.preventDefault()
 
-        Offline.reconnect.tryNow()
-      , false
+      Offline.reconnect.tryNow()
+    , false
 
-  if Offline.state is 'up'
-    removeClass el, 'offline-ui-down'
-    addClass el, 'offline-ui-up'
-  else
-    removeClass el, 'offline-ui-up'
-    addClass el, 'offline-ui-down'
+  addClass "offline-ui-#{ Offline.state }"
+
+  content = el.querySelector('.offline-ui-content')
+
+Offline.on 'up', ->
+  removeClass 'offline-ui-down'
+  addClass 'offline-ui-up'
+
+  flashClass 'offline-ui-up-2s', 2
+  flashClass 'offline-ui-up-5s', 5
+
+Offline.on 'down', ->
+  removeClass 'offline-ui-up'
+  addClass 'offline-ui-down'
+
+  flashClass 'offline-ui-down-2s', 2
+  flashClass 'offline-ui-down-5s', 5
 
 Offline.on 'reconnect:connecting', ->
-  addClass el, 'offline-ui-connecting'
-  removeClass el, 'offline-ui-waiting'
+  addClass 'offline-ui-connecting'
+  removeClass 'offline-ui-waiting'
 
 Offline.on 'reconnect:tick', ->
-  addClass el, 'offline-ui-waiting'
-  removeClass el, 'offline-ui-connecting'
+  addClass 'offline-ui-waiting'
+  removeClass 'offline-ui-connecting'
 
-  el.querySelector('.offline-ui-content').setAttribute 'data-retry-in-seconds', Offline.reconnect.remaining
-  el.querySelector('.offline-ui-content').setAttribute 'data-retry-in', formatTime(Offline.reconnect.remaining)
+  content.setAttribute 'data-retry-in-seconds', Offline.reconnect.remaining
+  content.setAttribute 'data-retry-in', formatTime(Offline.reconnect.remaining)
 
 Offline.on 'reconnect:stopped', ->
-  removeClass el, 'offline-ui-connecting offline-ui-waiting'
+  removeClass 'offline-ui-connecting offline-ui-waiting'
 
-  el.querySelector('.offline-ui-content').setAttribute 'data-retry-in-seconds', null
-  el.querySelector('.offline-ui-content').setAttribute 'data-retry-in', null
+  content.setAttribute 'data-retry-in-seconds', null
+  content.setAttribute 'data-retry-in', null
 
-reconnectFailureTimeouts = []
 Offline.on 'reconnect:failure', ->
-  addClass el, 'offline-ui-reconnect-failed-2s offline-ui-reconnect-failed-5s'
+  flashClass 'offline-ui-reconnect-failed-2s', 2
+  flashClass 'offline-ui-reconnect-failed-5s', 5
 
-  clearTimeout(timeout) for timeout in reconnectFailureTimeouts
-  reconnectFailureTimeouts = []
-
-  reconnectFailureTimeouts.push setTimeout ->
-    removeClass el, 'offline-ui-reconnect-failed-2s'
-  , 2000
-
-  reconnectFailureTimeouts.push setTimeout ->
-    removeClass el, 'offline-ui-reconnect-failed-5s'
-  , 5000
-
-reconnectSuccessTimeouts = []
 Offline.on 'reconnect:success', ->
-  addClass el, 'offline-ui-reconnect-succeeded-2s offline-ui-reconnect-succeeded-5s'
-
-  clearTimeout(timeout) for timeout in reconnectSuccessTimeouts
-  reconnectSuccessTimeouts = []
-
-  reconnectSuccessTimeouts.push setTimeout ->
-    removeClass 'offline-ui-reconnect-succeeded-2s'
-  , 2000
-
-  reconnectSuccessTimeouts.push setTimeout ->
-    removeClass 'offline-ui-reconnect-succeeded-5s'
-  , 5000
-
-Offline.on 'up down', render
+  flashClass 'offline-ui-reconnect-succeeded-2s', 2
+  flashClass 'offline-ui-reconnect-succeeded-5s', 5
