@@ -22,10 +22,9 @@ tick = ->
 
   rc.remaining -= 1
 
+  Offline.trigger 'reconnect:tick'
   if rc.remaining is 0
     tryNow()
-  else
-    Offline.trigger 'reconnect:tick'
 
 tryNow = ->
   return if rc.state isnt 'waiting'

@@ -28,10 +28,9 @@
       return;
     }
     rc.remaining -= 1;
+    Offline.trigger('reconnect:tick');
     if (rc.remaining === 0) {
       return tryNow();
-    } else {
-      return Offline.trigger('reconnect:tick');
     }
   };
 
