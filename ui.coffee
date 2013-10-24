@@ -13,7 +13,7 @@ addClass = (el, name) ->
   el.className += " #{ name }"
 
 removeClass = (el, name) ->
-  el.className = el.className.replace new RegExp(name.split(' ').join('|'), 'gi'), ''
+  el.className = el.className.replace new RegExp("(^| )#{ name.split(' ').join('|') }( |$)", 'gi'), ''
 
 el = null
 do render = ->
