@@ -177,6 +177,7 @@
   font-family: "Helvetica Neue", sans-serif;
   white-space: nowrap;
   padding: 1em;
+  top: 1em;
   width: 34em;
   max-width: 100%; }
   .offline-ui .offline-ui-retry {
