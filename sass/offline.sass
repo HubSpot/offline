@@ -13,7 +13,7 @@
     left: 0
     right: 0
 
-    &:before, &:after
+    .offline-ui-content:before
         display: inline
 
     .offline-ui-retry
@@ -22,18 +22,18 @@
     &.offline-ui-up
         display: block
 
-        &:before
+        .offline-ui-content:before
             content: "Your computer is connected to the internet. "
 
     &.offline-ui-down
         display: block
 
-        &:before
+        .offline-ui-content:before
             content: "Your computer lost its internet connection. "
 
         &.offline-ui-connecting, &.offline-ui-connecting-2s
 
-            &:before
+            .offline-ui-content:before
                 content: "Attempting to reconnect your computer... "
 
         &.offline-ui-waiting
@@ -41,10 +41,10 @@
             .offline-ui-retry
                 display: block
 
-            &:before
+            .offline-ui-content:before
                 content: "Retrying to connect in " attr(data-retry-in-seconds) " seconds... "
 
         &.offline-ui-reconnect-failed-2s
 
-            &:before
+            .offline-ui-content:before
                 content: "Connection attempt failed. "

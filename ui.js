@@ -5,7 +5,7 @@
     throw new Error("Offline UI brought in without offline.js");
   }
 
-  TEMPLATE = '<div class="offline-ui"></div>';
+  TEMPLATE = '<div class="offline-ui"><div class="offline-ui-content"></div></div>';
 
   RETRY_TEMPLATE = '<a href class="offline-ui-retry">Retry Now</a>';
 

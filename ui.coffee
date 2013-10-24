@@ -1,7 +1,7 @@
 unless window.Offline
   throw new Error "Offline UI brought in without offline.js"
 
-TEMPLATE = '<div class="offline-ui"></div>'
+TEMPLATE = '<div class="offline-ui"><div class="offline-ui-content"></div></div>'
 RETRY_TEMPLATE = '<a href class="offline-ui-retry">Retry Now</a>'
 
 createFromHTML = (html) ->
@@ -101,5 +101,5 @@ Offline.on 'reconnect:success', ->
   reconnectSuccessTimeouts.push setTimeout ->
     removeClass 'offline-ui-reconnect-succeeded-5s'
   , 5000
-  
+
 Offline.on 'up down', render
