@@ -38,7 +38,7 @@ do render = ->
     el = createFromHTML TEMPLATE
     document.body.appendChild el
 
-    if Odometer.reconnect?
+    if Offline.reconnect?
       el.appendChild createFromHTML RETRY_TEMPLATE
 
       # TODO: IE8

@@ -51,7 +51,7 @@
     if (el == null) {
       el = createFromHTML(TEMPLATE);
       document.body.appendChild(el);
-      if (Odometer.reconnect != null) {
+      if (Offline.reconnect != null) {
         el.appendChild(createFromHTML(RETRY_TEMPLATE));
         el.querySelector('.offline-ui-retry').addEventListener('click', function(e) {
           e.preventDefault();
