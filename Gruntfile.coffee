@@ -14,6 +14,9 @@ module.exports = (grunt) ->
           'reconnect.js': 'reconnect.coffee'
 
     watch:
+      options:
+        atBegin:
+          true
       coffee:
         files: ['offline.coffee', 'pegasus.coffee', 'ui.coffee', 'reconnect.coffee', 'sass/*']
         tasks: ["coffee", "uglify", "compass"]
