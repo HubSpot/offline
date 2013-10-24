@@ -67,9 +67,6 @@
             color: $darkYellow
             padding-right: 3em
 
-            &:before
-                content: "Attempting to reconnect your computer..."
-
             &:after
                 +offline-animation(offline-rotation .7s linear infinite)
                 +border-radius(50%)
@@ -86,6 +83,11 @@
                 border-top-color: $darkYellow
                 border-left-color: $darkYellow
                 opacity: 0.7
+
+        &.offline-ui-connecting, &.offline-ui-connecting-2s
+
+            &:before
+                content: "Attempting to reconnect your computer..."
 
         &.offline-ui-waiting
 

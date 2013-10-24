@@ -239,8 +239,6 @@
       background: #f8ecad;
       color: #7c6d1f;
       padding-right: 3em; }
-      .offline-ui.offline-ui-down.offline-ui-connecting:before, .offline-ui.offline-ui-down.offline-ui-waiting:before {
-        content: "Attempting to reconnect your computer..."; }
       .offline-ui.offline-ui-down.offline-ui-connecting:after, .offline-ui.offline-ui-down.offline-ui-waiting:after {
         -webkit-animation: offline-rotation 0.7s linear infinite;
         -moz-animation: offline-rotation 0.7s linear infinite;
@@ -266,6 +264,8 @@
         border-top-color: #7c6d1f;
         border-left-color: #7c6d1f;
         opacity: 0.7; }
+    .offline-ui.offline-ui-down.offline-ui-connecting:before, .offline-ui.offline-ui-down.offline-ui-connecting-2s:before {
+      content: "Attempting to reconnect your computer..."; }
     .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-retry {
       display: block; }
     .offline-ui.offline-ui-down.offline-ui-waiting:before {
