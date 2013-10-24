@@ -1,0 +1,61 @@
+@import compass/css3
+
+@import colors
+@import mixins
+@import keyframes
+
++keyframes-offline-dropin
++keyframes-offline-dropout
+
++keyframes-offline-rotation
+
+.offline-ui
+    font-family: "Helvetica Neue", sans-serif
+    white-space: nowrap
+    padding: 1em
+    width: 34em
+    max-width: 100%
+
+    .offline-ui-retry
+        position: absolute
+        right: 3em
+        top: 0
+        bottom: 0
+        background: rgba(0, 0, 0, .1)
+        text-decoration: none
+        color: inherit
+        line-height: 3em
+        padding: 0 1em
+
+    &.offline-ui-up
+        +offline-animation(offline-dropout .5s 2s)
+        +offline-animation-fill-mode(forwards)
+        background: $blue
+        color: $darkBlue
+
+    &.offline-ui-down
+        +offline-animation(offline-dropin .5s)
+        background: $red
+        color: $darkRed
+
+        &.offline-ui-connecting, &.offline-ui-waiting
+            background: $yellow
+            color: $darkYellow
+            padding-right: 3em
+
+            &:after
+                +offline-animation(offline-rotation .7s linear infinite)
+                +border-radius(50%)
+                content: " "
+                display: block
+                position: absolute
+                right: 1em
+                top: 0
+                bottom: 0
+                margin: auto
+                height: 1em
+                width: 1em
+                border: 2px solid rgba(0, 0, 0, 0)
+                border-top-color: $darkYellow
+                border-left-color: $darkYellow
+                opacity: 0.7
