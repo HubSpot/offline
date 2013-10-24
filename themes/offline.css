@@ -48,5 +48,7 @@
       @media (max-width: 568px) {
         .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content:before {
           content: "Retrying in " attr(data-retry-in-seconds) "s... "; } }
+    .offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s.offline-ui-waiting .offline-ui-retry {
+      display: none; }
     .offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s .offline-ui-content:before {
       content: "Connection attempt failed. "; }
