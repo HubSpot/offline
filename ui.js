@@ -76,14 +76,14 @@
   Offline.on('reconnect:tick', function() {
     addClass(el, 'offline-ui-waiting');
     removeClass(el, 'offline-ui-connecting');
-    el.setAttribute('data-retry-in-seconds', Offline.reconnect.remaining);
-    return el.setAttribute('data-retry-in', formatTime(Offline.reconnect.remaining));
+    el.querySelector('.offline-ui-content').setAttribute('data-retry-in-seconds', Offline.reconnect.remaining);
+    return el.querySelector('.offline-ui-content').setAttribute('data-retry-in', formatTime(Offline.reconnect.remaining));
   });
 
   Offline.on('reconnect:stopped', function() {
     removeClass(el, 'offline-ui-connecting offline-ui-waiting');
-    el.setAttribute('data-retry-in-seconds', null);
-    return el.setAttribute('data-retry-in', null);
+    el.querySelector('.offline-ui-content').setAttribute('data-retry-in-seconds', null);
+    return el.querySelector('.offline-ui-content').setAttribute('data-retry-in', null);
   });
 
   reconnectFailureTimeouts = [];
