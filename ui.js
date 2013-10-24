@@ -1,5 +1,5 @@
 (function() {
-  var RETRY_TEMPLATE, TEMPLATE, addClass, createFromHTML, el, formatTime, removeClass, render;
+  var RETRY_TEMPLATE, TEMPLATE, addClass, createFromHTML, el, formatTime, reconnectFailureTimeouts, reconnectSuccessTimeouts, removeClass, render;
 
   if (!window.Offline) {
     throw new Error("Offline UI brought in without offline.js");
@@ -90,13 +90,40 @@
     return addClass(el, 'offline-ui-reconnecting');
   });
 
+  reconnectFailureTimeouts = [];
+
   Offline.on('reconnect:failure', function() {
-    setTimeout(function() {
-      return addClass(el, 'offline-ui-reconnect-failed');
-    }, 0);
-    return setTimeout(function() {
-      return removeClass(el, 'offline-ui-reconnect-failed');
-    }, 2000);
+    var timeout, _i, _len;
+    addClass(el, 'offline-ui-reconnect-failed-2s offline-ui-reconnect-failed-5s');
+    for (_i = 0, _len = reconnectFailureTimeouts.length; _i < _len; _i++) {
+      timeout = reconnectFailureTimeouts[_i];
+      clearTimeout(timeout);
+    }
+    reconnectFailureTimeouts = [];
+    reconnectFailureTimeouts.push(setTimeout(function() {
+      return removeClass(el, 'offline-ui-reconnect-failed-2s');
+    }, 2000));
+    return reconnectFailureTimeouts.push(setTimeout(function() {
+      return removeClass(el, 'offline-ui-reconnect-failed-5s');
+    }, 5000));
+  });
+
+  reconnectSuccessTimeouts = [];
+
+  Offline.on('reconnect:success', function() {
+    var timeout, _i, _len;
+    addClass(el, 'offline-ui-reconnect-succeeded-2s offline-ui-reconnect-succeeded-5s');
+    for (_i = 0, _len = reconnectSuccessTimeouts.length; _i < _len; _i++) {
+      timeout = reconnectSuccessTimeouts[_i];
+      clearTimeout(timeout);
+    }
+    reconnectSuccessTimeouts = [];
+    reconnectSuccessTimeouts.push(setTimeout(function() {
+      return removeClass('offline-ui-reconnect-succeeded-2s');
+    }, 2000));
+    return reconnectSuccessTimeouts.push(setTimeout(function() {
+      return removeClass('offline-ui-reconnect-succeeded-5s');
+    }, 5000));
   });
 
   Offline.on('up down', render);

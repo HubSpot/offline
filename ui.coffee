@@ -75,13 +75,34 @@ Offline.on 'reconnect:stopped', ->
 Offline.on 'reconnect:started', ->
   addClass el, 'offline-ui-reconnecting'
 
+reconnectFailureTimeouts = []
 Offline.on 'reconnect:failure', ->
-  setTimeout ->
-    addClass el, 'offline-ui-reconnect-failed'
-  , 0
+  addClass el, 'offline-ui-reconnect-failed-2s offline-ui-reconnect-failed-5s'
 
-  setTimeout ->
-    removeClass el, 'offline-ui-reconnect-failed'
+  clearTimeout(timeout) for timeout in reconnectFailureTimeouts
+  reconnectFailureTimeouts = []
+
+  reconnectFailureTimeouts.push setTimeout ->
+    removeClass el, 'offline-ui-reconnect-failed-2s'
   , 2000
+
+  reconnectFailureTimeouts.push setTimeout ->
+    removeClass el, 'offline-ui-reconnect-failed-5s'
+  , 5000
+
+reconnectSuccessTimeouts = []
+Offline.on 'reconnect:success', ->
+  addClass el, 'offline-ui-reconnect-succeeded-2s offline-ui-reconnect-succeeded-5s'
+
+  clearTimeout(timeout) for timeout in reconnectSuccessTimeouts
+  reconnectSuccessTimeouts = []
+
+  reconnectSuccessTimeouts.push setTimeout ->
+    removeClass 'offline-ui-reconnect-succeeded-2s'
+  , 2000
+
+  reconnectSuccessTimeouts.push setTimeout ->
+    removeClass 'offline-ui-reconnect-succeeded-5s'
+  , 5000
   
 Offline.on 'up down', render
