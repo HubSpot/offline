@@ -7,19 +7,18 @@ module.exports = (grunt) ->
 
     coffee:
       compile:
-        files:
-          'offline.js': 'offline.coffee'
-          'pegasus.js': 'pegasus.coffee'
-          'ui.js': 'ui.coffee'
-          'reconnect.js': 'reconnect.coffee'
-          'snake.js': 'snake.coffee'
+        expand: true
+        src: ['coffee/*.coffee']
+        dest: 'js/'
+        cwd: 'coffee/'
+        ext: '.js'
 
     watch:
       options:
         atBegin:
           true
       coffee:
-        files: ['offline.coffee', 'pegasus.coffee', 'ui.coffee', 'reconnect.coffee', 'snake.coffee', 'sass/*']
+        files: ['coffee/*', 'sass/*']
         tasks: ["coffee", "uglify", "compass"]
 
     uglify:
@@ -27,7 +26,7 @@ module.exports = (grunt) ->
         banner: "/*! <%= pkg.name %> <%= pkg.version %> */\n"
 
       dist:
-        src: 'offline.js'
+        src: ['js/*.js']
         dest: 'offline.min.js'
 
     compass:
