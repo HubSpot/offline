@@ -27,24 +27,6 @@
             opacity: 0
             display: none
 
-=keyframes-offline-flyin
-    +offline-keyframes("offline-flyin")
-        0%
-            opacity: 0
-            +offline-transform(translateY(-40px))
-        100%
-            opacity: 1
-            +offline-transform(translateY(0))
-
-=keyframes-offline-flyout
-    +offline-keyframes("offline-flyout")
-        0%
-            opacity: 1
-            +offline-transform(translateY(0))
-        100%
-            opacity: 0
-            +offline-transform(translateY(-40px))
-
 =keyframes-offline-dropin
     +offline-keyframes("offline-dropin")
         // We start at 0 first and, while hidden
@@ -76,24 +58,6 @@
             +offline-transform(translateY(0))
         100%
             +offline-transform(translateY(-800px))
-
-=keyframes-offline-flipin-horizontal
-    +offline-keyframes("offline-flipin-horizontal")
-        0%
-            opacity: 0
-            +offline-transform(rotateY(-90deg))
-        100%
-            opacity: 1
-            +offline-transform(rotateY(0deg))
-
-=keyframes-offline-flipout-horizontal
-    +offline-keyframes("offline-flipout-horizontal")
-        0%
-            opacity: 1
-            +offline-transform(rotateY(0deg))
-        100%
-            opacity: 0
-            +offline-transform(rotateY(90deg))
 
 =keyframes-offline-rotation
     +offline-keyframes("offline-rotation")
