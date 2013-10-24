@@ -81,13 +81,9 @@
   });
 
   Offline.on('reconnect:stopped', function() {
-    removeClass(el, 'offline-ui-connecting offline-ui-waiting offline-ui-reconnecting');
+    removeClass(el, 'offline-ui-connecting offline-ui-waiting');
     el.setAttribute('data-retry-in-seconds', null);
     return el.setAttribute('data-retry-in', null);
-  });
-
-  Offline.on('reconnect:started', function() {
-    return addClass(el, 'offline-ui-reconnecting');
   });
 
   reconnectFailureTimeouts = [];

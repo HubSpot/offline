@@ -67,13 +67,10 @@ Offline.on 'reconnect:tick', ->
   el.setAttribute 'data-retry-in', formatTime(Offline.reconnect.remaining)
 
 Offline.on 'reconnect:stopped', ->
-  removeClass el, 'offline-ui-connecting offline-ui-waiting offline-ui-reconnecting'
+  removeClass el, 'offline-ui-connecting offline-ui-waiting'
 
   el.setAttribute 'data-retry-in-seconds', null
   el.setAttribute 'data-retry-in', null
-
-Offline.on 'reconnect:started', ->
-  addClass el, 'offline-ui-reconnecting'
 
 reconnectFailureTimeouts = []
 Offline.on 'reconnect:failure', ->
