@@ -1,5 +1,5 @@
 (function() {
-  var TEMPLATE, addClass, createFromHTML, el, removeClass, render;
+  var TEMPLATE, addClass, createFromHTML, el, formatTime, removeClass, render;
 
   if (!window.Offline) {
     throw new Error("Offline UI brought in without offline.js");
@@ -20,7 +20,27 @@
   };
 
   removeClass = function(el, name) {
-    return el.className = el.className.replace(new RegExp("(^| )" + (name.split(' ').join('|')) + "( |$)", 'gi'), '');
+    return el.className = el.className.replace(new RegExp("(^| )" + (name.split(' ').join('|')) + "( |$)", 'gi'), ' ');
+  };
+
+  formatTime = function(sec) {
+    var formatters, letter, mult, out;
+    formatters = {
+      'd': 86400,
+      'h': 3600,
+      'm': 60,
+      's': 1
+    };
+    out = '';
+    for (letter in formatters) {
+      mult = formatters[letter];
+      if (sec >= mult) {
+        out += "" + (Math.floor(sec / mult)) + letter + " ";
+        sec = sec % mult;
+      }
+    }
+    out || (out = 'now');
+    return out.trim();
   };
 
   el = null;
@@ -51,11 +71,13 @@
   Offline.on('reconnect:tick', function() {
     addClass(el, 'offline-ui-waiting');
     removeClass(el, 'offline-ui-connecting');
-    return el.setAttribute('data-retry-in', Offline.reconnect.remaining);
+    el.setAttribute('data-retry-in-seconds', Offline.reconnect.remaining);
+    return el.setAttribute('data-retry-in', formatTime(Offline.reconnect.remaining));
   });
 
   Offline.on('reconnect:stopped', function() {
     removeClass(el, 'offline-ui-connecting offline-ui-waiting offline-ui-reconnecting');
+    el.setAttribute('data-retry-in-seconds', null);
     return el.setAttribute('data-retry-in', null);
   });
 

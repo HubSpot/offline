@@ -20,7 +20,7 @@
   })();
 
   next = function() {
-    return rc.remaining = rc.delay = Math.ceil(rc.delay * 1.5);
+    return rc.remaining = rc.delay = Math.min(Math.ceil(rc.delay * 1.5), 3600);
   };
 
   tick = function() {

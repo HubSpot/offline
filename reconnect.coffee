@@ -15,7 +15,7 @@ do reset = ->
   rc.remaining = rc.delay = INITIAL_DELAY
 
 next = ->
-  rc.remaining = rc.delay = Math.ceil(rc.delay * 1.5)
+  rc.remaining = rc.delay = Math.min(Math.ceil(rc.delay * 1.5), 3600)
 
 tick = ->
   return if rc.state is 'connecting'

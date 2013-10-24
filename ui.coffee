@@ -13,7 +13,23 @@ addClass = (el, name) ->
   el.className += " #{ name }"
 
 removeClass = (el, name) ->
-  el.className = el.className.replace new RegExp("(^| )#{ name.split(' ').join('|') }( |$)", 'gi'), ''
+  el.className = el.className.replace new RegExp("(^| )#{ name.split(' ').join('|') }( |$)", 'gi'), ' '
+
+formatTime = (sec) ->
+  formatters =
+    'd': 86400
+    'h': 3600
+    'm': 60
+    's': 1
+
+  out = ''
+  for letter, mult of formatters
+    if sec >= mult
+      out += "#{ Math.floor(sec / mult) }#{ letter } "
+      sec = sec % mult
+
+  out or= 'now'
+  out.trim()
 
 el = null
 do render = ->
@@ -43,11 +59,13 @@ Offline.on 'reconnect:tick', ->
   addClass el, 'offline-ui-waiting'
   removeClass el, 'offline-ui-connecting'
 
-  el.setAttribute 'data-retry-in', Offline.reconnect.remaining
+  el.setAttribute 'data-retry-in-seconds', Offline.reconnect.remaining
+  el.setAttribute 'data-retry-in', formatTime(Offline.reconnect.remaining)
 
 Offline.on 'reconnect:stopped', ->
   removeClass el, 'offline-ui-connecting offline-ui-waiting offline-ui-reconnecting'
 
+  el.setAttribute 'data-retry-in-seconds', null
   el.setAttribute 'data-retry-in', null
 
 Offline.on 'reconnect:started', ->
