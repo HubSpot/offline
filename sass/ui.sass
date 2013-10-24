@@ -9,6 +9,9 @@
 
 +keyframes-offline-rotation
 
+.offline-ui, .offline-ui *, .offline-ui:before, .offline-ui:after, .offline-ui *:before, .offline-ui *:after
+    +box-sizing(border-box)
+
 .offline-ui
     font-family: "Helvetica Neue", sans-serif
     display: none
@@ -19,12 +22,25 @@
     top: 0
     left: 0
     right: 0
-    width: 30em
+    width: 34em
     max-width: 100%
     padding: 1em
+    white-space: nowrap
 
     &:before, &:after
         display: inline
+
+    .offline-ui-retry
+        display: none
+        position: absolute
+        right: 3em
+        top: 0
+        bottom: 0
+        background: rgba(0, 0, 0, .1)
+        text-decoration: none
+        color: inherit
+        line-height: 3em
+        padding: 0 1em
 
     &.offline-ui-up
         +offline-animation(offline-fadeout-and-hide .5s 2s)
@@ -36,9 +52,6 @@
         &:before
             content: "Your computer is connected to the internet."
 
-        .offline-ui-retry
-            display: none
-
     &.offline-ui-down
         +offline-animation(offline-fadein .5s)
         display: block
@@ -46,48 +59,43 @@
         color: $darkRed
 
         &:before
-            content: "Your computer has lost its internet connection."
+            content: "Your computer lost its internet connection."
 
-    &.offline-ui-connecting, &.offline-ui-reconnecting
-        display: block
-        background: $yellow
-        color: $darkYellow
-        padding-right: 3em
-
-        &:before
-            content: "Attempting to reconnect your computer."
-
-        &:after
-            +offline-animation(offline-rotation .7s linear infinite)
-            +border-radius(50%)
-            content: " "
+        &.offline-ui-connecting, &.offline-ui-waiting
             display: block
-            position: absolute
-            right: 1em
-            top: 0
-            bottom: 0
-            margin: auto
-            height: 1em
-            width: 1em
-            border: 2px solid rgba(0, 0, 0, 0)
-            border-top-color: $darkYellow
-            border-left-color: $darkYellow
-            opacity: 0.7
+            background: $yellow
+            color: $darkYellow
+            padding-right: 3em
 
-    &.offline-ui-connecting
-        .offline-ui-retry
-            display: none
+            &:before
+                content: "Attempting to reconnect your computer..."
 
-    &.offline-ui-waiting
-        display: block
+            &:after
+                +offline-animation(offline-rotation .7s linear infinite)
+                +border-radius(50%)
+                content: " "
+                display: block
+                position: absolute
+                right: 1em
+                top: 0
+                bottom: 0
+                margin: auto
+                height: 1em
+                width: 1em
+                border: 2px solid rgba(0, 0, 0, 0)
+                border-top-color: $darkYellow
+                border-left-color: $darkYellow
+                opacity: 0.7
 
-        &:before
-            content: "Attempting to reconnect your computer. Retrying in " attr(data-retry-in) "..."
+        &.offline-ui-waiting
 
-        .offline-ui-retry
-            display: inline-block
-            padding-left: 5px
+            .offline-ui-retry
+                display: block
 
-    &.offline-ui-reconnect-failed
-        &:before
-            content: "Connection attempt failed. Retrying in " attr(data-retry-in) " seconds..."
+            &:before
+                content: "Retrying to connect in " attr(data-retry-in-seconds) " seconds..."
+
+        &.offline-ui-reconnect-failed-2s
+
+            &:before
+                content: "Connection attempt failed."

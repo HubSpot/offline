@@ -173,6 +173,11 @@
     -ms-transform: rotate(359deg);
     -o-transform: rotate(359deg); } }
 
+.offline-ui, .offline-ui *, .offline-ui:before, .offline-ui:after, .offline-ui *:before, .offline-ui *:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
 .offline-ui {
   font-family: "Helvetica Neue", sans-serif;
   display: none;
@@ -183,11 +188,23 @@
   top: 0;
   left: 0;
   right: 0;
-  width: 30em;
+  width: 34em;
   max-width: 100%;
-  padding: 1em; }
+  padding: 1em;
+  white-space: nowrap; }
   .offline-ui:before, .offline-ui:after {
     display: inline; }
+  .offline-ui .offline-ui-retry {
+    display: none;
+    position: absolute;
+    right: 3em;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    color: inherit;
+    line-height: 3em;
+    padding: 0 1em; }
   .offline-ui.offline-ui-up {
     -webkit-animation: offline-fadeout-and-hide 0.5s 2s;
     -moz-animation: offline-fadeout-and-hide 0.5s 2s;
@@ -205,8 +222,6 @@
     color: #1f4779; }
     .offline-ui.offline-ui-up:before {
       content: "Your computer is connected to the internet."; }
-    .offline-ui.offline-ui-up .offline-ui-retry {
-      display: none; }
   .offline-ui.offline-ui-down {
     -webkit-animation: offline-fadein 0.5s;
     -moz-animation: offline-fadein 0.5s;
@@ -218,47 +233,42 @@
     background: #ec8787;
     color: #551313; }
     .offline-ui.offline-ui-down:before {
-      content: "Your computer has lost its internet connection."; }
-  .offline-ui.offline-ui-connecting, .offline-ui.offline-ui-reconnecting {
-    display: block;
-    background: #f8ecad;
-    color: #7c6d1f;
-    padding-right: 3em; }
-    .offline-ui.offline-ui-connecting:before, .offline-ui.offline-ui-reconnecting:before {
-      content: "Attempting to reconnect your computer."; }
-    .offline-ui.offline-ui-connecting:after, .offline-ui.offline-ui-reconnecting:after {
-      -webkit-animation: offline-rotation 0.7s linear infinite;
-      -moz-animation: offline-rotation 0.7s linear infinite;
-      -ms-animation: offline-rotation 0.7s linear infinite;
-      -o-animation: offline-rotation 0.7s linear infinite;
-      animation: offline-rotation 0.7s linear infinite;
-      -webkit-backface-visibility: hidden;
-      -webkit-border-radius: 50%;
-      -moz-border-radius: 50%;
-      -ms-border-radius: 50%;
-      -o-border-radius: 50%;
-      border-radius: 50%;
-      content: " ";
+      content: "Your computer lost its internet connection."; }
+    .offline-ui.offline-ui-down.offline-ui-connecting, .offline-ui.offline-ui-down.offline-ui-waiting {
       display: block;
-      position: absolute;
-      right: 1em;
-      top: 0;
-      bottom: 0;
-      margin: auto;
-      height: 1em;
-      width: 1em;
-      border: 2px solid rgba(0, 0, 0, 0);
-      border-top-color: #7c6d1f;
-      border-left-color: #7c6d1f;
-      opacity: 0.7; }
-  .offline-ui.offline-ui-connecting .offline-ui-retry {
-    display: none; }
-  .offline-ui.offline-ui-waiting {
-    display: block; }
-    .offline-ui.offline-ui-waiting:before {
-      content: "Attempting to reconnect your computer. Retrying in " attr(data-retry-in) "..."; }
-    .offline-ui.offline-ui-waiting .offline-ui-retry {
-      display: inline-block;
-      padding-left: 5px; }
-  .offline-ui.offline-ui-reconnect-failed:before {
-    content: "Connection attempt failed. Retrying in " attr(data-retry-in) " seconds..."; }
+      background: #f8ecad;
+      color: #7c6d1f;
+      padding-right: 3em; }
+      .offline-ui.offline-ui-down.offline-ui-connecting:before, .offline-ui.offline-ui-down.offline-ui-waiting:before {
+        content: "Attempting to reconnect your computer..."; }
+      .offline-ui.offline-ui-down.offline-ui-connecting:after, .offline-ui.offline-ui-down.offline-ui-waiting:after {
+        -webkit-animation: offline-rotation 0.7s linear infinite;
+        -moz-animation: offline-rotation 0.7s linear infinite;
+        -ms-animation: offline-rotation 0.7s linear infinite;
+        -o-animation: offline-rotation 0.7s linear infinite;
+        animation: offline-rotation 0.7s linear infinite;
+        -webkit-backface-visibility: hidden;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -ms-border-radius: 50%;
+        -o-border-radius: 50%;
+        border-radius: 50%;
+        content: " ";
+        display: block;
+        position: absolute;
+        right: 1em;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        height: 1em;
+        width: 1em;
+        border: 2px solid rgba(0, 0, 0, 0);
+        border-top-color: #7c6d1f;
+        border-left-color: #7c6d1f;
+        opacity: 0.7; }
+    .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-retry {
+      display: block; }
+    .offline-ui.offline-ui-down.offline-ui-waiting:before {
+      content: "Retrying to connect in " attr(data-retry-in-seconds) " seconds..."; }
+    .offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s:before {
+      content: "Connection attempt failed."; }
