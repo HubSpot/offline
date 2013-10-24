@@ -63,6 +63,15 @@
     return addClass(el, 'offline-ui-reconnecting');
   });
 
+  Offline.on('reconnect:failure', function() {
+    setTimeout(function() {
+      return addClass(el, 'offline-ui-reconnect-failed');
+    }, 0);
+    return setTimeout(function() {
+      return removeClass(el, 'offline-ui-reconnect-failed');
+    }, 2000);
+  });
+
   Offline.on('up down', render);
 
 }).call(this);

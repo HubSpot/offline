@@ -52,5 +52,14 @@ Offline.on 'reconnect:stopped', ->
 
 Offline.on 'reconnect:started', ->
   addClass el, 'offline-ui-reconnecting'
+
+Offline.on 'reconnect:failure', ->
+  setTimeout ->
+    addClass el, 'offline-ui-reconnect-failed'
+  , 0
+
+  setTimeout ->
+    removeClass el, 'offline-ui-reconnect-failed'
+  , 2000
   
 Offline.on 'up down', render
