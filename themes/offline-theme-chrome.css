@@ -375,7 +375,7 @@
     animation: offline-dropout forwards 0.5s 2s;
     -webkit-backface-visibility: hidden; }
     .offline-ui.offline-ui-up .offline-ui-content:after {
-      background: #9de29d; }
+      background: #80d580; }
   .offline-ui.offline-ui-down {
     -webkit-animation: offline-dropin 0.5s;
     -moz-animation: offline-dropin 0.5s;
