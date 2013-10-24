@@ -2,7 +2,7 @@ unless window.Offline
   throw new Error "Offline UI brought in without offline.js"
 
 TEMPLATE = '<div class="offline-ui"><div class="offline-ui-content"></div></div>'
-RETRY_TEMPLATE = '<a href class="offline-ui-retry">Retry Now</a>'
+RETRY_TEMPLATE = '<a href class="offline-ui-retry"></a>'
 
 createFromHTML = (html) ->
   el = document.createElement('div')

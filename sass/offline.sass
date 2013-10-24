@@ -21,6 +21,10 @@
         +user-select(none)
         display: none
 
+        &:before
+            display: inline
+            content: "Reconnect"
+
     &.offline-ui-up
         display: block
 
@@ -56,10 +60,10 @@
                 display: block
 
             .offline-ui-content:before
-                content: "Retrying to connect in " attr(data-retry-in-seconds) " seconds... "
+                content: "Attempting to reconnect in " attr(data-retry-in-seconds) " seconds... "
 
                 @media (max-width: 568px)
-                    content: "Retrying in " attr(data-retry-in-seconds) "s... "
+                    content: "Reconnecting in " attr(data-retry-in-seconds) "s... "
 
         &.offline-ui-reconnect-failed-2s
 

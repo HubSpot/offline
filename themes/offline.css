@@ -19,6 +19,9 @@
     -moz-user-select: none;
     user-select: none;
     display: none; }
+    .offline-ui .offline-ui-retry:before {
+      display: inline;
+      content: "Reconnect"; }
   .offline-ui.offline-ui-up {
     display: block; }
     .offline-ui.offline-ui-up .offline-ui-content:before {
@@ -44,10 +47,10 @@
     .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-retry {
       display: block; }
     .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content:before {
-      content: "Retrying to connect in " attr(data-retry-in-seconds) " seconds... "; }
+      content: "Attempting to reconnect in " attr(data-retry-in-seconds) " seconds... "; }
       @media (max-width: 568px) {
         .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content:before {
-          content: "Retrying in " attr(data-retry-in-seconds) "s... "; } }
+          content: "Reconnecting in " attr(data-retry-in-seconds) "s... "; } }
     .offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s.offline-ui-waiting .offline-ui-retry {
       display: none; }
     .offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s .offline-ui-content:before {
