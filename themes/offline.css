@@ -23,15 +23,30 @@
     display: block; }
     .offline-ui.offline-ui-up .offline-ui-content:before {
       content: "Your computer is connected to the internet. "; }
+      @media (max-width: 1024px) {
+        .offline-ui.offline-ui-up .offline-ui-content:before {
+          content: "Your device is connected to the internet. "; } }
+      @media (max-width: 568px) {
+        .offline-ui.offline-ui-up .offline-ui-content:before {
+          content: "Your device is connected. "; } }
   .offline-ui.offline-ui-down {
     display: block; }
     .offline-ui.offline-ui-down .offline-ui-content:before {
       content: "Your computer lost its internet connection. "; }
+      @media (max-width: 1024px) {
+        .offline-ui.offline-ui-down .offline-ui-content:before {
+          content: "Your device lost its internet connection. "; } }
+      @media (max-width: 568px) {
+        .offline-ui.offline-ui-down .offline-ui-content:before {
+          content: "Your device isn't connected. "; } }
     .offline-ui.offline-ui-down.offline-ui-connecting .offline-ui-content:before, .offline-ui.offline-ui-down.offline-ui-connecting-2s .offline-ui-content:before {
-      content: "Attempting to reconnect your computer... "; }
+      content: "Attempting to reconnect... "; }
     .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-retry {
       display: block; }
     .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content:before {
       content: "Retrying to connect in " attr(data-retry-in-seconds) " seconds... "; }
+      @media (max-width: 568px) {
+        .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content:before {
+          content: "Retrying in " attr(data-retry-in-seconds) "s... "; } }
     .offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s .offline-ui-content:before {
       content: "Connection attempt failed. "; }

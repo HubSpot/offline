@@ -27,16 +27,28 @@
         .offline-ui-content:before
             content: "Your computer is connected to the internet. "
 
+            @media (max-width: 1024px)
+                content: "Your device is connected to the internet. "
+
+            @media (max-width: 568px)
+                content: "Your device is connected. "
+
     &.offline-ui-down
         display: block
 
         .offline-ui-content:before
             content: "Your computer lost its internet connection. "
 
+            @media (max-width: 1024px)
+                content: "Your device lost its internet connection. "
+
+            @media (max-width: 568px)
+                content: "Your device isn't connected. "
+
         &.offline-ui-connecting, &.offline-ui-connecting-2s
 
             .offline-ui-content:before
-                content: "Attempting to reconnect your computer... "
+                content: "Attempting to reconnect... "
 
         &.offline-ui-waiting
 
@@ -45,6 +57,9 @@
 
             .offline-ui-content:before
                 content: "Retrying to connect in " attr(data-retry-in-seconds) " seconds... "
+
+                @media (max-width: 568px)
+                    content: "Retrying in " attr(data-retry-in-seconds) "s... "
 
         &.offline-ui-reconnect-failed-2s
 
