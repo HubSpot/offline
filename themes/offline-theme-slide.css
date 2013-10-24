@@ -314,6 +314,11 @@
     -o-transform: rotate(359deg); } }
 
 .offline-ui {
+  -webkit-border-radius: 0 0 4px 4px;
+  -moz-border-radius: 0 0 4px 4px;
+  -ms-border-radius: 0 0 4px 4px;
+  -o-border-radius: 0 0 4px 4px;
+  border-radius: 0 0 4px 4px;
   font-family: "Helvetica Neue", sans-serif;
   white-space: nowrap;
   padding: 1em;
@@ -330,17 +335,12 @@
     line-height: 3em;
     padding: 0 1em; }
   .offline-ui.offline-ui-up {
-    -webkit-animation: offline-dropout 0.5s 2s;
-    -moz-animation: offline-dropout 0.5s 2s;
-    -ms-animation: offline-dropout 0.5s 2s;
-    -o-animation: offline-dropout 0.5s 2s;
-    animation: offline-dropout 0.5s 2s;
+    -webkit-animation: offline-dropout forwards 0.5s 2s;
+    -moz-animation: offline-dropout forwards 0.5s 2s;
+    -ms-animation: offline-dropout forwards 0.5s 2s;
+    -o-animation: offline-dropout forwards 0.5s 2s;
+    animation: offline-dropout forwards 0.5s 2s;
     -webkit-backface-visibility: hidden;
-    -webkit-animation-fill-mode: forwards;
-    -moz-animation-fill-mode: forwards;
-    -ms-animation-fill-mode: forwards;
-    -o-animation-fill-mode: forwards;
-    animation-fill-mode: forwards;
     background: #aacbf5;
     color: #1f4779; }
   .offline-ui.offline-ui-down {
@@ -381,3 +381,5 @@
         border-top-color: #7c6d1f;
         border-left-color: #7c6d1f;
         opacity: 0.7; }
+    .offline-ui.offline-ui-down.offline-ui-waiting {
+      padding-right: 11em; }
