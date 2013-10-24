@@ -1,0 +1,50 @@
+@import compass/css3
+
+.offline-ui, .offline-ui *, .offline-ui:before, .offline-ui:after, .offline-ui *:before, .offline-ui *:after
+    +box-sizing(border-box)
+
+.offline-ui
+    display: none
+    position: fixed
+    background: #fff
+    z-index: 800
+    margin: auto
+    top: 0
+    left: 0
+    right: 0
+
+    &:before, &:after
+        display: inline
+
+    .offline-ui-retry
+        display: none
+
+    &.offline-ui-up
+        display: block
+
+        &:before
+            content: "Your computer is connected to the internet. "
+
+    &.offline-ui-down
+        display: block
+
+        &:before
+            content: "Your computer lost its internet connection. "
+
+        &.offline-ui-connecting, &.offline-ui-connecting-2s
+
+            &:before
+                content: "Attempting to reconnect your computer... "
+
+        &.offline-ui-waiting
+
+            .offline-ui-retry
+                display: block
+
+            &:before
+                content: "Retrying to connect in " attr(data-retry-in-seconds) " seconds... "
+
+        &.offline-ui-reconnect-failed-2s
+
+            &:before
+                content: "Connection attempt failed. "

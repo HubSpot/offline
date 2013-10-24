@@ -1,0 +1,34 @@
+.offline-ui, .offline-ui *, .offline-ui:before, .offline-ui:after, .offline-ui *:before, .offline-ui *:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+.offline-ui {
+  display: none;
+  position: fixed;
+  background: white;
+  z-index: 800;
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0; }
+  .offline-ui:before, .offline-ui:after {
+    display: inline; }
+  .offline-ui .offline-ui-retry {
+    display: none; }
+  .offline-ui.offline-ui-up {
+    display: block; }
+    .offline-ui.offline-ui-up:before {
+      content: "Your computer is connected to the internet. "; }
+  .offline-ui.offline-ui-down {
+    display: block; }
+    .offline-ui.offline-ui-down:before {
+      content: "Your computer lost its internet connection. "; }
+    .offline-ui.offline-ui-down.offline-ui-connecting:before, .offline-ui.offline-ui-down.offline-ui-connecting-2s:before {
+      content: "Attempting to reconnect your computer... "; }
+    .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-retry {
+      display: block; }
+    .offline-ui.offline-ui-down.offline-ui-waiting:before {
+      content: "Retrying to connect in " attr(data-retry-in-seconds) " seconds... "; }
+    .offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s:before {
+      content: "Connection attempt failed. "; }
