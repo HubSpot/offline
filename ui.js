@@ -1,11 +1,13 @@
 (function() {
-  var TEMPLATE, addClass, createFromHTML, el, formatTime, removeClass, render;
+  var RETRY_TEMPLATE, TEMPLATE, addClass, createFromHTML, el, formatTime, removeClass, render;
 
   if (!window.Offline) {
     throw new Error("Offline UI brought in without offline.js");
   }
 
-  TEMPLATE = '<div class="offline-ui"><a href class="offline-ui-retry">Retry Now</a></div>';
+  TEMPLATE = '<div class="offline-ui"></div>';
+
+  RETRY_TEMPLATE = '<a href class="offline-ui-retry">Retry Now</a>';
 
   createFromHTML = function(html) {
     var el;
@@ -49,10 +51,13 @@
     if (el == null) {
       el = createFromHTML(TEMPLATE);
       document.body.appendChild(el);
-      el.querySelector('.offline-ui-retry').addEventListener('click', function(e) {
-        e.preventDefault();
-        return Offline.reconnect.tryNow();
-      }, false);
+      if (Odometer.reconnect != null) {
+        el.appendChild(createFromHTML(RETRY_TEMPLATE));
+        el.querySelector('.offline-ui-retry').addEventListener('click', function(e) {
+          e.preventDefault();
+          return Offline.reconnect.tryNow();
+        }, false);
+      }
     }
     if (Offline.state === 'up') {
       removeClass(el, 'offline-ui-down');
