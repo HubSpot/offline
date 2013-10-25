@@ -60,7 +60,7 @@
     return out.trim();
   };
 
-  (render = function() {
+  render = function() {
     el = createFromHTML(TEMPLATE);
     document.body.appendChild(el);
     if (Offline.reconnect != null) {
@@ -72,48 +72,45 @@
     }
     addClass("offline-ui-" + Offline.state);
     return content = el.querySelector('.offline-ui-content');
-  })();
+  };
 
-  Offline.on('up', function() {
-    removeClass('offline-ui-down');
-    addClass('offline-ui-up');
-    flashClass('offline-ui-up-2s', 2);
-    return flashClass('offline-ui-up-5s', 5);
-  });
-
-  Offline.on('down', function() {
-    removeClass('offline-ui-up');
-    addClass('offline-ui-down');
-    flashClass('offline-ui-down-2s', 2);
-    return flashClass('offline-ui-down-5s', 5);
-  });
-
-  Offline.on('reconnect:connecting', function() {
-    addClass('offline-ui-connecting');
-    return removeClass('offline-ui-waiting');
-  });
-
-  Offline.on('reconnect:tick', function() {
-    addClass('offline-ui-waiting');
-    removeClass('offline-ui-connecting');
-    content.setAttribute('data-retry-in-seconds', Offline.reconnect.remaining);
-    return content.setAttribute('data-retry-in', formatTime(Offline.reconnect.remaining));
-  });
-
-  Offline.on('reconnect:stopped', function() {
-    removeClass('offline-ui-connecting offline-ui-waiting');
-    content.setAttribute('data-retry-in-seconds', null);
-    return content.setAttribute('data-retry-in', null);
-  });
-
-  Offline.on('reconnect:failure', function() {
-    flashClass('offline-ui-reconnect-failed-2s', 2);
-    return flashClass('offline-ui-reconnect-failed-5s', 5);
-  });
-
-  Offline.on('reconnect:success', function() {
-    flashClass('offline-ui-reconnect-succeeded-2s', 2);
-    return flashClass('offline-ui-reconnect-succeeded-5s', 5);
+  document.addEventListener('DOMContentLoaded', function() {
+    render();
+    Offline.on('up', function() {
+      removeClass('offline-ui-down');
+      addClass('offline-ui-up');
+      flashClass('offline-ui-up-2s', 2);
+      return flashClass('offline-ui-up-5s', 5);
+    });
+    Offline.on('down', function() {
+      removeClass('offline-ui-up');
+      addClass('offline-ui-down');
+      flashClass('offline-ui-down-2s', 2);
+      return flashClass('offline-ui-down-5s', 5);
+    });
+    Offline.on('reconnect:connecting', function() {
+      addClass('offline-ui-connecting');
+      return removeClass('offline-ui-waiting');
+    });
+    Offline.on('reconnect:tick', function() {
+      addClass('offline-ui-waiting');
+      removeClass('offline-ui-connecting');
+      content.setAttribute('data-retry-in-seconds', Offline.reconnect.remaining);
+      return content.setAttribute('data-retry-in', formatTime(Offline.reconnect.remaining));
+    });
+    Offline.on('reconnect:stopped', function() {
+      removeClass('offline-ui-connecting offline-ui-waiting');
+      content.setAttribute('data-retry-in-seconds', null);
+      return content.setAttribute('data-retry-in', null);
+    });
+    Offline.on('reconnect:failure', function() {
+      flashClass('offline-ui-reconnect-failed-2s', 2);
+      return flashClass('offline-ui-reconnect-failed-5s', 5);
+    });
+    return Offline.on('reconnect:success', function() {
+      flashClass('offline-ui-reconnect-succeeded-2s', 2);
+      return flashClass('offline-ui-reconnect-succeeded-5s', 5);
+    });
   });
 
 }).call(this);

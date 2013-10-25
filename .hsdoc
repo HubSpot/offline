@@ -1,0 +1,3 @@
+title: "Offline"
+source: "{coffee/*,sass/*}"
+assets: "{js/*,themes/*,offline.min.js}"

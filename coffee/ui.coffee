@@ -45,7 +45,7 @@ formatTime = (sec) ->
   out or= 'now'
   out.trim()
 
-do render = ->
+render = ->
   el = createFromHTML TEMPLATE
   document.body.appendChild el
 
@@ -63,41 +63,44 @@ do render = ->
 
   content = el.querySelector('.offline-ui-content')
 
-Offline.on 'up', ->
-  removeClass 'offline-ui-down'
-  addClass 'offline-ui-up'
+document.addEventListener 'DOMContentLoaded', ->
+  render()
 
-  flashClass 'offline-ui-up-2s', 2
-  flashClass 'offline-ui-up-5s', 5
+  Offline.on 'up', ->
+    removeClass 'offline-ui-down'
+    addClass 'offline-ui-up'
 
-Offline.on 'down', ->
-  removeClass 'offline-ui-up'
-  addClass 'offline-ui-down'
+    flashClass 'offline-ui-up-2s', 2
+    flashClass 'offline-ui-up-5s', 5
 
-  flashClass 'offline-ui-down-2s', 2
-  flashClass 'offline-ui-down-5s', 5
+  Offline.on 'down', ->
+    removeClass 'offline-ui-up'
+    addClass 'offline-ui-down'
 
-Offline.on 'reconnect:connecting', ->
-  addClass 'offline-ui-connecting'
-  removeClass 'offline-ui-waiting'
+    flashClass 'offline-ui-down-2s', 2
+    flashClass 'offline-ui-down-5s', 5
 
-Offline.on 'reconnect:tick', ->
-  addClass 'offline-ui-waiting'
-  removeClass 'offline-ui-connecting'
+  Offline.on 'reconnect:connecting', ->
+    addClass 'offline-ui-connecting'
+    removeClass 'offline-ui-waiting'
 
-  content.setAttribute 'data-retry-in-seconds', Offline.reconnect.remaining
-  content.setAttribute 'data-retry-in', formatTime(Offline.reconnect.remaining)
+  Offline.on 'reconnect:tick', ->
+    addClass 'offline-ui-waiting'
+    removeClass 'offline-ui-connecting'
 
-Offline.on 'reconnect:stopped', ->
-  removeClass 'offline-ui-connecting offline-ui-waiting'
+    content.setAttribute 'data-retry-in-seconds', Offline.reconnect.remaining
+    content.setAttribute 'data-retry-in', formatTime(Offline.reconnect.remaining)
 
-  content.setAttribute 'data-retry-in-seconds', null
-  content.setAttribute 'data-retry-in', null
+  Offline.on 'reconnect:stopped', ->
+    removeClass 'offline-ui-connecting offline-ui-waiting'
 
-Offline.on 'reconnect:failure', ->
-  flashClass 'offline-ui-reconnect-failed-2s', 2
-  flashClass 'offline-ui-reconnect-failed-5s', 5
+    content.setAttribute 'data-retry-in-seconds', null
+    content.setAttribute 'data-retry-in', null
 
-Offline.on 'reconnect:success', ->
-  flashClass 'offline-ui-reconnect-succeeded-2s', 2
-  flashClass 'offline-ui-reconnect-succeeded-5s', 5
+  Offline.on 'reconnect:failure', ->
+    flashClass 'offline-ui-reconnect-failed-2s', 2
+    flashClass 'offline-ui-reconnect-failed-5s', 5
+
+  Offline.on 'reconnect:success', ->
+    flashClass 'offline-ui-reconnect-succeeded-2s', 2
+    flashClass 'offline-ui-reconnect-succeeded-5s', 5
