@@ -49,7 +49,7 @@ $(function(){
 
     var phases = [
         [5, 'offline-ui offline-ui-down', 0],
-        [1, 'offline-ui offline-ui-down offline-ui-connecting offline-ui-waiting', 5],
+        [5, 'offline-ui offline-ui-down offline-ui-connecting offline-ui-waiting', 5],
         [1, 'offline-ui offline-ui-down offline-ui-connecting offline-ui-waiting', 4],
         [1, 'offline-ui offline-ui-down offline-ui-connecting offline-ui-waiting', 3],
         [1, 'offline-ui offline-ui-down offline-ui-connecting offline-ui-waiting', 2],
