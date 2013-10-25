@@ -1,3 +1,0 @@
-routes:
-  "/walter/": "https://app.hubspotqa.com/"
-  ".*": "http://localhost:8080/offline/"
