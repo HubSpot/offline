@@ -29,21 +29,31 @@ flashClass = (name, time) ->
     delete flashTimeouts[name]
   , time * 1000
 
-formatTime = (sec) ->
+formatTime = (sec, long=false) ->
+  return 'now' if sec is 0
+
   formatters =
     'd': 86400
     'h': 3600
     'm': 60
     's': 1
 
-  out = ''
-  for letter, mult of formatters
-    if sec >= mult
-      out += "#{ Math.floor(sec / mult) }#{ letter } "
-      sec = sec % mult
+  longUnits =
+    's': 'second'
+    'm': 'minute'
+    'h': 'hour'
+    'd': 'day'
 
-  out or= 'now'
-  out.trim()
+  out = ''
+  for unit, mult of formatters
+    if sec >= mult
+      val = Math.floor(sec / mult)
+
+      if long
+        unit = " #{ longUnits[unit] }"
+        unit += 's' if val isnt 1
+
+      return "#{ val }#{ unit }"
 
 render = ->
   el = createFromHTML TEMPLATE
@@ -93,12 +103,14 @@ init = ->
     removeClass 'offline-ui-connecting'
 
     content.setAttribute 'data-retry-in-seconds', Offline.reconnect.remaining
-    content.setAttribute 'data-retry-in', formatTime(Offline.reconnect.remaining)
+    content.setAttribute 'data-retry-in-abbr', formatTime(Offline.reconnect.remaining)
+    content.setAttribute 'data-retry-in', formatTime(Offline.reconnect.remaining, true)
 
   Offline.on 'reconnect:stopped', ->
     removeClass 'offline-ui-connecting offline-ui-waiting'
 
     content.setAttribute 'data-retry-in-seconds', null
+    content.setAttribute 'data-retry-in-abbr', null
     content.setAttribute 'data-retry-in', null
 
   Offline.on 'reconnect:failure', ->

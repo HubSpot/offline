@@ -40,24 +40,40 @@
     }, time * 1000);
   };
 
-  formatTime = function(sec) {
-    var formatters, letter, mult, out;
+  formatTime = function(sec, long) {
+    var formatters, longUnits, mult, out, unit, val;
+    if (long == null) {
+      long = false;
+    }
+    if (sec === 0) {
+      return 'now';
+    }
     formatters = {
       'd': 86400,
       'h': 3600,
       'm': 60,
       's': 1
     };
+    longUnits = {
+      's': 'second',
+      'm': 'minute',
+      'h': 'hour',
+      'd': 'day'
+    };
     out = '';
-    for (letter in formatters) {
-      mult = formatters[letter];
+    for (unit in formatters) {
+      mult = formatters[unit];
       if (sec >= mult) {
-        out += "" + (Math.floor(sec / mult)) + letter + " ";
-        sec = sec % mult;
+        val = Math.floor(sec / mult);
+        if (long) {
+          unit = " " + longUnits[unit];
+          if (val !== 1) {
+            unit += 's';
+          }
+        }
+        return "" + val + unit;
       }
     }
-    out || (out = 'now');
-    return out.trim();
   };
 
   render = function() {
@@ -103,11 +119,13 @@
       addClass('offline-ui-waiting');
       removeClass('offline-ui-connecting');
       content.setAttribute('data-retry-in-seconds', Offline.reconnect.remaining);
-      return content.setAttribute('data-retry-in', formatTime(Offline.reconnect.remaining));
+      content.setAttribute('data-retry-in-abbr', formatTime(Offline.reconnect.remaining));
+      return content.setAttribute('data-retry-in', formatTime(Offline.reconnect.remaining, true));
     });
     Offline.on('reconnect:stopped', function() {
       removeClass('offline-ui-connecting offline-ui-waiting');
       content.setAttribute('data-retry-in-seconds', null);
+      content.setAttribute('data-retry-in-abbr', null);
       return content.setAttribute('data-retry-in', null);
     });
     Offline.on('reconnect:failure', function() {
