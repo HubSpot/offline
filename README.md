@@ -1,4 +1,4 @@
-Offine
+Offline
 ======
 
 Improve the experience of your app when your users lose connection.
@@ -35,7 +35,7 @@ Options (any can be provided as a function), with their defaults:
   reconnect: {
     // How many seconds should we wait before rechecking.
     initialDelay: 3,
-  
+
     // How long should we wait between retries.
     delay: (1.5 * last delay, capped at 1 hour)
   },
