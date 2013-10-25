@@ -8,9 +8,9 @@ module.exports = (grunt) ->
     coffee:
       compile:
         expand: true
+        flatten: true
         src: ['coffee/*.coffee']
         dest: 'js/'
-        cwd: 'coffee/'
         ext: '.js'
 
     watch:
@@ -26,7 +26,7 @@ module.exports = (grunt) ->
         banner: "/*! <%= pkg.name %> <%= pkg.version %> */\n"
 
       dist:
-        src: ['js/*.js']
+        src: ['js/*']
         dest: 'offline.min.js'
 
     compass:

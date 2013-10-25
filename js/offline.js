@@ -58,7 +58,6 @@
   Offline.state = 'up';
 
   Offline.markUp = function() {
-    console.log('mark up');
     Offline.trigger('confirmed-up');
     if (Offline.state === 'up') {
       return;
@@ -68,7 +67,6 @@
   };
 
   Offline.markDown = function() {
-    console.log('mark down');
     Offline.trigger('confirmed-down');
     if (Offline.state === 'down') {
       return;
@@ -135,7 +133,6 @@
   checkXHR = function(xhr, onUp, onDown) {
     var checkStatus, _onreadystatechange;
     checkStatus = function() {
-      console.log('check', xhr);
       if (xhr.status && xhr.status < 12000) {
         return onUp();
       } else {
@@ -251,13 +248,5 @@
   setTimeout(init, 0);
 
   window.Offline = Offline;
-
-  Offline.on('up', function() {
-    return console.log('up');
-  });
-
-  Offline.on('down', function() {
-    return console.log('down');
-  });
 
 }).call(this);

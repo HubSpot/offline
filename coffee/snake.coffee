@@ -80,6 +80,7 @@ hide = ->
 
   document.removeChild canvas
 
+console.log Offline.options.game
 if Offline.options.game
   Offline.on 'down', show
   Offline.on 'up', hide

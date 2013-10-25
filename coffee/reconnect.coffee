@@ -44,11 +44,9 @@ up = ->
   reset()
 
 nope = ->
-  console.log 'nope',rc.state
   if rc.state is 'connecting'
     Offline.trigger 'reconnect:failure'
     rc.state = 'waiting'
-    console.log 'next'
     next()
 
 Offline.on 'down', down

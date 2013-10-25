@@ -46,7 +46,6 @@ window.addEventListener? 'offline', ->
 Offline.state = 'up'
 
 Offline.markUp = ->
-  console.log 'mark up'
   Offline.trigger 'confirmed-up'
 
   return if Offline.state is 'up'
@@ -55,7 +54,6 @@ Offline.markUp = ->
   Offline.trigger 'up'
 
 Offline.markDown = ->
-  console.log 'mark down'
   Offline.trigger 'confirmed-down'
 
   return if Offline.state is 'down'
@@ -93,7 +91,6 @@ Offline.trigger = (event) ->
 
 checkXHR = (xhr, onUp, onDown) ->
   checkStatus = ->
-    console.log 'check', xhr
     if xhr.status and xhr.status < 12000
       onUp()
     else
@@ -196,5 +193,3 @@ init = ->
 setTimeout init, 0
 
 window.Offline = Offline
-Offline.on 'up', -> console.log 'up'
-Offline.on 'down', -> console.log 'down'

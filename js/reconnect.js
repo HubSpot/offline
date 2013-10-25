@@ -55,11 +55,9 @@
   };
 
   nope = function() {
-    console.log('nope', rc.state);
     if (rc.state === 'connecting') {
       Offline.trigger('reconnect:failure');
       rc.state = 'waiting';
-      console.log('next');
       return next();
     }
   };

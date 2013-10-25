@@ -82,15 +82,17 @@
     return document.removeChild(canvas);
   };
 
-  Offline.on('down', show);
+  console.log(Offline.options.game);
 
-  Offline.on('up', hide);
-
-  Offline.on('reconnect:failure', function() {
-    fill = 'red';
-    return setTimeout(function() {
-      return fill = 'black';
-    }, 2000);
-  });
+  if (Offline.options.game) {
+    Offline.on('down', show);
+    Offline.on('up', hide);
+    Offline.on('reconnect:failure', function() {
+      fill = 'red';
+      return setTimeout(function() {
+        return fill = 'black';
+      }, 2000);
+    });
+  }
 
 }).call(this);
