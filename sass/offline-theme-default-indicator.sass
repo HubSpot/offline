@@ -1,0 +1,27 @@
+@import compass/css3
+
+@import offline-theme-base-indicator
+
+$red: #ec8787
+$blue: #aacbf5
+
+$darkRed: #551313
+$darkBlue: #1f4779
+
+.offline-ui
+    +border-radius(4px)
+    font-family: "Helvetica Neue", sans-serif
+    white-space: nowrap
+    padding: 1em
+    width: 5em
+    max-width: 100%
+    bottom: 1em
+    left: 1em
+
+    &.offline-ui-up
+        background: $blue
+        color: $darkBlue
+
+    &.offline-ui-down
+        background: $red
+        color: $darkRed
