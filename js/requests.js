@@ -2,7 +2,7 @@
   var clear, flush, held, holdRequest, makeRequest, waitingOnConfirm;
 
   if (!window.Offline) {
-    throw new Error("Pegasus brought in without offline.js");
+    throw new Error("Requests module brought in without offline.js");
   }
 
   held = [];
