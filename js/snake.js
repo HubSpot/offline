@@ -82,9 +82,7 @@
     return document.removeChild(canvas);
   };
 
-  console.log(Offline.options.game);
-
-  if (Offline.options.game) {
+  if (Offline.getOption('game')) {
     Offline.on('down', show);
     Offline.on('up', hide);
     Offline.on('reconnect:failure', function() {

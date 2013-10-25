@@ -10,7 +10,6 @@
   waitingOnConfirm = false;
 
   holdRequest = function(req) {
-    console.log('holding', req);
     if (Offline.state !== 'down') {
       waitingOnConfirm = true;
     }
@@ -20,7 +19,6 @@
   makeRequest = function(_arg) {
     var body, name, password, type, url, user, val, xhr, _ref;
     xhr = _arg.xhr, url = _arg.url, type = _arg.type, user = _arg.user, password = _arg.password, body = _arg.body;
-    console.log('remaking', xhr);
     xhr.abort();
     xhr.open(type, url, true, user, password);
     _ref = xhr.headers;
@@ -35,14 +33,12 @@
   };
 
   clear = function() {
-    console.log('clearing');
     return held = [];
   };
 
   flush = function() {
     var key, request, requests, url, _i, _len;
     requests = {};
-    console.log('flush');
     for (_i = 0, _len = held.length; _i < _len; _i++) {
       request = held[_i];
       url = request.url.replace(/(\?|&)_=[0-9]+/, function(match, char) {
@@ -77,13 +73,11 @@
   Offline.onXHR(function(request) {
     var async, hold, xhr, _onreadystatechange, _send;
     xhr = request.xhr, async = request.async;
-    console.log('on xhr', request);
     hold = function() {
       return holdRequest(request);
     };
     _send = xhr.send;
     xhr.send = function(body) {
-      console.log('sending', body);
       request.body = body;
       return _send.apply(xhr, arguments);
     };

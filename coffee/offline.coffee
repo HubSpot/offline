@@ -16,15 +16,31 @@ Offline = {}
 
 Offline.options ?= {}
 defaultOptions =
-  checkURL: ->
-    "/offline-test-request/#{ Math.floor(Math.random() * 1000000000) }"
+  checks:
+    xhr:
+      url: ->
+        "/offline-test-request/#{ Math.floor(Math.random() * 1000000000) }"
+
+    image:
+      url: ->
+        # This can be any image, feel free to use our ultra-small gif:
+        "http://dqakt69vkj09v.cloudfront.net/are-we-online.gif?_=#{ Math.floor(Math.random() * 1000000000) }"
+
+    active: 'image'
 
   checkOnLoad: false
 
   interceptRequests: true
 
+grab = (obj, key) ->
+  cur = obj
+  for part, i in key.split('.')
+    cur = cur[part]
+    break if typeof cur isnt 'object'
+  cur
+  
 Offline.getOption = (key) ->
-  val = Offline.options[key] ? defaultOptions[key]
+  val = grab(Offline.options, key) ? grab(defaultOptions, key)
 
   if typeof val is 'function'
     val()
@@ -117,7 +133,7 @@ Offline.checks.xhr = ->
 
   # It doesn't matter what this hits, even a 404 is considered up.  It is important however that
   # it's on the same domain and port, so CORS issues don't come into play.
-  xhr.open('GET', Offline.getOption('checkURL'), true)
+  xhr.open('GET', Offline.getOption('checks.xhr.url'), true)
 
   checkXHR xhr, Offline.markUp, Offline.markDown
 
@@ -129,13 +145,14 @@ Offline.checks.image = ->
   img = document.createElement 'img'
   img.onerror = Offline.markDown
   img.onload = Offline.markUp
-  img.src = "http://dqakt69vkj09v.cloudfront.net/are-we-online.gif?_=#{ Math.floor(Math.random() * 1000000000) }"
+  img.src = Offline.getOption('checks.image.url')
   
   undefined
 
 Offline.check = ->
   Offline.trigger 'checking'
-  Offline.checks.image()
+
+  Offline.checks[Offline.getOption('checks.active')]()
 
 Offline.confirmUp = Offline.confirmDown = Offline.check
 

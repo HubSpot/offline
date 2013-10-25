@@ -1,5 +1,5 @@
 (function() {
-  var Offline, checkXHR, defaultOptions, extendNative, handlers, init;
+  var Offline, checkXHR, defaultOptions, extendNative, grab, handlers, init;
 
   extendNative = function(to, from) {
     var e, key, val, _results;
@@ -26,16 +26,40 @@
   }
 
   defaultOptions = {
-    checkURL: function() {
-      return "/offline-test-request/" + (Math.floor(Math.random() * 1000000000));
+    checks: {
+      xhr: {
+        url: function() {
+          return "/offline-test-request/" + (Math.floor(Math.random() * 1000000000));
+        }
+      },
+      image: {
+        url: function() {
+          return "http://dqakt69vkj09v.cloudfront.net/are-we-online.gif?_=" + (Math.floor(Math.random() * 1000000000));
+        }
+      },
+      active: 'image'
     },
     checkOnLoad: false,
     interceptRequests: true
   };
 
+  grab = function(obj, key) {
+    var cur, i, part, _i, _len, _ref;
+    cur = obj;
+    _ref = key.split('.');
+    for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+      part = _ref[i];
+      cur = cur[part];
+      if (typeof cur !== 'object') {
+        break;
+      }
+    }
+    return cur;
+  };
+
   Offline.getOption = function(key) {
     var val, _ref;
-    val = (_ref = Offline.options[key]) != null ? _ref : defaultOptions[key];
+    val = (_ref = grab(Offline.options, key)) != null ? _ref : grab(defaultOptions, key);
     if (typeof val === 'function') {
       return val();
     } else {
@@ -161,7 +185,7 @@
   Offline.checks.xhr = function() {
     var xhr;
     xhr = new XMLHttpRequest;
-    xhr.open('GET', Offline.getOption('checkURL'), true);
+    xhr.open('GET', Offline.getOption('checks.xhr.url'), true);
     checkXHR(xhr, Offline.markUp, Offline.markDown);
     xhr.send();
     return xhr;
@@ -172,13 +196,13 @@
     img = document.createElement('img');
     img.onerror = Offline.markDown;
     img.onload = Offline.markUp;
-    img.src = "http://dqakt69vkj09v.cloudfront.net/are-we-online.gif?_=" + (Math.floor(Math.random() * 1000000000));
+    img.src = Offline.getOption('checks.image.url');
     return void 0;
   };
 
   Offline.check = function() {
     Offline.trigger('checking');
-    return Offline.checks.image();
+    return Offline.checks[Offline.getOption('checks.active')]();
   };
 
   Offline.confirmUp = Offline.confirmDown = Offline.check;

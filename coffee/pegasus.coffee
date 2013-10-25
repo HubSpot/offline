@@ -5,14 +5,12 @@ held = []
 
 waitingOnConfirm = false
 holdRequest = (req) ->
-  console.log 'holding',req
   if Offline.state isnt 'down'
     waitingOnConfirm = true
 
   held.push req
 
 makeRequest = ({xhr, url, type, user, password, body}) ->
-  console.log 'remaking', xhr
   xhr.abort()
   xhr.open(type, url, true, user, password)
   xhr.setRequestHeader(name, val) for name, val of xhr.headers
@@ -23,14 +21,12 @@ makeRequest = ({xhr, url, type, user, password, body}) ->
   xhr.send(body)
 
 clear = ->
-  console.log 'clearing'
   held = []
 
 flush = ->
   requests = {}
   # Dedup requests, favoring the later request
   # TODO: Throw out PUT/POST/DELETE requests after too much time?
-  console.log 'flush'
   for request in held
     # Break cache breaking
     url = request.url.replace /(\?|&)_=[0-9]+/, (match, char) ->
@@ -56,12 +52,10 @@ Offline.on 'down', ->
 Offline.onXHR (request) ->
   {xhr, async} = request
 
-  console.log 'on xhr', request
   hold = -> holdRequest request
 
   _send = xhr.send
   xhr.send = (body) ->
-    console.log 'sending', body
     request.body = body
 
     _send.apply xhr, arguments
