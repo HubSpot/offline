@@ -283,10 +283,18 @@
                 height: 4rem;
                 margin-left: -148rem;
                 position: relative;
-                left: 110%;
+                left: 200%;
+                -webkit-transition: left 1s .5s ease-in-out;
+                -moz-transition: left 1s .5s ease-in-out;
+                transition: left 1s .5s ease-in-out;
                 background: url("/offline/docs/welcome/images/ethernet-cable.png") no-repeat top left;
                 background-size: 148rem 4rem;
             }
+
+            .page-loaded .ethernet-cable {
+                left: 110%;
+            }
+
             @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
                 .ethernet-cable {
                     background-image: url("/offline/docs/welcome/images/ethernet-cable@2x.png");
@@ -295,9 +303,12 @@
 
             @media (max-width: 768px) {
                 .ethernet-cable {
-                    left: 80%;
                     margin-top: 2rem;
                     margin-bottom: 2rem;
+                }
+
+                .page-loaded .ethernet-cable {
+                    left: 80%;
                 }
             }
         </style>
