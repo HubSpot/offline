@@ -44,6 +44,8 @@ Options (any can be provided as a function), with their defaults:
   requests: true
 
   // Should we show a snake game while the connection is down to keep the user entertained?
+  // It's not included in the normal build, you should bring in js/snake.js in addition to
+  // offline.min.js.
   game: false
 }
 ```

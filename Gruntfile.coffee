@@ -26,7 +26,7 @@ module.exports = (grunt) ->
         banner: "/*! <%= pkg.name %> <%= pkg.version %> */\n"
 
       dist:
-        src: ['js/*']
+        src: ['js/*', '!js/snake.js']
         dest: 'offline.min.js'
 
     compass:
