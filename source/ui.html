@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>ui.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page">
+            
+              
+              <a class="source" href="offline.html">
+                offline.coffee
+              </a>
+            
+              
+              <a class="source" href="reconnect.html">
+                reconnect.coffee
+              </a>
+            
+              
+              <a class="source" href="requests.html">
+                requests.coffee
+              </a>
+            
+              
+              <a class="source" href="snake.html">
+                snake.coffee
+              </a>
+            
+              
+              <a class="source" href="ui.html">
+                ui.coffee
+              </a>
+            
+              
+              <a class="source" href="_keyframes.html">
+                _keyframes.sass
+              </a>
+            
+              
+              <a class="source" href="_mixins.html">
+                _mixins.sass
+              </a>
+            
+              
+              <a class="source" href="_offline-theme-base-indicator.html">
+                _offline-theme-base-indicator.sass
+              </a>
+            
+              
+              <a class="source" href="_offline-theme-base.html">
+                _offline-theme-base.sass
+              </a>
+            
+              
+              <a class="source" href="offline-theme-chrome-indicator.html">
+                offline-theme-chrome-indicator.sass
+              </a>
+            
+              
+              <a class="source" href="offline-theme-chrome.html">
+                offline-theme-chrome.sass
+              </a>
+            
+              
+              <a class="source" href="offline-theme-default-indicator.html">
+                offline-theme-default-indicator.sass
+              </a>
+            
+              
+              <a class="source" href="offline-theme-default.html">
+                offline-theme-default.sass
+              </a>
+            
+              
+              <a class="source" href="offline-theme-hubspot.html">
+                offline-theme-hubspot.sass
+              </a>
+            
+              
+              <a class="source" href="offline-theme-slide-indicator.html">
+                offline-theme-slide-indicator.sass
+              </a>
+            
+              
+              <a class="source" href="offline-theme-slide.html">
+                offline-theme-slide.sass
+              </a>
+            
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>ui.coffee</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="keyword">unless</span> window.Offline
+  <span class="keyword">throw</span> <span class="keyword">new</span> Error <span class="string">"Offline UI brought in without offline.js"</span>
+
+TEMPLATE = <span class="string">'&lt;div class="offline-ui"&gt;&lt;div class="offline-ui-content"&gt;&lt;/div&gt;&lt;/div&gt;'</span>
+RETRY_TEMPLATE = <span class="string">'&lt;a href class="offline-ui-retry"&gt;&lt;/a&gt;'</span>
+
+<span class="function"><span class="title">createFromHTML</span></span> = (html) -&gt;
+  el = document.createElement(<span class="string">'div'</span>)
+  el.innerHTML = html
+  el.children[<span class="number">0</span>]
+
+el = content = <span class="literal">null</span>
+<span class="function"><span class="title">addClass</span></span> = (name) -&gt;
+  removeClass name
+  el.className += <span class="string">" <span class="subst">#{ name }</span>"</span>
+
+<span class="function"><span class="title">removeClass</span></span> = (name) -&gt;
+  el.className = el.className.replace <span class="keyword">new</span> RegExp(<span class="string">"(^| )<span class="subst">#{ name.split(' ').join('|') }</span>( |$)"</span>, <span class="string">'gi'</span>), <span class="string">' '</span>
+
+flashTimeouts = {}
+<span class="function"><span class="title">flashClass</span></span> = (name, time) -&gt;
+  addClass name
+
+  <span class="keyword">if</span> flashTimeouts[name]?
+    clearTimeout flashTimeouts[name]
+
+  flashTimeouts[name] = setTimeout -&gt;
+    removeClass name
+    <span class="keyword">delete</span> flashTimeouts[name]
+  , time * <span class="number">1000</span>
+
+<span class="function"><span class="title">formatTime</span></span> = (sec) -&gt;
+  formatters =
+    <span class="string">'d'</span>: <span class="number">86400</span>
+    <span class="string">'h'</span>: <span class="number">3600</span>
+    <span class="string">'m'</span>: <span class="number">60</span>
+    <span class="string">'s'</span>: <span class="number">1</span>
+
+  out = <span class="string">''</span>
+  <span class="keyword">for</span> letter, mult <span class="keyword">of</span> formatters
+    <span class="keyword">if</span> sec &gt;= mult
+      out += <span class="string">"<span class="subst">#{ Math.floor(sec / mult) }</span><span class="subst">#{ letter }</span> "</span>
+      sec = sec % mult
+
+  out <span class="keyword">or</span>= <span class="string">'now'</span>
+  out.trim()
+
+<span class="keyword">do</span> <span class="function"><span class="title">render</span></span> = -&gt;
+  el = createFromHTML TEMPLATE
+  document.body.appendChild el
+
+  <span class="keyword">if</span> Offline.reconnect?
+    el.appendChild createFromHTML RETRY_TEMPLATE</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>TODO: IE8</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    el.querySelector(<span class="string">'.offline-ui-retry'</span>).addEventListener <span class="string">'click'</span>, (e) -&gt;
+      e.preventDefault()
+
+      Offline.reconnect.tryNow()
+    , <span class="literal">false</span>
+
+  addClass <span class="string">"offline-ui-<span class="subst">#{ Offline.state }</span>"</span>
+
+  content = el.querySelector(<span class="string">'.offline-ui-content'</span>)
+
+Offline.<span class="literal">on</span> <span class="string">'up'</span>, -&gt;
+  removeClass <span class="string">'offline-ui-down'</span>
+  addClass <span class="string">'offline-ui-up'</span>
+
+  flashClass <span class="string">'offline-ui-up-2s'</span>, <span class="number">2</span>
+  flashClass <span class="string">'offline-ui-up-5s'</span>, <span class="number">5</span>
+
+Offline.<span class="literal">on</span> <span class="string">'down'</span>, -&gt;
+  removeClass <span class="string">'offline-ui-up'</span>
+  addClass <span class="string">'offline-ui-down'</span>
+
+  flashClass <span class="string">'offline-ui-down-2s'</span>, <span class="number">2</span>
+  flashClass <span class="string">'offline-ui-down-5s'</span>, <span class="number">5</span>
+
+Offline.<span class="literal">on</span> <span class="string">'reconnect:connecting'</span>, -&gt;
+  addClass <span class="string">'offline-ui-connecting'</span>
+  removeClass <span class="string">'offline-ui-waiting'</span>
+
+Offline.<span class="literal">on</span> <span class="string">'reconnect:tick'</span>, -&gt;
+  addClass <span class="string">'offline-ui-waiting'</span>
+  removeClass <span class="string">'offline-ui-connecting'</span>
+
+  content.setAttribute <span class="string">'data-retry-in-seconds'</span>, Offline.reconnect.remaining
+  content.setAttribute <span class="string">'data-retry-in'</span>, formatTime(Offline.reconnect.remaining)
+
+Offline.<span class="literal">on</span> <span class="string">'reconnect:stopped'</span>, -&gt;
+  removeClass <span class="string">'offline-ui-connecting offline-ui-waiting'</span>
+
+  content.setAttribute <span class="string">'data-retry-in-seconds'</span>, <span class="literal">null</span>
+  content.setAttribute <span class="string">'data-retry-in'</span>, <span class="literal">null</span>
+
+Offline.<span class="literal">on</span> <span class="string">'reconnect:failure'</span>, -&gt;
+  flashClass <span class="string">'offline-ui-reconnect-failed-2s'</span>, <span class="number">2</span>
+  flashClass <span class="string">'offline-ui-reconnect-failed-5s'</span>, <span class="number">5</span>
+
+Offline.<span class="literal">on</span> <span class="string">'reconnect:success'</span>, -&gt;
+  flashClass <span class="string">'offline-ui-reconnect-succeeded-2s'</span>, <span class="number">2</span>
+  flashClass <span class="string">'offline-ui-reconnect-succeeded-5s'</span>, <span class="number">5</span></pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

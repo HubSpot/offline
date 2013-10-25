@@ -1,0 +1,106 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="chrome=1"><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"><title>offline</title><link rel="icon" href="http://static.hubspot.com/favicon.ico"><link rel="stylesheet" href="https://static2cdn.hubspot.com/hubspot_public_assets/static-1.112/shared/sass/hubspot_public_assets.css"><link rel="stylesheet" href="https://static.hubspot.com/bundles/navigation.css"><link rel="stylesheet" href="/static-resources/css/print.css"><link rel="stylesheet" href="/static-resources/css/highlight-theme-github.css"><link rel="stylesheet" href="/static-resources/css/navigation-tweaks.css"><link rel="stylesheet" href="/static-resources/css/documentation.css"><script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script><link rel="stylesheet" href="/offline//resources/executr/lib/CodeMirror/codemirror.css"><link rel="stylesheet" href="/offline//resources/executr/build/css/executr.css"><script src="/offline//resources/executr/lib/CodeMirror/codemirror.js"></script><script src="/offline//resources/executr/lib/CodeMirror/mode/coffeescript/coffeescript.js"></script><script src="/offline//resources/executr/lib/CodeMirror/mode/javascript/javascript.js"></script><script src="/offline//resources/executr/lib/coffee-script.js"></script><script src="/offline//resources/executr/lib/underscore.min.js"></script><script src="/offline//resources/executr/lib/js2coffee.min.js"></script><script src="/offline//resources/executr/build/js/executr.js"></script><script src="/offline//resources/executr/build/js/executr-run.js"></script><script src="//use.typekit.net/jbn8qxr.js"></script><script>try{Typekit.load();}catch(e){}
+</script></head><body><div id="hs-nav-v3" class="nav-width-flex signed-out-nav">
+    <div class="hs-nav-section main-nav">
+        <div class="nav-section-inner">
+            <ul class="nav-links-left">
+                <li class="first"><a class="nav-logo" href="http://www.hubspot.com/"><img height="34" src="https://static.hubspot.com/style-guide/img/nav-sprocket.png" width="29"></a></li>
+                <li>
+                    <a href="http://dev.hubspot.com">
+                        HubSpot Dev &amp; Design
+                    </a>
+                </li>
+                <li>
+                    <a href="http://hubspot.github.com">
+                        Open Source
+                    </a>
+                </li>
+            </ul>
+            <ul class="nav-links-right">
+                <li class="first">
+                    <a href="http://dev.hubspot.com/jobs/" class="sign-in">You should work at HubSpot</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="hs-doc-marquee"><div class="hs-page-width-normal"><div class="row-fluid"><div class="span6"><h1>offline</h1><h3 class="hs-doc-marquee-description"></h3><p class="hs-doc-marquee-release">0.4.0</p><p class="hs-doc-marquee-stars"><iframe src="http://ghbtns.com/github-btn.html?user=HubSpot&repo=offline&type=watch&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="240" height="30"></iframe></p></div><div class="span6"><div class="hs-doc-marquee-buttons"><a class="hs-doc-marquee-button" href="http://github.com/HubSpot/offline">Star on GitHub</a><a class="hs-doc-marquee-button" href="http://github.com/HubSpot/offline/archive/v0.4.0.zip">Download ZIP (v0.4.0)</a></div></div></div></div></div><div class="hs-page-width-normal"><div class="row-fluid"><div class="span3"><div class="hs-doc-sidenav"><nav><ul class="hs-public-sidenav"><li class="current-nav-item"><a href="">Home</a></li><li><b>Annotated source</b></li><li><a target="_blank" href="source/offline.html">coffee/offline.coffee</a></li><li><a target="_blank" href="source/reconnect.html">coffee/reconnect.coffee</a></li><li><a target="_blank" href="source/requests.html">coffee/requests.coffee</a></li><li><a target="_blank" href="source/snake.html">coffee/snake.coffee</a></li><li><a target="_blank" href="source/ui.html">coffee/ui.coffee</a></li></ul></nav></div></div><div class="span9"><div class="hs-doc-content"><h1>Offine</h1>
+<p>Improve the experience of your app when your users lose connection.</p>
+<ul>
+<li>Monitors ajax requests looking for failure</li>
+<li>Confirms the connection status by requesting an image or fake resource</li>
+<li>Automatically grabs ajax requests made while the connection is down and remakes them
+after the connection is restored.</li>
+<li>Simple UI with beautiful themes</li>
+</ul>
+<h2>Installing</h2>
+<p>Include the javascript and one of the themes on your site.  You&#39;re done!</p>
+<h2>Advanced</h2>
+<p>Optionally, you can provide some configuration by setting <code>Offline.options</code> after
+bringing in the script.</p>
+<p>Options (any can be provided as a function), with their defaults:</p>
+<pre><code class="lang-javascript">{
+  <span class="comment">// Should we check the connection status immediatly on page load.</span>
+  checkOnLoad: <span class="literal">false</span>,
+
+  <span class="comment">// Should we monitor AJAX requests to help decide if we have a connection.</span>
+  interceptRequests: <span class="literal">true</span>,
+
+  <span class="comment">// Should we automatically retest periodically when the connection is down (set to false to disable).</span>
+  reconnect: {
+    <span class="comment">// How many seconds should we wait before rechecking.</span>
+    initialDelay: <span class="number">3</span>,
+
+    <span class="comment">// How long should we wait between retries.</span>
+    delay: (<span class="number">1.5</span> * last delay, capped at <span class="number">1</span> hour)
+  },
+
+  <span class="comment">// Should we store and attempt to remake requests which fail while the connection is down.</span>
+  requests: <span class="literal">true</span>
+
+  <span class="comment">// Should we show a snake game while the connection is down to keep the user entertained?</span>
+  game: <span class="literal">false</span>
+}</code></pre>
+<h2>Properties</h2>
+<p><code>Offline.check()</code>: Check the current status of the connection.</p>
+<p><code>Offline.state</code>: The current state of the connection &#39;up&#39; or &#39;down&#39;</p>
+<p><code>Offline.on(event, handler, context)</code>: Bind an event.  Events:
+  - up: The connection has gone from down to up
+  - down: The connection has gone from up to down
+  - confirmed-up: A connection test has succeeded, fired even if the connection was already up
+  - confirmed-down: A connection test has failed, fired even if the connection was already down
+  - checking: We are testing the connection</p>
+<ul>
+<li>reconnect:started: We are beginning the reconnect process</li>
+<li>reconnect:stopped: We are done attempting to reconnect</li>
+<li>reconnect:tick: Fired every second during a reconnect attempt, when a check is not happening</li>
+<li>reconnect:connecting: We are reconnecting now</li>
+<li><p>reconnect:failure: A reconnect check attempt failed</p>
+</li>
+<li><p>requests:flush: Any pending requests have been remade</p>
+</li>
+<li>requests:hold: A new request is being held</li>
+</ul>
+<p><code>Offline.off(event, handler)</code>: Unbind an event</p>
+<h2>Reconnect</h2>
+<p>The reconnect module automatically retests the connection periodically when it is down.
+A successful AJAX request will also trigger a silent recheck (if <code>interceptRequests</code> is not false).</p>
+<p>You can disable the reconnect module by setting the <code>reconnect</code> to false.  Reconnect can be
+configured by setting options on the reconnect setting.</p>
+<h2>Requests</h2>
+<p>The requests module holds any failed AJAX requests and, after deduping them, remakes them when the connection
+is restored.</p>
+<p>You can disable it by setting the <code>requests</code> setting to false.</p>
+<h2>Dependencies</h2>
+<p>None!</p>
+<h2>Browser Support</h2>
+<p>Modern Chrome, Firefox, Safari and IE8+</p>
+</div></div></div></div><div class="hs3-public-footer"><div class="row-fluid hs-page-width-normal"><div class="span3 hidden-phone"><h3>HubSpot</h3><ul><li><a href="http://www.hubspot.com">Home</a></li><li><a href="http://www.hubspot.com/software">Products</a></li><li><a href="http://www.hubspot.com/internet-marketing-company/">About</a></li></ul></div><div class="span3"><h3>Projects</h3><ul><li><a href="http://github.hubspot.com/messenger">Messenger</a></li><li><a href="http://github.hubspot.com/facewall">Facewall</a></li><li><a href="http://github.hubspot.com/jquery-zoomer">jQuery Zoomer</a></li><li><a href="http://github.hubspot.com/humanize">Humanize</a></li><li><a href="http://github.hubspot.com/teeble">Teeble</a></li></ul></div><div class="span3"><h3>Development Team</h3><ul><li><a href="http://dev.hubspot.com">Home</a></li><li><a href="http://dev.hubspot.com/teams">Teams</a></li><li><a href="http://dev.hubspot.com/people">People</a></li><li><a href="http://dev.hubspot.com/jobs">Jobs</a></li></ul></div><div class="span3 hidden-phone"><h3>Developer API</h3><ul><li><a href="http://developers.hubspot.com/">Developer Documentation</a></li></ul></div></div></div><!-- Start of Async HubSpot Analytics Code -->
+<script type="text/javascript">
+    (function(d,s,i,r) {
+        if (d.getElementById(i)){return;}
+        var n=d.createElement(s),e=d.getElementsByTagName(s)[0];
+        n.id=i;n.src='//js.hubspot.com/analytics/'+(Math.ceil(new Date()/r)*r)+'/51294.js';
+        e.parentNode.insertBefore(n, e);
+    })(document,"script","hs-analytics",300000);
+</script>
+<!-- End of Async HubSpot Analytics Code --></body></html>
