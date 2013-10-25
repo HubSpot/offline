@@ -21,7 +21,22 @@
     <body>
         <style>
             .section.colored {
+                background: #61A0FF;
+                -webkit-transition: background 1s 1.5s ease-in-out;
+                -moz-transition: background 1s 1.5s ease-in-out;
+                transition: background 1s 1.5s ease-in-out;
+            }
+            .header .button {
+                color: #61A0FF;
+                -webkit-transition: color 1s 1.5s ease-in-out;
+                -moz-transition: color 1s 1.5s ease-in-out;
+                transition: color 1s 1.5s ease-in-out;
+            }
+            .page-loaded .section.colored {
                 background: #F66;
+            }
+            .page-loaded .header .button {
+                color: #F66;
             }
 
             a.download-src-link, .button {
@@ -124,7 +139,6 @@
             }
             .header .button {
                 background: #fff;
-                color: #f66;
             }
 
             .section {
