@@ -47,10 +47,10 @@
     .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-retry {
       display: block; }
     .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content:before {
-      content: "Attempting to reconnect in " attr(data-retry-in-seconds) " seconds... "; }
+      content: "Attempting to reconnect in " attr(data-retry-in) "... "; }
       @media (max-width: 568px) {
         .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content:before {
-          content: "Reconnecting in " attr(data-retry-in-seconds) "s... "; } }
+          content: "Connecting in " attr(data-retry-in-abbr) "... "; } }
     .offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s.offline-ui-waiting .offline-ui-retry {
       display: none; }
     .offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s .offline-ui-content:before {
