@@ -52,18 +52,22 @@ render = ->
   if Offline.reconnect?
     el.appendChild createFromHTML RETRY_TEMPLATE
 
-    # TODO: IE8
-    el.querySelector('.offline-ui-retry').addEventListener 'click', (e) ->
+    button = el.querySelector('.offline-ui-retry')
+    handler = (e) ->
       e.preventDefault()
 
       Offline.reconnect.tryNow()
-    , false
+
+    if button.addEventListener?
+      button.addEventListener 'click', handler, false
+    else
+      button.attachEvent 'click', handler
 
   addClass "offline-ui-#{ Offline.state }"
 
   content = el.querySelector('.offline-ui-content')
 
-document.addEventListener 'DOMContentLoaded', ->
+init = ->
   render()
 
   Offline.on 'up', ->
@@ -104,3 +108,15 @@ document.addEventListener 'DOMContentLoaded', ->
   Offline.on 'reconnect:success', ->
     flashClass 'offline-ui-reconnect-succeeded-2s', 2
     flashClass 'offline-ui-reconnect-succeeded-5s', 5
+
+if document.addEventListener?
+  document.addEventListener 'DOMContentLoaded', init, false
+else
+  # IE8
+
+  _onreadystatechange = document.onreadystatechange
+  document.onreadystatechange = ->
+    if document.readyState is 'complete'
+      init()
+
+    _onreadystatechange?(arguments...)

@@ -1,5 +1,5 @@
 (function() {
-  var RETRY_TEMPLATE, TEMPLATE, addClass, content, createFromHTML, el, flashClass, flashTimeouts, formatTime, removeClass, render;
+  var RETRY_TEMPLATE, TEMPLATE, addClass, content, createFromHTML, el, flashClass, flashTimeouts, formatTime, init, removeClass, render, _onreadystatechange;
 
   if (!window.Offline) {
     throw new Error("Offline UI brought in without offline.js");
@@ -61,20 +61,27 @@
   };
 
   render = function() {
+    var button, handler;
     el = createFromHTML(TEMPLATE);
     document.body.appendChild(el);
     if (Offline.reconnect != null) {
       el.appendChild(createFromHTML(RETRY_TEMPLATE));
-      el.querySelector('.offline-ui-retry').addEventListener('click', function(e) {
+      button = el.querySelector('.offline-ui-retry');
+      handler = function(e) {
         e.preventDefault();
         return Offline.reconnect.tryNow();
-      }, false);
+      };
+      if (button.addEventListener != null) {
+        button.addEventListener('click', handler, false);
+      } else {
+        button.attachEvent('click', handler);
+      }
     }
     addClass("offline-ui-" + Offline.state);
     return content = el.querySelector('.offline-ui-content');
   };
 
-  document.addEventListener('DOMContentLoaded', function() {
+  init = function() {
     render();
     Offline.on('up', function() {
       removeClass('offline-ui-down');
@@ -111,6 +118,18 @@
       flashClass('offline-ui-reconnect-succeeded-2s', 2);
       return flashClass('offline-ui-reconnect-succeeded-5s', 5);
     });
-  });
+  };
+
+  if (document.addEventListener != null) {
+    document.addEventListener('DOMContentLoaded', init, false);
+  } else {
+    _onreadystatechange = document.onreadystatechange;
+    document.onreadystatechange = function() {
+      if (document.readyState === 'complete') {
+        init();
+      }
+      return typeof _onreadystatechange === "function" ? _onreadystatechange.apply(null, arguments) : void 0;
+    };
+  }
 
 }).call(this);

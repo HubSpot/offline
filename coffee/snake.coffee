@@ -80,7 +80,7 @@ hide = ->
 
   document.removeChild canvas
 
-if Offline.getOption('game')
+if Offline.getOption('game') and document.addEventListener?
   Offline.on 'down', show
   Offline.on 'up', hide
   Offline.on 'reconnect:failure', ->
