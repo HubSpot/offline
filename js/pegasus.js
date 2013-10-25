@@ -10,6 +10,7 @@
   waitingOnConfirm = false;
 
   holdRequest = function(req) {
+    Offline.trigger('requests:capture');
     if (Offline.state !== 'down') {
       waitingOnConfirm = true;
     }
@@ -38,6 +39,7 @@
 
   flush = function() {
     var key, request, requests, url, _i, _len;
+    Offline.trigger('requests:flush');
     requests = {};
     for (_i = 0, _len = held.length; _i < _len; _i++) {
       request = held[_i];
@@ -57,52 +59,52 @@
     return clear();
   };
 
-  Offline.on('confirmed-up', function() {
-    if (waitingOnConfirm) {
-      waitingOnConfirm = false;
-      return clear();
-    }
-  });
-
-  Offline.on('up', flush);
-
-  Offline.on('down', function() {
-    return waitingOnConfirm = false;
-  });
-
-  Offline.onXHR(function(request) {
-    var async, hold, xhr, _onreadystatechange, _send;
-    xhr = request.xhr, async = request.async;
-    hold = function() {
-      return holdRequest(request);
-    };
-    _send = xhr.send;
-    xhr.send = function(body) {
-      request.body = body;
-      return _send.apply(xhr, arguments);
-    };
-    if (!async) {
-      return;
-    }
-    if (xhr.onprogress === null) {
-      xhr.addEventListener('error', hold, false);
-      return xhr.addEventListener('timeout', hold, false);
-    } else {
-      _onreadystatechange = xhr.onreadystatechange;
-      return xhr.onreadystatechange = function() {
-        if (xhr.readyState === 0) {
-          hold();
-        } else if (xhr.readyState === 4 && (xhr.status === 0 || xhr.status >= 12000)) {
-          hold();
+  setTimeout(function() {
+    if (Offline.getSetting('requests') !== false) {
+      Offline.on('confirmed-up', function() {
+        if (waitingOnConfirm) {
+          waitingOnConfirm = false;
+          return clear();
         }
-        return typeof _onreadystatechange === "function" ? _onreadystatechange.apply(null, arguments) : void 0;
+      });
+      Offline.on('up', flush);
+      Offline.on('down', function() {
+        return waitingOnConfirm = false;
+      });
+      Offline.onXHR(function(request) {
+        var async, hold, xhr, _onreadystatechange, _send;
+        xhr = request.xhr, async = request.async;
+        hold = function() {
+          return holdRequest(request);
+        };
+        _send = xhr.send;
+        xhr.send = function(body) {
+          request.body = body;
+          return _send.apply(xhr, arguments);
+        };
+        if (!async) {
+          return;
+        }
+        if (xhr.onprogress === null) {
+          xhr.addEventListener('error', hold, false);
+          return xhr.addEventListener('timeout', hold, false);
+        } else {
+          _onreadystatechange = xhr.onreadystatechange;
+          return xhr.onreadystatechange = function() {
+            if (xhr.readyState === 0) {
+              hold();
+            } else if (xhr.readyState === 4 && (xhr.status === 0 || xhr.status >= 12000)) {
+              hold();
+            }
+            return typeof _onreadystatechange === "function" ? _onreadystatechange.apply(null, arguments) : void 0;
+          };
+        }
+      });
+      return Offline.requests = {
+        flush: flush,
+        clear: clear
       };
     }
-  });
-
-  Offline.requests = {
-    flush: flush,
-    clear: clear
-  };
+  }, 0);
 
 }).call(this);

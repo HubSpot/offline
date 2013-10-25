@@ -1,21 +1,20 @@
 unless window.Offline
   throw new Error "Offline Reconnect brought in without offline.js"
 
-INITIAL_DELAY = 3
-
-rc = Offline.reconnect = {}
+rc = {}
 
 retryIntv = null
 
-do reset = ->
+reset = ->
   if rc.state?
     Offline.trigger 'reconnect:stopped'
 
   rc.state = 'inactive'
-  rc.remaining = rc.delay = INITIAL_DELAY
+  rc.remaining = rc.delay = Offline.getOption('reconnect.initialDelay') ? 3
 
 next = ->
-  rc.remaining = rc.delay = Math.min(Math.ceil(rc.delay * 1.5), 3600)
+  delay = Offline.getOption('reconnect.delay') ? Math.min(Math.ceil(rc.delay * 1.5), 3600)
+  rc.remaining = rc.delay = delay
 
 tick = ->
   return if rc.state is 'connecting'
@@ -49,8 +48,15 @@ nope = ->
     rc.state = 'waiting'
     next()
 
-Offline.on 'down', down
-Offline.on 'confirmed-down', nope
-Offline.on 'up', up
-
 rc.tryNow = tryNow
+
+setTimeout ->
+  unless Offline.getSetting('reconnect') is false
+    reset()
+
+    Offline.on 'down', down
+    Offline.on 'confirmed-down', nope
+    Offline.on 'up', up
+
+    Offline.reconnect = rc
+, 0
