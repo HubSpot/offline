@@ -74,6 +74,39 @@ Properties
 
 `Offline.off(event, handler)`: Unbind an event
 
+Checking
+--------
+
+Offline ships with two methods for checking the connection.  One makes a request for a tiny image hosted on a
+cloudfront account for the benevolence of all, the other makes an XHR request against the current domain,
+hoping to get back any sort of response (even a 404).
+
+You can change the url of the image to be one you control, if you like:
+
+```javascript
+Offline.options = {checks: {image: {url: 'my-image.gif'}}};
+```
+
+Loading an image was chosen (rather than a script file), because it limits the potential damage if a
+hostile party were to be in control of it.
+
+You can also switch to the XHR method:
+
+```javascript
+Offline.options = {checks: {active: 'xhr'}}
+```
+
+The XHR method is not enabled by default because of a concern that some sites do a significant amount of
+processing to build their 404 page, so it's not something we want to send unnecessarily.  It's also
+possible that the page would respond with a redirect to a different domain, creating a CORS problem.
+If you have control of the domain and can create an endpoint which just responds with a quick 204,
+that's the perfect solution.  You can set the endpoint in settings as well:
+
+```javascript
+Offline.options = {checks: {xhr: {url: '/health-check'}}};
+```
+
+
 Reconnect
 ---------
 
