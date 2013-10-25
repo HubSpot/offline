@@ -131,6 +131,8 @@ Offline.checks = {}
 Offline.checks.xhr = ->
   xhr = new XMLHttpRequest
 
+  xhr.offline = false
+  
   # It doesn't matter what this hits, even a 404 is considered up.  It is important however that
   # it's on the same domain and port, so CORS issues don't come into play.
   xhr.open('GET', Offline.getOption('checks.xhr.url'), true)
@@ -201,7 +203,8 @@ Offline.onXHR = (cb) ->
 init = ->
   if Offline.getOption 'interceptRequests'
     Offline.onXHR ({xhr}) ->
-      checkXHR xhr, Offline.confirmUp, Offline.confirmDown
+      unless xhr.offline is false
+        checkXHR xhr, Offline.confirmUp, Offline.confirmDown
 
   if Offline.getOption 'checkOnLoad'
     Offline.check()

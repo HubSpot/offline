@@ -58,6 +58,8 @@ setTimeout ->
     Offline.onXHR (request) ->
       {xhr, async} = request
 
+      return if xhr.offline is false
+
       hold = -> holdRequest request
 
       _send = xhr.send
