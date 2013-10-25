@@ -1,0 +1,26 @@
+@import compass/css3
+
+.offline-ui, .offline-ui *, .offline-ui:before, .offline-ui:after, .offline-ui *:before, .offline-ui *:after
+    +box-sizing(border-box)
+
+.offline-ui
+    display: none
+    position: fixed
+    background: #fff
+    z-index: 800
+    display: inline-block
+
+    .offline-ui-retry
+        display: none
+
+    &.offline-ui-up
+        display: block
+
+        .offline-ui-content:before
+            content: "Online"
+
+    &.offline-ui-down
+        display: block
+
+        .offline-ui-content:before
+            content: "Offline"
