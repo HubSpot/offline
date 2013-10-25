@@ -42,19 +42,41 @@ $(function(){
         doc.open();
         doc.write('' +
             '<link rel="stylesheet" href="/offline/themes/offline-theme-' + themeName + '.css" />' +
-            '<div class="offline-ui offline-ui-down"><div class="offline-ui-content"></div><a href class="offline-ui-retry"></a></div>' +
+            '<div data-phase="0" class="offline-ui offline-ui-down"><div class="offline-ui-content"></div><a class="offline-ui-retry"></a></div>' +
         '');
         doc.close();
     });
 
-    setInterval(function(){
+    var phases = [
+        [5, 'offline-ui offline-ui-down', 0],
+        [1, 'offline-ui offline-ui-down offline-ui-connecting offline-ui-waiting', 5],
+        [1, 'offline-ui offline-ui-down offline-ui-connecting offline-ui-waiting', 4],
+        [1, 'offline-ui offline-ui-down offline-ui-connecting offline-ui-waiting', 3],
+        [1, 'offline-ui offline-ui-down offline-ui-connecting offline-ui-waiting', 2],
+        [1, 'offline-ui offline-ui-down offline-ui-connecting offline-ui-waiting', 1],
+        [1, 'offline-ui offline-ui-up offline-ui-up-5s', 1]
+    ];
+
+    var nextPhase = function() {
+        var phase;
+
         $('.browser iframe').each(function(){
-            var $offline = $(this).contents().find('.offline-ui');
-            if ($offline.hasClass('offline-ui-down')) {
-                $offline.removeClass('offline-ui-down').addClass('offline-ui-up offline-ui-up-2s offline-ui-up-5s');
-            } else {
-                $offline.removeClass('offline-ui-up offline-ui-up-2s offline-ui-up-5s').addClass('offline-ui-down');
-            }
+            var $offline = $(this).contents().find('.offline-ui'),
+                $content = $offline.find('.offline-ui-content');
+
+            phase = parseInt($offline.attr('data-phase'), 0);
+
+            $offline.get(0).className = phases[phase][1];
+            $content.attr('data-retry-in-seconds', phases[phase][2]);
+
+            phase = (phase + 1) % phases.length;
+            $offline.attr('data-phase', phase);
         });
-    }, 5000);
+
+        setTimeout(function(){
+            nextPhase();
+        }, phases[phase][0] * 1000);
+    };
+
+    nextPhase();
 });
