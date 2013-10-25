@@ -62,13 +62,11 @@ Properties
   - confirmed-up: A connection test has succeeded, fired even if the connection was already up
   - confirmed-down: A connection test has failed, fired even if the connection was already down
   - checking: We are testing the connection
-
   - reconnect:started: We are beginning the reconnect process
   - reconnect:stopped: We are done attempting to reconnect
   - reconnect:tick: Fired every second during a reconnect attempt, when a check is not happening
   - reconnect:connecting: We are reconnecting now
   - reconnect:failure: A reconnect check attempt failed
-
   - requests:flush: Any pending requests have been remade
   - requests:hold: A new request is being held
 
