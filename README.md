@@ -55,6 +55,7 @@ Properties
 `Offline.state`: The current state of the connection 'up' or 'down'
 
 `Offline.on(event, handler, context)`: Bind an event.  Events:
+
   - up: The connection has gone from down to up
   - down: The connection has gone from up to down
   - confirmed-up: A connection test has succeeded, fired even if the connection was already up
