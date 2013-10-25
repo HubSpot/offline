@@ -8,6 +8,7 @@ Improve the experience of your app when your users lose connection.
 - Automatically grabs ajax requests made while the connection is down and remakes them
   after the connection is restored.
 - Simple UI with beautiful themes
+- 3kb minified and compressed
 
 Installing
 ----------
