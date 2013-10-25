@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js ie6 ie9-and-less ie8-and-less ie7-and-less" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 ie9-and-less ie8-and-less ie7-and-less" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 ie9-and-less ie8-and-less" lang="en"> <![endif]-->
+<!--[if IE 9]>    <html class="no-js ie9 ie9-and-less" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <title>Offline.js – Let your users know the status of their connectivity</title>
+        <meta name="description" content="Offline.js is a Javascript and CSS library to automatically alert your users when they've lost internet connectivity. It has a number of beautiful themes and exposes a cross-browser javascript API and normalized events for easy customization.">
+        <link rel="icon" href="http://static.hubspot.com/favicon.ico">
+        <script type="text/javascript" src="//use.typekit.net/jbn8qxr.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+        <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        <script src="/offline/offline.min.js"></script>
+        <link rel="stylesheet" href="/offline/themes/offline-theme-default.css" />
+    </head>
+    <body>
+        <style>
+            .section.colored {
+                background: #F66;
+            }
+
+            a.download-src-link, .button {
+                background: #444;
+            }
+
+            a, a:hover, a:active, .header .title .title2:before {
+                color: #F66;
+            }
+        </style>
+        <style>
+            html, body {
+                margin: 0;
+                height: 100%;
+                color: #444;
+            }
+
+            a, a:hover, a:active {
+                text-decoration: none
+            }
+
+            body {
+                font-family: "proxima-nova", "Helvetica Neue", sans-serif;
+            }
+
+            html .offline-ui {
+                font-size: 16px;
+            }
+
+            @media (min-width: 1700px) { html { font-size: 188%; } }
+            @media (max-width: 1700px) { html { font-size: 188%; } }
+            @media (max-width: 1680px) { html { font-size: 186%; } }
+            @media (max-width: 1660px) { html { font-size: 184%; } }
+            @media (max-width: 1640px) { html { font-size: 182%; } }
+            @media (max-width: 1620px) { html { font-size: 180%; } }
+            @media (max-width: 1600px) { html { font-size: 178%; } }
+            @media (max-width: 1580px) { html { font-size: 176%; } }
+            @media (max-width: 1560px) { html { font-size: 174%; } }
+            @media (max-width: 1540px) { html { font-size: 172%; } }
+            @media (max-width: 1520px) { html { font-size: 170%; } }
+            @media (max-width: 1500px) { html { font-size: 168%; } }
+            @media (max-width: 1480px) { html { font-size: 166%; } }
+            @media (max-width: 1460px) { html { font-size: 164%; } }
+            @media (max-width: 1440px) { html { font-size: 162%; } }
+            @media (max-width: 1420px) { html { font-size: 160%; } }
+            @media (max-width: 1400px) { html { font-size: 158%; } }
+            @media (max-width: 1380px) { html { font-size: 156%; } }
+            @media (max-width: 1360px) { html { font-size: 154%; } }
+            @media (max-width: 1340px) { html { font-size: 152%; } }
+            @media (max-width: 1320px) { html { font-size: 150%; } }
+            @media (max-width: 1300px) { html { font-size: 148%; } }
+            @media (max-width: 1280px) { html { font-size: 146%; } }
+            @media (max-width: 1260px) { html { font-size: 144%; } }
+            @media (max-width: 1240px) { html { font-size: 142%; } }
+            @media (max-width: 1220px) { html { font-size: 140%; } }
+            @media (max-width: 1200px) { html { font-size: 138%; } }
+            @media (max-width: 1180px) { html { font-size: 136%; } }
+            @media (max-width: 1160px) { html { font-size: 134%; } }
+            @media (max-width: 1140px) { html { font-size: 132%; } }
+            @media (max-width: 1120px) { html { font-size: 130%; } }
+            @media (max-width: 1100px) { html { font-size: 128%; } }
+            @media (max-width: 1080px) { html { font-size: 126%; } }
+            @media (max-width: 1060px) { html { font-size: 124%; } }
+            @media (max-width: 1040px) { html { font-size: 122%; } }
+            @media (max-width: 1020px) { html { font-size: 120%; } }
+
+            .page {
+                position: relative;
+            }
+
+            .section.colored .page {
+                height: 100%;
+            }
+
+            .header {
+                color: #fff;
+                height: 10rem;
+                max-width: 100%;
+                position: absolute;
+                margin: auto;
+                top: 0;
+                bottom: 0;
+                left: 2rem;
+                right: 2rem;
+            }
+            .header h1 {
+                font-size: 2rem;
+                font-weight: 800;
+                margin: 0;
+            }
+            .header h3 {
+                font-size: 1.5rem;
+                font-weight: 800;
+                margin: 0;
+            }
+
+            .section {
+                position: relative;
+                height: 100%;
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+            }
+
+            .section.colored {
+                color: #fff;
+            }
+
+            .section.colored .page {
+                text-align: left;
+            }
+
+            .up-arrow, .down-arrow {
+                width: 100%;
+                text-align: center;
+                font-size: 2rem;
+            }
+
+            .down-arrow {
+                position: absolute;
+                left: 0;
+                -webkit-transform: rotate(180deg);
+                -moz-transform: rotate(180deg);
+                -ms-transform: rotate(180deg);
+                -o-transform: rotate(180deg);
+                transform: rotate(180deg);
+                bottom: 30px;
+            }
+
+            .section.colored .down-arrow {
+                color: rgba(255, 255, 255, .5);
+            }
+
+
+            h2 {
+                text-align: center;
+            }
+            .themes {
+                text-align: center;
+            }
+            .browser {
+                background: #e0e0e0;
+                border: 4px solid #e0e0e0;
+                width: 100%;
+                height: 7rem;
+                padding-top: 20px;
+                margin: 0 0 10px;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+            }
+            .browser iframe {
+                border: 0;
+                background: #fff;
+                height: 100%;
+                width: 100%;
+            }
+            input[type="color"] {
+                width: 15rem;
+                height: 2.3rem;
+                font-size: 1rem;
+                position: relative;
+                font-family: inherit;
+                cursor: pointer;
+            }
+            input[type="color"]::before {
+                content: " ";
+                display: block;
+                position: absolute;
+                top: 0;
+                left: 3px;
+                right: 3px;
+                height: 100%;
+                border: 6px solid #fff;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+            }
+            input[type="color"]::after {
+                content: "Choose a color";
+                display: block;
+                text-align: center;
+                position: absolute;
+                top: 0;
+                left: -2px;
+                right: -2px;
+                height: 100%;
+                font-size: .7rem;
+                line-height: 2rem;
+                color: #fcfcfc;
+                color: rgba(255, 255, 255, 1);
+                font-weight: 800;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                border: 6px solid #fff;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+            }
+            input[type="color"]:active::after {
+                color: rgba(255, 255, 255, 0.4);
+            }
+
+            .themes h3 {
+                margin-top: 1.5em;
+                margin-bottom: 0;
+            }
+
+            .themes h3 + p {
+                margin-top: 0;
+            }
+
+            .page {
+                text-align: center;
+                max-width: 32rem;
+                padding: 0 10px;
+                margin: 0 auto;
+            }
+
+            .themes a, .themes a:hover, .themes a:active {
+                text-decoration: none;
+                font-size: .7rem;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+            }
+
+            a.button {
+                padding: 0.5rem 1rem;
+                color: #fff;
+                cursor: pointer;
+                font-size: 1rem;
+                text-transform: uppercase;
+                letter-spacing: .1em;
+                text-decoration: none;
+            }
+            .themes-pitch {
+                padding: 15px;
+            }
+            .block {
+                padding: 10px 0;
+            }
+            .color-label {
+                display: none;
+            }
+
+            .ethernet-cable {
+                width: 148rem;
+                height: 4rem;
+                margin-left: -148rem;
+                position: relative;
+                left: 110%;
+                background: url("/offline/docs/welcome/images/ethernet-cable.png") no-repeat top left;
+                background-size: 148rem 4rem;
+            }
+            @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+                .ethernet-cable {
+                    background-image: url("/offline/docs/welcome/images/ethernet-cable@2x.png");
+                }
+            }
+
+            @media (max-width: 768px) {
+                .ethernet-cable {
+                    left: 80%;
+                    margin-top: 2rem;
+                }
+            }
+        </style>
+
+        <div class="section colored">
+            <div class="page">
+                <div class="header">
+                    <h1>Offline.js</h1>
+                    <h3>Your users deserve to know.</h3>
+                    <div class="ethernet-cable"></div>
+                </div>
+            </div>
+            <div class="down-arrow">⇪</div>
+        </div>
+
+        <div class="section">
+            <div class="page">
+                <h2>What is Offline.js?</h2>
+                <p style="text-align: left">Offline.js is a Javascript and CSS library to automatically alert your users when they've lost internet connectivity.</p>
+                <p style="text-align: left">It has a number of beautiful themes and exposes a cross-browser javascript API and normalized events for easy customization.</p>
+                <br/>
+                <h2>Download</h2>
+                <p><a class="button" href="https://github.com/HubSpot/offline/blob/master/offline.min.js">Offline.js</a></p>
+                <br/>
+                <h2>Full Themes</h2>
+                <div class="themes full-themes"></div>
+                <h2>Online/Offline Themes</h2>
+                <div class="themes indicator-themes"></div>
+                <p class="block">Submit a theme! <a href="https://github.com/HubSpot/offline">Fork us on GitHub</a></p>
+                <p class="block"><a class="button" href="http://github.hubspot.com/offline/">Documentation</a></p>
+                <br/>
+                <p style="font-size: 0.6rem"><a href="http://dev.hubspot.com">HubSpot</a></p>
+                <br/>
+                <br/>
+                <script src="app.js"></script>
+            </div>
+        </div>
+
+        <script>document.body.className = 'page-loaded';</script>
+
+        <!-- Share -->
+
+        <style>
+            #retweet_button {
+                position: fixed;
+                bottom: 30px;
+                left: 30px;
+                width: 100px;
+                -webkit-filter: grayscale(1) contrast(1.3);
+                z-index: 3;
+            }
+            #retweet_button:hover {
+                -webkit-filter: none;
+            }
+            #github_stars {
+                position: fixed;
+                bottom: 30px;
+                left: 130px;
+                width: 100px;
+                -webkit-filter: grayscale(1) contrast(1.3);
+                z-index: 3;
+            }
+            #github_stars:hover {
+                -webkit-filter: none;
+            }
+            .hn-share-button-wrapper {
+                position: fixed;
+                bottom: 29px;
+                left: 227px;
+                -webkit-filter: grayscale(1) contrast(1.3);
+                z-index: 3;
+            }
+            .hn-share-button-wrapper:hover {
+                -webkit-filter: none;
+            }
+        </style>
+        <div id="retweet_button">
+            <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://github.hubspot.com/offline/docs/welcome" data-text="Offline.js - Automatically alert your users when they've lost their internet connection." data-count="horizontal" data-via="HubSpotDev">Tweet</a>
+            <script>
+              if (Math.random() >= 0.5)
+                var recommends = ['hubspotdev', 'zackbloom', 'adamfschwartz'];
+              else
+                var recommends = ['hubspotdev', 'adamfschwartz', 'zackbloom'];
+
+              var $button = $('.twitter-share-button');
+              if ($button.length)
+                $button.data('related', recommends.join(','));
+            </script>
+            <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+        </div>
+        <div id="github_stars">
+            <iframe src="http://ghbtns.com/github-btn.html?user=HubSpot&amp;repo=offline&amp;type=watch&amp;count=true&amp;size=small" allowtransparency="true" frameborder="0" scrolling="0" width="200" height="20"></iframe>
+        </div>
+
+        <!-- Start of Async HubSpot Analytics Code -->
+        <script type="text/javascript">
+            (function(d,s,i,r) {
+                if (d.getElementById(i)){return;}
+                var n=d.createElement(s),e=d.getElementsByTagName(s)[0];
+                n.id=i;n.src='//js.hubspot.com/analytics/'+(Math.ceil(new Date()/r)*r)+'/51294.js';
+                e.parentNode.insertBefore(n, e);
+            })(document,"script","hs-analytics",300000);
+        </script>
+        <!-- End of Async HubSpot Analytics Code -->
+
+        <!-- Force 3d acceleration always and forever :) -->
+        <div style="-webkit-transform: translateZ(0)"></div>
+    </body>
+</html>
