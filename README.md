@@ -13,7 +13,7 @@ Improve the experience of your app when your users lose connection.
 Installing
 ----------
 
-Include [the javascript](https://raw.github.com/HubSpot/offline/v0.4.2/offline.min.js) and one of [the themes](http://github.hubspot.com/offline/docs/welcome/) on your site.  You're done!
+Include [the javascript](https://raw.github.com/HubSpot/offline/v0.4.3/offline.min.js) and one of [the themes](http://github.hubspot.com/offline/docs/welcome/) on your site.  You're done!
 
 Advanced
 --------
