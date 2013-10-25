@@ -149,7 +149,6 @@
             content: "Reconnect"
 
     &.offline-ui-up
-        display: block
 
         .offline-ui-content:before
             content: "Your computer is connected to the internet. "
@@ -159,6 +158,9 @@
 
             @media (max-width: 568px)
                 content: "Your device is connected. "
+
+        &.offline-ui-up-5s
+            display: block
 
     &.offline-ui-down
         display: block

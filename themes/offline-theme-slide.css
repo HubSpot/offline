@@ -22,16 +22,16 @@
     .offline-ui .offline-ui-retry:before {
       display: inline;
       content: "Reconnect"; }
-  .offline-ui.offline-ui-up {
+  .offline-ui.offline-ui-up .offline-ui-content:before {
+    content: "Your computer is connected to the internet. "; }
+    @media (max-width: 1024px) {
+      .offline-ui.offline-ui-up .offline-ui-content:before {
+        content: "Your device is connected to the internet. "; } }
+    @media (max-width: 568px) {
+      .offline-ui.offline-ui-up .offline-ui-content:before {
+        content: "Your device is connected. "; } }
+  .offline-ui.offline-ui-up.offline-ui-up-5s {
     display: block; }
-    .offline-ui.offline-ui-up .offline-ui-content:before {
-      content: "Your computer is connected to the internet. "; }
-      @media (max-width: 1024px) {
-        .offline-ui.offline-ui-up .offline-ui-content:before {
-          content: "Your device is connected to the internet. "; } }
-      @media (max-width: 568px) {
-        .offline-ui.offline-ui-up .offline-ui-content:before {
-          content: "Your device is connected. "; } }
   .offline-ui.offline-ui-down {
     display: block; }
     .offline-ui.offline-ui-down .offline-ui-content:before {

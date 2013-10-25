@@ -203,7 +203,7 @@
 
   document.removeChild canvas
 
-<span class="keyword">if</span> Offline.getOption(<span class="string">'game'</span>)
+<span class="keyword">if</span> Offline.getOption(<span class="string">'game'</span>) <span class="keyword">and</span> document.addEventListener?
   Offline.<span class="literal">on</span> <span class="string">'down'</span>, show
   Offline.<span class="literal">on</span> <span class="string">'up'</span>, hide
   Offline.<span class="literal">on</span> <span class="string">'reconnect:failure'</span>, -&gt;

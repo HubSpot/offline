@@ -168,12 +168,73 @@ flashTimeouts = {}
   out <span class="keyword">or</span>= <span class="string">'now'</span>
   out.trim()
 
-<span class="keyword">do</span> <span class="function"><span class="title">render</span></span> = -&gt;
+<span class="function"><span class="title">render</span></span> = -&gt;
   el = createFromHTML TEMPLATE
   document.body.appendChild el
 
   <span class="keyword">if</span> Offline.reconnect?
-    el.appendChild createFromHTML RETRY_TEMPLATE</pre></div></div>
+    el.appendChild createFromHTML RETRY_TEMPLATE
+
+    button = el.querySelector(<span class="string">'.offline-ui-retry'</span>)
+    <span class="function"><span class="title">handler</span></span> = (e) -&gt;
+      e.preventDefault()
+
+      Offline.reconnect.tryNow()
+
+    <span class="keyword">if</span> button.addEventListener?
+      button.addEventListener <span class="string">'click'</span>, handler, <span class="literal">false</span>
+    <span class="keyword">else</span>
+      button.attachEvent <span class="string">'click'</span>, handler
+
+  addClass <span class="string">"offline-ui-<span class="subst">#{ Offline.state }</span>"</span>
+
+  content = el.querySelector(<span class="string">'.offline-ui-content'</span>)
+
+<span class="function"><span class="title">init</span></span> = -&gt;
+  render()
+
+  Offline.<span class="literal">on</span> <span class="string">'up'</span>, -&gt;
+    removeClass <span class="string">'offline-ui-down'</span>
+    addClass <span class="string">'offline-ui-up'</span>
+
+    flashClass <span class="string">'offline-ui-up-2s'</span>, <span class="number">2</span>
+    flashClass <span class="string">'offline-ui-up-5s'</span>, <span class="number">5</span>
+
+  Offline.<span class="literal">on</span> <span class="string">'down'</span>, -&gt;
+    removeClass <span class="string">'offline-ui-up'</span>
+    addClass <span class="string">'offline-ui-down'</span>
+
+    flashClass <span class="string">'offline-ui-down-2s'</span>, <span class="number">2</span>
+    flashClass <span class="string">'offline-ui-down-5s'</span>, <span class="number">5</span>
+
+  Offline.<span class="literal">on</span> <span class="string">'reconnect:connecting'</span>, -&gt;
+    addClass <span class="string">'offline-ui-connecting'</span>
+    removeClass <span class="string">'offline-ui-waiting'</span>
+
+  Offline.<span class="literal">on</span> <span class="string">'reconnect:tick'</span>, -&gt;
+    addClass <span class="string">'offline-ui-waiting'</span>
+    removeClass <span class="string">'offline-ui-connecting'</span>
+
+    content.setAttribute <span class="string">'data-retry-in-seconds'</span>, Offline.reconnect.remaining
+    content.setAttribute <span class="string">'data-retry-in'</span>, formatTime(Offline.reconnect.remaining)
+
+  Offline.<span class="literal">on</span> <span class="string">'reconnect:stopped'</span>, -&gt;
+    removeClass <span class="string">'offline-ui-connecting offline-ui-waiting'</span>
+
+    content.setAttribute <span class="string">'data-retry-in-seconds'</span>, <span class="literal">null</span>
+    content.setAttribute <span class="string">'data-retry-in'</span>, <span class="literal">null</span>
+
+  Offline.<span class="literal">on</span> <span class="string">'reconnect:failure'</span>, -&gt;
+    flashClass <span class="string">'offline-ui-reconnect-failed-2s'</span>, <span class="number">2</span>
+    flashClass <span class="string">'offline-ui-reconnect-failed-5s'</span>, <span class="number">5</span>
+
+  Offline.<span class="literal">on</span> <span class="string">'reconnect:success'</span>, -&gt;
+    flashClass <span class="string">'offline-ui-reconnect-succeeded-2s'</span>, <span class="number">2</span>
+    flashClass <span class="string">'offline-ui-reconnect-succeeded-5s'</span>, <span class="number">5</span>
+
+<span class="keyword">if</span> document.addEventListener?
+  document.addEventListener <span class="string">'DOMContentLoaded'</span>, init, <span class="literal">false</span>
+<span class="keyword">else</span></pre></div></div>
             
         </li>
         
@@ -184,58 +245,16 @@ flashTimeouts = {}
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-2">&#182;</a>
               </div>
-              <p>TODO: IE8</p>
+              <p>IE8</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>    el.querySelector(<span class="string">'.offline-ui-retry'</span>).addEventListener <span class="string">'click'</span>, (e) -&gt;
-      e.preventDefault()
+            <div class="content"><div class='highlight'><pre>  _onreadystatechange = document.onreadystatechange
+  document.<span class="function"><span class="title">onreadystatechange</span></span> = -&gt;
+    <span class="keyword">if</span> document.readyState <span class="keyword">is</span> <span class="string">'complete'</span>
+      init()
 
-      Offline.reconnect.tryNow()
-    , <span class="literal">false</span>
-
-  addClass <span class="string">"offline-ui-<span class="subst">#{ Offline.state }</span>"</span>
-
-  content = el.querySelector(<span class="string">'.offline-ui-content'</span>)
-
-Offline.<span class="literal">on</span> <span class="string">'up'</span>, -&gt;
-  removeClass <span class="string">'offline-ui-down'</span>
-  addClass <span class="string">'offline-ui-up'</span>
-
-  flashClass <span class="string">'offline-ui-up-2s'</span>, <span class="number">2</span>
-  flashClass <span class="string">'offline-ui-up-5s'</span>, <span class="number">5</span>
-
-Offline.<span class="literal">on</span> <span class="string">'down'</span>, -&gt;
-  removeClass <span class="string">'offline-ui-up'</span>
-  addClass <span class="string">'offline-ui-down'</span>
-
-  flashClass <span class="string">'offline-ui-down-2s'</span>, <span class="number">2</span>
-  flashClass <span class="string">'offline-ui-down-5s'</span>, <span class="number">5</span>
-
-Offline.<span class="literal">on</span> <span class="string">'reconnect:connecting'</span>, -&gt;
-  addClass <span class="string">'offline-ui-connecting'</span>
-  removeClass <span class="string">'offline-ui-waiting'</span>
-
-Offline.<span class="literal">on</span> <span class="string">'reconnect:tick'</span>, -&gt;
-  addClass <span class="string">'offline-ui-waiting'</span>
-  removeClass <span class="string">'offline-ui-connecting'</span>
-
-  content.setAttribute <span class="string">'data-retry-in-seconds'</span>, Offline.reconnect.remaining
-  content.setAttribute <span class="string">'data-retry-in'</span>, formatTime(Offline.reconnect.remaining)
-
-Offline.<span class="literal">on</span> <span class="string">'reconnect:stopped'</span>, -&gt;
-  removeClass <span class="string">'offline-ui-connecting offline-ui-waiting'</span>
-
-  content.setAttribute <span class="string">'data-retry-in-seconds'</span>, <span class="literal">null</span>
-  content.setAttribute <span class="string">'data-retry-in'</span>, <span class="literal">null</span>
-
-Offline.<span class="literal">on</span> <span class="string">'reconnect:failure'</span>, -&gt;
-  flashClass <span class="string">'offline-ui-reconnect-failed-2s'</span>, <span class="number">2</span>
-  flashClass <span class="string">'offline-ui-reconnect-failed-5s'</span>, <span class="number">5</span>
-
-Offline.<span class="literal">on</span> <span class="string">'reconnect:success'</span>, -&gt;
-  flashClass <span class="string">'offline-ui-reconnect-succeeded-2s'</span>, <span class="number">2</span>
-  flashClass <span class="string">'offline-ui-reconnect-succeeded-5s'</span>, <span class="number">5</span></pre></div></div>
+    _onreadystatechange?(arguments...)</pre></div></div>
             
         </li>
         
