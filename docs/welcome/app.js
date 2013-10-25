@@ -64,7 +64,7 @@ $(function(){
             var $offline = $(this).contents().find('.offline-ui'),
                 $content = $offline.find('.offline-ui-content');
 
-            phase = parseInt($offline.attr('data-phase'), 0);
+            phase = parseInt($offline.attr('data-phase'), 10);
 
             $offline.get(0).className = phases[phase][1];
             $content.attr('data-retry-in-seconds', phases[phase][2]);
