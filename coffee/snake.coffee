@@ -2,7 +2,7 @@ canvas = dot = score = speed = stop = snake = randDot = fill = null
 
 render = ->
   canvas = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-  canvas.setAttribute 'style', 'width: 100%; height: 100%; margin: -8px;'
+  canvas.setAttribute 'style', 'width: 100%; height: 100%; margin: -8px; position: absolute; top: 0; left: 0; z-index: 1000'
   canvas.setAttribute 'viewBox', '0 0 1000 1000'
   document.body.appendChild canvas
 
