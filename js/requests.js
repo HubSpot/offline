@@ -60,7 +60,7 @@
   };
 
   setTimeout(function() {
-    if (Offline.getSetting('requests') !== false) {
+    if (Offline.getOption('requests') !== false) {
       Offline.on('confirmed-up', function() {
         if (waitingOnConfirm) {
           waitingOnConfirm = false;

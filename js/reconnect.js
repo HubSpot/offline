@@ -66,7 +66,7 @@
   rc.tryNow = tryNow;
 
   setTimeout(function() {
-    if (Offline.getSetting('reconnect') !== false) {
+    if (Offline.getOption('reconnect') !== false) {
       reset();
       Offline.on('down', down);
       Offline.on('confirmed-down', nope);

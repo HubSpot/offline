@@ -44,7 +44,7 @@ flush = ->
   clear()
 
 setTimeout ->
-  unless Offline.getSetting('requests') is false
+  unless Offline.getOption('requests') is false
     Offline.on 'confirmed-up', ->
       if waitingOnConfirm
         waitingOnConfirm = false
