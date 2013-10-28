@@ -50,12 +50,12 @@ Offline.getOption = (key) ->
 # These events are available in modern browsers, but they mean different things.
 # In FF and IE they mean the user has explicitly entered "Offline Mode"
 # In Chrome they mean that the internet connection was lost or restored
-window.addEventListener? 'online', ->
+document.addEventListener? 'online', ->
   # The event fires slightly before the browser is ready to make a request
   setTimeout Offline.confirmUp, 100
 , false
 
-window.addEventListener? 'offline', ->
+document.addEventListener? 'offline', ->
   Offline.confirmDown()
 , false
 

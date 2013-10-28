@@ -67,14 +67,14 @@
     }
   };
 
-  if (typeof window.addEventListener === "function") {
-    window.addEventListener('online', function() {
+  if (typeof document.addEventListener === "function") {
+    document.addEventListener('online', function() {
       return setTimeout(Offline.confirmUp, 100);
     }, false);
   }
 
-  if (typeof window.addEventListener === "function") {
-    window.addEventListener('offline', function() {
+  if (typeof document.addEventListener === "function") {
+    document.addEventListener('offline', function() {
       return Offline.confirmDown();
     }, false);
   }
