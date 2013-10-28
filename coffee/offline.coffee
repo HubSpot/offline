@@ -135,11 +135,15 @@ Offline.checks.xhr = ->
   
   # It doesn't matter what this hits, even a 404 is considered up.  It is important however that
   # it's on the same domain and port, so CORS issues don't come into play.
-  xhr.open('GET', Offline.getOption('checks.xhr.url'), true)
+  xhr.open('HEAD', Offline.getOption('checks.xhr.url'), true)
 
   checkXHR xhr, Offline.markUp, Offline.markDown
 
-  xhr.send()
+  try
+    xhr.send()
+  catch e
+    # Catch NETWORK_ERRORS
+    Offline.markDown()
 
   xhr
 
