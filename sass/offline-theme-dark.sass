@@ -1,0 +1,89 @@
+@import compass/css3
+
+@import mixins
+@import keyframes
+
+@import offline-theme-base
+
+$green: #80d580
+$red: #e24949
+
++keyframes-offline-dropin
++keyframes-offline-dropout
+
++keyframes-offline-rotation
+
+.offline-ui
+    +border-radius(0 0 4px 4px)
+    font-family: "Helvetica Neue", sans-serif
+    font-weight: 300
+    white-space: nowrap
+    padding: 1em
+    width: 34em
+    max-width: 100%
+    background: #000
+    color: #ccc
+
+    @media (max-width: 34em)
+        +border-radius(0)
+
+    .offline-ui-content
+        padding-left: 2em
+
+        &:after
+            +border-radius(50%)
+            content: " "
+            display: block
+            position: absolute
+            top: 0
+            bottom: 0
+            left: 1em
+            margin: auto
+            height: 1em
+            width: 1em
+
+    .offline-ui-retry
+        position: absolute
+        right: 3em
+        top: 0
+        bottom: 0
+        background: rgba(255, 255, 255, .2)
+        text-decoration: none
+        color: inherit
+        line-height: 3em
+        padding: 0 1em
+
+    &.offline-ui-up
+        +offline-animation(offline-dropout forwards .5s 2s)
+
+        .offline-ui-content:after
+            background: $green
+
+    &.offline-ui-down
+        +offline-animation(offline-dropin .5s)
+
+        .offline-ui-content:after
+            background: $red
+
+        &.offline-ui-connecting, &.offline-ui-waiting
+            padding-right: 3em
+
+            .offline-ui-content:after
+                background: $red
+
+            &:after
+                +offline-animation(offline-rotation .7s linear infinite)
+                +border-radius(50%)
+                content: " "
+                display: block
+                position: absolute
+                right: 1em
+                top: 0
+                bottom: 0
+                margin: auto
+                height: 1em
+                width: 1em
+                border: 2px solid transparent
+                border-top-color: rgba(255, 255, 255, .5)
+                border-left-color: rgba(255, 255, 255, .5)
+                opacity: 0.7
