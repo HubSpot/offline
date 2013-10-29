@@ -6,6 +6,9 @@ $(function(){
         name: 'slide',
         title: 'Slide'
     }, {
+        name: 'dark',
+        title: 'Dark'
+    }, {
         name: 'chrome',
         title: 'Chrome'
     }];
