@@ -20,6 +20,9 @@ $(function(){
         name: 'slide-indicator',
         title: 'Slide'
     }, {
+        name: 'dark-indicator',
+        title: 'Dark'
+    }, {
         name: 'chrome-indicator',
         title: 'Chrome'
     }];
