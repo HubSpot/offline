@@ -74,6 +74,16 @@
               </a>
             
               
+              <a class="source" href="offline-theme-dark-indicator.html">
+                offline-theme-dark-indicator.sass
+              </a>
+            
+              
+              <a class="source" href="offline-theme-dark.html">
+                offline-theme-dark.sass
+              </a>
+            
+              
               <a class="source" href="offline-theme-default-indicator.html">
                 offline-theme-default-indicator.sass
               </a>
@@ -258,7 +268,9 @@ Offline.<span class="function"><span class="title">off</span></span> = (event, h
     <span class="keyword">while</span> i &lt; handlers[event].length
       [ctx, _handler] = handlers[event][i]
       <span class="keyword">if</span> _handler <span class="keyword">is</span> handler
-        handlers[event].splice i--, <span class="number">1</span>
+        handlers[event].splice i, <span class="number">1</span>
+      <span class="keyword">else</span>
+        i++
 
 Offline.<span class="function"><span class="title">trigger</span></span> = (event) -&gt;
   <span class="keyword">if</span> handlers[event]?
@@ -320,11 +332,28 @@ it&#39;s on the same domain and port, so CORS issues don&#39;t come into play.</
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>  xhr.open(<span class="string">'GET'</span>, Offline.getOption(<span class="string">'checks.xhr.url'</span>), <span class="literal">true</span>)
+            <div class="content"><div class='highlight'><pre>  xhr.open(<span class="string">'HEAD'</span>, Offline.getOption(<span class="string">'checks.xhr.url'</span>), <span class="literal">true</span>)
 
   checkXHR xhr, Offline.markUp, Offline.markDown
 
-  xhr.send()
+  <span class="keyword">try</span>
+    xhr.send()
+  <span class="keyword">catch</span> e</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Catch NETWORK_ERRORS</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    Offline.markDown()
 
   xhr
 
@@ -397,11 +426,11 @@ Offline.<span class="function"><span class="title">onXHR</span></span> = (cb) -&
         </li>
         
         
-        <li id="section-7">
+        <li id="section-8">
             <div class="annotation">
               
               <div class="pilwrap ">
-                <a class="pilcrow" href="#section-7">&#182;</a>
+                <a class="pilcrow" href="#section-8">&#182;</a>
               </div>
               <p>We call init in a setTimeout to give time for options to be set</p>
 

@@ -509,7 +509,7 @@
   }
 }
 
-/* line 21, ../sass/offline-theme-slide.sass */
+/* line 16, ../sass/offline-theme-dark.sass */
 .offline-ui {
   -webkit-border-radius: 0 0 4px 4px;
   -moz-border-radius: 0 0 4px 4px;
@@ -517,13 +517,16 @@
   -o-border-radius: 0 0 4px 4px;
   border-radius: 0 0 4px 4px;
   font-family: "Helvetica Neue", sans-serif;
+  font-weight: 300;
   white-space: nowrap;
   padding: 1em;
   width: 34em;
   max-width: 100%;
+  background: black;
+  color: #cccccc;
 }
 @media (max-width: 34em) {
-  /* line 21, ../sass/offline-theme-slide.sass */
+  /* line 16, ../sass/offline-theme-dark.sass */
   .offline-ui {
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
@@ -532,19 +535,40 @@
     border-radius: 0;
   }
 }
-/* line 32, ../sass/offline-theme-slide.sass */
+/* line 30, ../sass/offline-theme-dark.sass */
+.offline-ui .offline-ui-content {
+  padding-left: 2em;
+}
+/* line 33, ../sass/offline-theme-dark.sass */
+.offline-ui .offline-ui-content:after {
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  border-radius: 50%;
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 1em;
+  margin: auto;
+  height: 1em;
+  width: 1em;
+}
+/* line 45, ../sass/offline-theme-dark.sass */
 .offline-ui .offline-ui-retry {
   position: absolute;
   right: 3em;
   top: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.2);
   text-decoration: none;
   color: inherit;
   line-height: 3em;
   padding: 0 1em;
 }
-/* line 43, ../sass/offline-theme-slide.sass */
+/* line 56, ../sass/offline-theme-dark.sass */
 .offline-ui.offline-ui-up {
   -webkit-animation: offline-dropout forwards 0.5s 2s;
   -moz-animation: offline-dropout forwards 0.5s 2s;
@@ -552,10 +576,12 @@
   -o-animation: offline-dropout forwards 0.5s 2s;
   animation: offline-dropout forwards 0.5s 2s;
   -webkit-backface-visibility: hidden;
-  background: #aacbf5;
-  color: #1f4779;
 }
-/* line 48, ../sass/offline-theme-slide.sass */
+/* line 59, ../sass/offline-theme-dark.sass */
+.offline-ui.offline-ui-up .offline-ui-content:after {
+  background: #80d580;
+}
+/* line 62, ../sass/offline-theme-dark.sass */
 .offline-ui.offline-ui-down {
   -webkit-animation: offline-dropin 0.5s;
   -moz-animation: offline-dropin 0.5s;
@@ -563,16 +589,20 @@
   -o-animation: offline-dropin 0.5s;
   animation: offline-dropin 0.5s;
   -webkit-backface-visibility: hidden;
-  background: #ec8787;
-  color: #551313;
 }
-/* line 53, ../sass/offline-theme-slide.sass */
+/* line 65, ../sass/offline-theme-dark.sass */
+.offline-ui.offline-ui-down .offline-ui-content:after {
+  background: #e24949;
+}
+/* line 68, ../sass/offline-theme-dark.sass */
 .offline-ui.offline-ui-down.offline-ui-connecting, .offline-ui.offline-ui-down.offline-ui-waiting {
-  background: #f8ecad;
-  color: #7c6d1f;
   padding-right: 3em;
 }
-/* line 58, ../sass/offline-theme-slide.sass */
+/* line 71, ../sass/offline-theme-dark.sass */
+.offline-ui.offline-ui-down.offline-ui-connecting .offline-ui-content:after, .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content:after {
+  background: #e24949;
+}
+/* line 74, ../sass/offline-theme-dark.sass */
 .offline-ui.offline-ui-down.offline-ui-connecting:after, .offline-ui.offline-ui-down.offline-ui-waiting:after {
   -webkit-animation: offline-rotation 0.7s linear infinite;
   -moz-animation: offline-rotation 0.7s linear infinite;
@@ -594,12 +624,8 @@
   margin: auto;
   height: 1em;
   width: 1em;
-  border: 2px solid rgba(0, 0, 0, 0);
-  border-top-color: #7c6d1f;
-  border-left-color: #7c6d1f;
+  border: 2px solid transparent;
+  border-top-color: rgba(255, 255, 255, 0.5);
+  border-left-color: rgba(255, 255, 255, 0.5);
   opacity: 0.7;
-}
-/* line 75, ../sass/offline-theme-slide.sass */
-.offline-ui.offline-ui-down.offline-ui-waiting {
-  padding-right: 11em;
 }

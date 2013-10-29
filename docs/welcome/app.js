@@ -6,6 +6,9 @@ $(function(){
         name: 'slide',
         title: 'Slide'
     }, {
+        name: 'dark',
+        title: 'Dark'
+    }, {
         name: 'chrome',
         title: 'Chrome'
     }];
@@ -16,6 +19,9 @@ $(function(){
     }, {
         name: 'slide-indicator',
         title: 'Slide'
+    }, {
+        name: 'dark-indicator',
+        title: 'Dark'
     }, {
         name: 'chrome-indicator',
         title: 'Chrome'

@@ -132,9 +132,9 @@
       while (i < handlers[event].length) {
         _ref = handlers[event][i], ctx = _ref[0], _handler = _ref[1];
         if (_handler === handler) {
-          _results.push(handlers[event].splice(i--, 1));
+          _results.push(handlers[event].splice(i, 1));
         } else {
-          _results.push(void 0);
+          _results.push(i++);
         }
       }
       return _results;
@@ -183,12 +183,17 @@
   Offline.checks = {};
 
   Offline.checks.xhr = function() {
-    var xhr;
+    var e, xhr;
     xhr = new XMLHttpRequest;
     xhr.offline = false;
-    xhr.open('GET', Offline.getOption('checks.xhr.url'), true);
+    xhr.open('HEAD', Offline.getOption('checks.xhr.url'), true);
     checkXHR(xhr, Offline.markUp, Offline.markDown);
-    xhr.send();
+    try {
+      xhr.send();
+    } catch (_error) {
+      e = _error;
+      Offline.markDown();
+    }
     return xhr;
   };
 

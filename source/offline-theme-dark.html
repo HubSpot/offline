@@ -2,7 +2,7 @@
 
 <html>
 <head>
-  <title>offline-theme-chrome-indicator.sass</title>
+  <title>offline-theme-dark.sass</title>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
   <link rel="stylesheet" media="all" href="docco.css" />
@@ -116,7 +116,7 @@
         
           <li id="title">
               <div class="annotation">
-                  <h1>offline-theme-chrome-indicator.sass</h1>
+                  <h1>offline-theme-dark.sass</h1>
               </div>
           </li>
         
@@ -133,26 +133,35 @@
             
             <div class="content"><div class='highlight'><pre>@import compass/css3
 
-@import offline-theme-base-indicator
+@import mixins
+@import keyframes
+
+@import offline-theme-base
 
 $green: #80d580
-$red: #ec8787
+$red: #e24949
+
++keyframes-offline-dropin
++keyframes-offline-dropout
+
++keyframes-offline-rotation
 
 .offline-ui
-    +box-shadow(0 0 0 1px rgba(0, 0, 0, .15))
-    +border-radius(4px 4px 0 0)
-    font-family: "Lucida Grande", sans-serif
-    font-size: 12px
+    +border-radius(0 0 4px 4px)
+    font-family: "Helvetica Neue", sans-serif
+    font-weight: 300
     white-space: nowrap
-    padding: 7px
-    width: 69px
-    background: #f6f6f6
-    color: #888
-    bottom: 0
-    left: 20px
+    padding: 1em
+    width: 34em
+    max-width: 100%
+    background: #000
+    color: #ccc
+
+    @media (max-width: 34em)
+        +border-radius(0)
 
     .offline-ui-content
-        padding-left: 16px
+        padding-left: 2em
 
         &:after
             +border-radius(50%)
@@ -160,21 +169,57 @@ $red: #ec8787
             display: block
             position: absolute
             top: 0
-            bottom: 1px
-            left: 8px
+            bottom: 0
+            left: 1em
             margin: auto
-            height: 9px
-            width: 9px
+            height: 1em
+            width: 1em
+
+    .offline-ui-retry
+        position: absolute
+        right: 3em
+        top: 0
+        bottom: 0
+        background: rgba(255, 255, 255, .2)
+        text-decoration: none
+        color: inherit
+        line-height: 3em
+        padding: 0 1em
 
     &.offline-ui-up
+        +offline-animation(offline-dropout forwards .5s 2s)
 
         .offline-ui-content:after
             background: $green
 
     &.offline-ui-down
+        +offline-animation(offline-dropin .5s)
 
         .offline-ui-content:after
-            background: $red</pre></div></div>
+            background: $red
+
+        &.offline-ui-connecting, &.offline-ui-waiting
+            padding-right: 3em
+
+            .offline-ui-content:after
+                background: $red
+
+            &:after
+                +offline-animation(offline-rotation .7s linear infinite)
+                +border-radius(50%)
+                content: " "
+                display: block
+                position: absolute
+                right: 1em
+                top: 0
+                bottom: 0
+                margin: auto
+                height: 1em
+                width: 1em
+                border: 2px solid transparent
+                border-top-color: rgba(255, 255, 255, .5)
+                border-left-color: rgba(255, 255, 255, .5)
+                opacity: 0.7</pre></div></div>
             
         </li>
         

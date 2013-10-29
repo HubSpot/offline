@@ -74,6 +74,16 @@
               </a>
             
               
+              <a class="source" href="offline-theme-dark-indicator.html">
+                offline-theme-dark-indicator.sass
+              </a>
+            
+              
+              <a class="source" href="offline-theme-dark.html">
+                offline-theme-dark.sass
+              </a>
+            
+              
               <a class="source" href="offline-theme-default-indicator.html">
                 offline-theme-default-indicator.sass
               </a>
@@ -149,6 +159,10 @@ $darkYellow: #7c6d1f
     top: 1em
     width: 34em
     max-width: 100%
+
+    @media (max-width: 34em)
+        +border-radius(0)
+        top: 0
 
     .offline-ui-retry
         position: absolute
