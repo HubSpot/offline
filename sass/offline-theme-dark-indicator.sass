@@ -1,0 +1,44 @@
+@import compass/css3
+
+@import offline-theme-base-indicator
+
+$green: #80d580
+$red: #e24949
+
+.offline-ui
+    +box-shadow(0 0 0 1px rgba(0, 0, 0, .15))
+    +border-radius(4px 4px 0 0)
+    font-family: "Helvetica Neue", sans-serif
+    font-weight: 300
+    white-space: nowrap
+    padding: 1em
+    width: 6.3em
+    background: #000
+    color: #ccc
+    bottom: 0
+    left: 20px
+
+    .offline-ui-content
+        padding-left: 1.5em
+
+        &:after
+            +border-radius(50%)
+            content: " "
+            display: block
+            position: absolute
+            top: 0
+            bottom: 0
+            left: 1em
+            margin: auto
+            height: .8em
+            width: .8em
+
+    &.offline-ui-up
+
+        .offline-ui-content:after
+            background: $green
+
+    &.offline-ui-down
+
+        .offline-ui-content:after
+            background: $red
