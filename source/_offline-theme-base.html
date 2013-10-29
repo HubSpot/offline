@@ -185,10 +185,10 @@
                 display: block
 
             .offline-ui-content:before
-                content: "Attempting to reconnect in " attr(data-retry-in-seconds) " seconds... "
+                content: "Attempting to reconnect in " attr(data-retry-in) "... "
 
                 @media (max-width: 568px)
-                    content: "Reconnecting in " attr(data-retry-in-seconds) "s... "
+                    content: "Connecting in " attr(data-retry-in-abbr) "... "
 
         &.offline-ui-reconnect-failed-2s
 

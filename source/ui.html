@@ -152,21 +152,31 @@ flashTimeouts = {}
     <span class="keyword">delete</span> flashTimeouts[name]
   , time * <span class="number">1000</span>
 
-<span class="function"><span class="title">formatTime</span></span> = (sec) -&gt;
+<span class="function"><span class="title">formatTime</span></span> = (sec, long=<span class="literal">false</span>) -&gt;
+  <span class="keyword">return</span> <span class="string">'now'</span> <span class="keyword">if</span> sec <span class="keyword">is</span> <span class="number">0</span>
+
   formatters =
     <span class="string">'d'</span>: <span class="number">86400</span>
     <span class="string">'h'</span>: <span class="number">3600</span>
     <span class="string">'m'</span>: <span class="number">60</span>
     <span class="string">'s'</span>: <span class="number">1</span>
 
-  out = <span class="string">''</span>
-  <span class="keyword">for</span> letter, mult <span class="keyword">of</span> formatters
-    <span class="keyword">if</span> sec &gt;= mult
-      out += <span class="string">"<span class="subst">#{ Math.floor(sec / mult) }</span><span class="subst">#{ letter }</span> "</span>
-      sec = sec % mult
+  longUnits =
+    <span class="string">'s'</span>: <span class="string">'second'</span>
+    <span class="string">'m'</span>: <span class="string">'minute'</span>
+    <span class="string">'h'</span>: <span class="string">'hour'</span>
+    <span class="string">'d'</span>: <span class="string">'day'</span>
 
-  out <span class="keyword">or</span>= <span class="string">'now'</span>
-  out.trim()
+  out = <span class="string">''</span>
+  <span class="keyword">for</span> unit, mult <span class="keyword">of</span> formatters
+    <span class="keyword">if</span> sec &gt;= mult
+      val = Math.floor(sec / mult)
+
+      <span class="keyword">if</span> long
+        unit = <span class="string">" <span class="subst">#{ longUnits[unit] }</span>"</span>
+        unit += <span class="string">'s'</span> <span class="keyword">if</span> val <span class="keyword">isnt</span> <span class="number">1</span>
+
+      <span class="keyword">return</span> <span class="string">"<span class="subst">#{ val }</span><span class="subst">#{ unit }</span>"</span>
 
 <span class="function"><span class="title">render</span></span> = -&gt;
   el = createFromHTML TEMPLATE
@@ -216,12 +226,14 @@ flashTimeouts = {}
     removeClass <span class="string">'offline-ui-connecting'</span>
 
     content.setAttribute <span class="string">'data-retry-in-seconds'</span>, Offline.reconnect.remaining
-    content.setAttribute <span class="string">'data-retry-in'</span>, formatTime(Offline.reconnect.remaining)
+    content.setAttribute <span class="string">'data-retry-in-abbr'</span>, formatTime(Offline.reconnect.remaining)
+    content.setAttribute <span class="string">'data-retry-in'</span>, formatTime(Offline.reconnect.remaining, <span class="literal">true</span>)
 
   Offline.<span class="literal">on</span> <span class="string">'reconnect:stopped'</span>, -&gt;
     removeClass <span class="string">'offline-ui-connecting offline-ui-waiting'</span>
 
     content.setAttribute <span class="string">'data-retry-in-seconds'</span>, <span class="literal">null</span>
+    content.setAttribute <span class="string">'data-retry-in-abbr'</span>, <span class="literal">null</span>
     content.setAttribute <span class="string">'data-retry-in'</span>, <span class="literal">null</span>
 
   Offline.<span class="literal">on</span> <span class="string">'reconnect:failure'</span>, -&gt;

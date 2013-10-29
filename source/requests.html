@@ -207,6 +207,8 @@ setTimeout -&gt;
     Offline.onXHR (request) -&gt;
       {xhr, async} = request
 
+      <span class="keyword">return</span> <span class="keyword">if</span> xhr.offline <span class="keyword">is</span> <span class="literal">false</span>
+
       <span class="function"><span class="title">hold</span></span> = -&gt; holdRequest request
 
       _send = xhr.send

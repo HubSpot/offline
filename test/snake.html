@@ -1,0 +1,32 @@
+<head>
+<script src="../offline.min.js"></script>
+<script src="../js/snake.js"></script>
+
+<!--
+Themes:
+<link rel="stylesheet" href="./themes/offline-theme-default.css" />
+<link rel="stylesheet" href="./themes/offline-theme-default-indicator.css" />
+<link rel="stylesheet" href="./themes/offline-theme-slide.css" />
+<link rel="stylesheet" href="./themes/offline-theme-slide-indicator.css" />
+<link rel="stylesheet" href="./themes/offline-theme-chrome.css" />
+<link rel="stylesheet" href="./themes/offline-theme-chrome-indicator.css" />
+<link rel="stylesheet" href="./themes/offline-theme-hubspot.css" />
+-->
+
+<link rel="stylesheet" href="../themes/offline-theme-chrome.css" />
+
+<script>
+Offline.options = {
+  game: true
+}
+
+var run = function(){
+  if (Offline.state === 'up')
+    Offline.check();
+}
+setInterval(run, 5000);
+</script>
+</head>
+<body>
+  <h1 style="margin-top: 100px; text-align: center; font-family: helvetica;">Disable your internet connection to play!</h1>
+</body>

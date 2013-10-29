@@ -74,6 +74,9 @@
       Offline.onXHR(function(request) {
         var async, hold, xhr, _onreadystatechange, _send;
         xhr = request.xhr, async = request.async;
+        if (xhr.offline === false) {
+          return;
+        }
         hold = function() {
           return holdRequest(request);
         };

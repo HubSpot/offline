@@ -23,7 +23,7 @@
         </div>
     </div>
 </div>
-<div class="hs-doc-marquee"><div class="hs-page-width-normal"><div class="row-fluid"><div class="span6"><h1>offline</h1><h3 class="hs-doc-marquee-description"></h3><p class="hs-doc-marquee-release">0.4.0</p><p class="hs-doc-marquee-stars"><iframe src="http://ghbtns.com/github-btn.html?user=HubSpot&repo=offline&type=watch&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="240" height="30"></iframe></p></div><div class="span6"><div class="hs-doc-marquee-buttons"><a class="hs-doc-marquee-button" href="http://github.com/HubSpot/offline">Star on GitHub</a><a class="hs-doc-marquee-button" href="http://github.com/HubSpot/offline/archive/v0.4.0.zip">Download ZIP (v0.4.0)</a></div></div></div></div></div><div class="hs-page-width-normal"><div class="row-fluid"><div class="span3"><div class="hs-doc-sidenav"><nav><ul class="hs-public-sidenav"><li class="current-nav-item"><a href="">Home</a></li><li><b>Annotated source</b></li><li><a target="_blank" href="source/offline.html">coffee/offline.coffee</a></li><li><a target="_blank" href="source/reconnect.html">coffee/reconnect.coffee</a></li><li><a target="_blank" href="source/requests.html">coffee/requests.coffee</a></li><li><a target="_blank" href="source/snake.html">coffee/snake.coffee</a></li><li><a target="_blank" href="source/ui.html">coffee/ui.coffee</a></li></ul></nav></div></div><div class="span9"><div class="hs-doc-content"><h1>Offine</h1>
+<div class="hs-doc-marquee"><div class="hs-page-width-normal"><div class="row-fluid"><div class="span6"><h1>offline</h1><h3 class="hs-doc-marquee-description">Automatically detect when a browser is offline</h3><p class="hs-doc-marquee-release">0.4.3</p><p class="hs-doc-marquee-stars"><iframe src="http://ghbtns.com/github-btn.html?user=HubSpot&repo=offline&type=watch&count=true&size=large" allowtransparency="true" frameborder="0" scrolling="0" width="240" height="30"></iframe></p></div><div class="span6"><div class="hs-doc-marquee-buttons"><a class="hs-doc-marquee-button" href="http://github.com/HubSpot/offline">Star on GitHub</a><a class="hs-doc-marquee-button" href="http://github.com/HubSpot/offline/archive/v0.4.3.zip">Download ZIP (v0.4.3)</a></div></div></div></div></div><div class="hs-page-width-normal"><div class="row-fluid"><div class="span3"><div class="hs-doc-sidenav"><nav><ul class="hs-public-sidenav"><li class="current-nav-item"><a href="">Home</a></li><li><b>Annotated source</b></li><li><a target="_blank" href="source/offline.html">coffee/offline.coffee</a></li><li><a target="_blank" href="source/reconnect.html">coffee/reconnect.coffee</a></li><li><a target="_blank" href="source/requests.html">coffee/requests.coffee</a></li><li><a target="_blank" href="source/snake.html">coffee/snake.coffee</a></li><li><a target="_blank" href="source/ui.html">coffee/ui.coffee</a></li></ul></nav></div></div><div class="span9"><div class="hs-doc-content"><h1>Offline</h1>
 <p>Improve the experience of your app when your users lose connection.</p>
 <ul>
 <li>Monitors ajax requests looking for failure</li>
@@ -31,9 +31,10 @@
 <li>Automatically grabs ajax requests made while the connection is down and remakes them
 after the connection is restored.</li>
 <li>Simple UI with beautiful themes</li>
+<li>3kb minified and compressed</li>
 </ul>
 <h2>Installing</h2>
-<p>Include the javascript and one of the themes on your site.  You&#39;re done!</p>
+<p>Include <a href="https://raw.github.com/HubSpot/offline/v0.4.3/offline.min.js">the javascript</a> and one of <a href="http://github.hubspot.com/offline/docs/welcome/">the themes</a> on your site.  You&#39;re done!</p>
 <h2>Advanced</h2>
 <p>Optionally, you can provide some configuration by setting <code>Offline.options</code> after
 bringing in the script.</p>
@@ -58,6 +59,8 @@ bringing in the script.</p>
   requests: <span class="literal">true</span>
 
   <span class="comment">// Should we show a snake game while the connection is down to keep the user entertained?</span>
+  <span class="comment">// It's not included in the normal build, you should bring in js/snake.js in addition to</span>
+  <span class="comment">// offline.min.js.</span>
   game: <span class="literal">false</span>
 }</code></pre>
 <h2>Properties</h2>
@@ -69,20 +72,32 @@ bringing in the script.</p>
 <li>down: The connection has gone from up to down</li>
 <li>confirmed-up: A connection test has succeeded, fired even if the connection was already up</li>
 <li>confirmed-down: A connection test has failed, fired even if the connection was already down</li>
-<li><p>checking: We are testing the connection</p>
-</li>
-<li><p>reconnect:started: We are beginning the reconnect process</p>
-</li>
+<li>checking: We are testing the connection</li>
+<li>reconnect:started: We are beginning the reconnect process</li>
 <li>reconnect:stopped: We are done attempting to reconnect</li>
 <li>reconnect:tick: Fired every second during a reconnect attempt, when a check is not happening</li>
 <li>reconnect:connecting: We are reconnecting now</li>
-<li><p>reconnect:failure: A reconnect check attempt failed</p>
-</li>
-<li><p>requests:flush: Any pending requests have been remade</p>
-</li>
+<li>reconnect:failure: A reconnect check attempt failed</li>
+<li>requests:flush: Any pending requests have been remade</li>
 <li>requests:hold: A new request is being held</li>
 </ul>
 <p><code>Offline.off(event, handler)</code>: Unbind an event</p>
+<h2>Checking</h2>
+<p>Offline ships with two methods for checking the connection.  One makes a request for a tiny image hosted on a
+cloudfront account for the benevolence of all, the other makes an XHR request against the current domain,
+hoping to get back any sort of response (even a 404).</p>
+<p>You can change the url of the image to be one you control, if you like:</p>
+<pre><code class="lang-javascript">Offline.options = {checks: {image: {url: <span class="string">'my-image.gif'</span>}}};</code></pre>
+<p>Loading an image was chosen (rather than a script file), because it limits the potential damage if a
+hostile party were to be in control of it.</p>
+<p>You can also switch to the XHR method:</p>
+<pre><code class="lang-javascript">Offline.options = {checks: {active: <span class="string">'xhr'</span>}}</code></pre>
+<p>The XHR method is not enabled by default because of a concern that some sites do a significant amount of
+processing to build their 404 page, so it&#39;s not something we want to send unnecessarily.  It&#39;s also
+possible that the page would respond with a redirect to a different domain, creating a CORS problem.
+If you have control of the domain and can create an endpoint which just responds with a quick 204,
+that&#39;s the perfect solution.  You can set the endpoint in settings as well:</p>
+<pre><code class="lang-javascript">Offline.options = {checks: {xhr: {url: <span class="string">'/health-check'</span>}}};</code></pre>
 <h2>Reconnect</h2>
 <p>The reconnect module automatically retests the connection periodically when it is down.
 A successful AJAX request will also trigger a silent recheck (if <code>interceptRequests</code> is not false).</p>

@@ -197,7 +197,7 @@ In Chrome they mean that the internet connection was lost or restored</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>window.addEventListener? <span class="string">'online'</span>, -&gt;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>document.addEventListener? <span class="string">'online'</span>, -&gt;</pre></div></div>
             
         </li>
         
@@ -215,7 +215,7 @@ In Chrome they mean that the internet connection was lost or restored</p>
             <div class="content"><div class='highlight'><pre>  setTimeout Offline.confirmUp, <span class="number">100</span>
 , <span class="literal">false</span>
 
-window.addEventListener? <span class="string">'offline'</span>, -&gt;
+document.addEventListener? <span class="string">'offline'</span>, -&gt;
   Offline.confirmDown()
 , <span class="literal">false</span>
 
@@ -302,7 +302,9 @@ Offline.<span class="function"><span class="title">trigger</span></span> = (even
 
 Offline.checks = {}
 Offline.checks.<span class="function"><span class="title">xhr</span></span> = -&gt;
-  xhr = <span class="keyword">new</span> XMLHttpRequest</pre></div></div>
+  xhr = <span class="keyword">new</span> XMLHttpRequest
+
+  xhr.offline = <span class="literal">false</span></pre></div></div>
             
         </li>
         
@@ -386,7 +388,8 @@ Offline.<span class="function"><span class="title">onXHR</span></span> = (cb) -&
 <span class="function"><span class="title">init</span></span> = -&gt;
   <span class="keyword">if</span> Offline.getOption <span class="string">'interceptRequests'</span>
     Offline.onXHR ({xhr}) -&gt;
-      checkXHR xhr, Offline.confirmUp, Offline.confirmDown
+      <span class="keyword">unless</span> xhr.offline <span class="keyword">is</span> <span class="literal">false</span>
+        checkXHR xhr, Offline.confirmUp, Offline.confirmDown
 
   <span class="keyword">if</span> Offline.getOption <span class="string">'checkOnLoad'</span>
     Offline.check()</pre></div></div>

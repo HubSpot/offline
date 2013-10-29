@@ -48,13 +48,13 @@ $(function(){
     });
 
     var phases = [
-        [5, 'offline-ui offline-ui-down', 0],
-        [1, 'offline-ui offline-ui-down offline-ui-connecting offline-ui-waiting', 5],
-        [1, 'offline-ui offline-ui-down offline-ui-connecting offline-ui-waiting', 4],
-        [1, 'offline-ui offline-ui-down offline-ui-connecting offline-ui-waiting', 3],
-        [1, 'offline-ui offline-ui-down offline-ui-connecting offline-ui-waiting', 2],
-        [1, 'offline-ui offline-ui-down offline-ui-connecting offline-ui-waiting', 1],
-        [1, 'offline-ui offline-ui-up offline-ui-up-5s', 1]
+        [5, 'offline-ui offline-ui-down', '', ''],
+        [3, 'offline-ui offline-ui-down offline-ui-connecting offline-ui-waiting', '5 seconds', '5s'],
+        [1, 'offline-ui offline-ui-down offline-ui-connecting offline-ui-waiting', '4 seconds', '4s'],
+        [1, 'offline-ui offline-ui-down offline-ui-connecting offline-ui-waiting', '3 seconds', '3s'],
+        [1, 'offline-ui offline-ui-down offline-ui-connecting offline-ui-waiting', '2 seconds', '2s'],
+        [1, 'offline-ui offline-ui-down offline-ui-connecting offline-ui-waiting', '1 seconds', '1s'],
+        [1, 'offline-ui offline-ui-up offline-ui-up-5s', '', '']
     ];
 
     var nextPhase = function() {
@@ -64,10 +64,11 @@ $(function(){
             var $offline = $(this).contents().find('.offline-ui'),
                 $content = $offline.find('.offline-ui-content');
 
-            phase = parseInt($offline.attr('data-phase'), 0);
+            phase = parseInt($offline.attr('data-phase'), 10);
 
             $offline.get(0).className = phases[phase][1];
-            $content.attr('data-retry-in-seconds', phases[phase][2]);
+            $content.attr('data-retry-in', phases[phase][2]);
+            $content.attr('data-retry-in-abbr', phases[phase][3]);
 
             phase = (phase + 1) % phases.length;
             $offline.attr('data-phase', phase);

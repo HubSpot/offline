@@ -1,0 +1,29 @@
+<head>
+<script src="../offline.min.js"></script>
+
+<!--
+Themes:
+<link rel="stylesheet" href="./themes/offline-theme-default.css" />
+<link rel="stylesheet" href="./themes/offline-theme-default-indicator.css" />
+<link rel="stylesheet" href="./themes/offline-theme-slide.css" />
+<link rel="stylesheet" href="./themes/offline-theme-slide-indicator.css" />
+<link rel="stylesheet" href="./themes/offline-theme-chrome.css" />
+<link rel="stylesheet" href="./themes/offline-theme-chrome-indicator.css" />
+<link rel="stylesheet" href="./themes/offline-theme-hubspot.css" />
+-->
+
+<link rel="stylesheet" href="../themes/offline-theme-chrome.css" />
+
+<script>
+var run = function(){
+  var req = new XMLHttpRequest();
+  req.timeout = 5000;
+  req.open('GET', 'http://localhost:8888/walter/0', true);
+  req.send();
+}
+
+setInterval(run, 3000);
+</script>
+</head>
+<body>
+</body>

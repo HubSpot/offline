@@ -125,7 +125,7 @@
 
 <span class="function"><span class="title">render</span></span> = -&gt;
   canvas = document.createElementNS(<span class="string">'http://www.w3.org/2000/svg'</span>, <span class="string">'svg'</span>)
-  canvas.setAttribute <span class="string">'style'</span>, <span class="string">'width: 100%; height: 100%; margin: -8px;'</span>
+  canvas.setAttribute <span class="string">'style'</span>, <span class="string">'width: 100%; height: 100%; margin: -8px; position: absolute; top: 0; left: 0; z-index: 1000'</span>
   canvas.setAttribute <span class="string">'viewBox'</span>, <span class="string">'0 0 1000 1000'</span>
   document.body.appendChild canvas
 
@@ -203,14 +203,16 @@
 
   document.removeChild canvas
 
-<span class="keyword">if</span> Offline.getOption(<span class="string">'game'</span>) <span class="keyword">and</span> document.addEventListener?
-  Offline.<span class="literal">on</span> <span class="string">'down'</span>, show
-  Offline.<span class="literal">on</span> <span class="string">'up'</span>, hide
-  Offline.<span class="literal">on</span> <span class="string">'reconnect:failure'</span>, -&gt;
-    fill = <span class="string">'red'</span>
-    setTimeout -&gt;
-      fill = <span class="string">'black'</span>
-    , <span class="number">2000</span></pre></div></div>
+setTimeout -&gt;
+  <span class="keyword">if</span> Offline.getOption(<span class="string">'game'</span>) <span class="keyword">and</span> document.addEventListener?
+    Offline.<span class="literal">on</span> <span class="string">'down'</span>, show
+    Offline.<span class="literal">on</span> <span class="string">'up'</span>, hide
+    Offline.<span class="literal">on</span> <span class="string">'reconnect:failure'</span>, -&gt;
+      fill = <span class="string">'#ec8787'</span>
+      setTimeout -&gt;
+        fill = <span class="string">'black'</span>
+      , <span class="number">2000</span>
+, <span class="number">0</span></pre></div></div>
             
         </li>
         

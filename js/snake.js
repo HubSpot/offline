@@ -5,7 +5,7 @@
 
   render = function() {
     canvas = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    canvas.setAttribute('style', 'width: 100%; height: 100%; margin: -8px;');
+    canvas.setAttribute('style', 'width: 100%; height: 100%; margin: -8px; position: absolute; top: 0; left: 0; z-index: 1000');
     canvas.setAttribute('viewBox', '0 0 1000 1000');
     document.body.appendChild(canvas);
     dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
@@ -82,15 +82,17 @@
     return document.removeChild(canvas);
   };
 
-  if (Offline.getOption('game') && (document.addEventListener != null)) {
-    Offline.on('down', show);
-    Offline.on('up', hide);
-    Offline.on('reconnect:failure', function() {
-      fill = 'red';
-      return setTimeout(function() {
-        return fill = 'black';
-      }, 2000);
-    });
-  }
+  setTimeout(function() {
+    if (Offline.getOption('game') && (document.addEventListener != null)) {
+      Offline.on('down', show);
+      Offline.on('up', hide);
+      return Offline.on('reconnect:failure', function() {
+        fill = '#ec8787';
+        return setTimeout(function() {
+          return fill = 'black';
+        }, 2000);
+      });
+    }
+  }, 0);
 
 }).call(this);

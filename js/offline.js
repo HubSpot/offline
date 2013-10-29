@@ -67,14 +67,14 @@
     }
   };
 
-  if (typeof window.addEventListener === "function") {
-    window.addEventListener('online', function() {
+  if (typeof document.addEventListener === "function") {
+    document.addEventListener('online', function() {
       return setTimeout(Offline.confirmUp, 100);
     }, false);
   }
 
-  if (typeof window.addEventListener === "function") {
-    window.addEventListener('offline', function() {
+  if (typeof document.addEventListener === "function") {
+    document.addEventListener('offline', function() {
       return Offline.confirmDown();
     }, false);
   }
@@ -185,6 +185,7 @@
   Offline.checks.xhr = function() {
     var xhr;
     xhr = new XMLHttpRequest;
+    xhr.offline = false;
     xhr.open('GET', Offline.getOption('checks.xhr.url'), true);
     checkXHR(xhr, Offline.markUp, Offline.markDown);
     xhr.send();
@@ -261,7 +262,9 @@
       Offline.onXHR(function(_arg) {
         var xhr;
         xhr = _arg.xhr;
-        return checkXHR(xhr, Offline.confirmUp, Offline.confirmDown);
+        if (xhr.offline !== false) {
+          return checkXHR(xhr, Offline.confirmUp, Offline.confirmDown);
+        }
       });
     }
     if (Offline.getOption('checkOnLoad')) {
