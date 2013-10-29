@@ -132,9 +132,9 @@
       while (i < handlers[event].length) {
         _ref = handlers[event][i], ctx = _ref[0], _handler = _ref[1];
         if (_handler === handler) {
-          _results.push(handlers[event].splice(i--, 1));
+          _results.push(handlers[event].splice(i, 1));
         } else {
-          _results.push(void 0);
+          _results.push(i++);
         }
       }
       return _results;

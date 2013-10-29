@@ -98,7 +98,9 @@ Offline.off = (event, handler) ->
     while i < handlers[event].length
       [ctx, _handler] = handlers[event][i]
       if _handler is handler
-        handlers[event].splice i--, 1
+        handlers[event].splice i, 1
+      else
+        i++
 
 Offline.trigger = (event) ->
   if handlers[event]?
