@@ -121,7 +121,9 @@ init = ->
     flashClass 'offline-ui-reconnect-succeeded-2s', 2
     flashClass 'offline-ui-reconnect-succeeded-5s', 5
 
-if document.addEventListener?
+if document.readyState in ['interactive', 'complete']
+  init()
+else if document.addEventListener?
   document.addEventListener 'DOMContentLoaded', init, false
 else
   # IE8
