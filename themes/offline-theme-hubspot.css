@@ -30,73 +30,22 @@
 /* line 24, ../sass/_offline-theme-base.sass */
 .offline-ui .offline-ui-retry:before {
   display: inline;
-  content: "Reconnect";
 }
-/* line 30, ../sass/_offline-theme-base.sass */
-.offline-ui.offline-ui-up .offline-ui-content:before {
-  content: "Your computer is connected to the internet. ";
-}
-@media (max-width: 1024px) {
-  /* line 30, ../sass/_offline-theme-base.sass */
-  .offline-ui.offline-ui-up .offline-ui-content:before {
-    content: "Your device is connected to the internet. ";
-  }
-}
-@media (max-width: 568px) {
-  /* line 30, ../sass/_offline-theme-base.sass */
-  .offline-ui.offline-ui-up .offline-ui-content:before {
-    content: "Your device is connected. ";
-  }
-}
-/* line 39, ../sass/_offline-theme-base.sass */
+/* line 29, ../sass/_offline-theme-base.sass */
 .offline-ui.offline-ui-up.offline-ui-up-5s {
   display: block;
 }
-/* line 42, ../sass/_offline-theme-base.sass */
+/* line 32, ../sass/_offline-theme-base.sass */
 .offline-ui.offline-ui-down {
   display: block;
 }
-/* line 45, ../sass/_offline-theme-base.sass */
-.offline-ui.offline-ui-down .offline-ui-content:before {
-  content: "Your computer lost its internet connection. ";
-}
-@media (max-width: 1024px) {
-  /* line 45, ../sass/_offline-theme-base.sass */
-  .offline-ui.offline-ui-down .offline-ui-content:before {
-    content: "Your device lost its internet connection. ";
-  }
-}
-@media (max-width: 568px) {
-  /* line 45, ../sass/_offline-theme-base.sass */
-  .offline-ui.offline-ui-down .offline-ui-content:before {
-    content: "Your device isn't connected. ";
-  }
-}
-/* line 56, ../sass/_offline-theme-base.sass */
-.offline-ui.offline-ui-down.offline-ui-connecting .offline-ui-content:before, .offline-ui.offline-ui-down.offline-ui-connecting-2s .offline-ui-content:before {
-  content: "Attempting to reconnect... ";
-}
-/* line 61, ../sass/_offline-theme-base.sass */
+/* line 37, ../sass/_offline-theme-base.sass */
 .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-retry {
   display: block;
 }
-/* line 64, ../sass/_offline-theme-base.sass */
-.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content:before {
-  content: "Attempting to reconnect in " attr(data-retry-in) "... ";
-}
-@media (max-width: 568px) {
-  /* line 64, ../sass/_offline-theme-base.sass */
-  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content:before {
-    content: "Connecting in " attr(data-retry-in-abbr) "... ";
-  }
-}
-/* line 72, ../sass/_offline-theme-base.sass */
+/* line 42, ../sass/_offline-theme-base.sass */
 .offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s.offline-ui-waiting .offline-ui-retry {
   display: none;
-}
-/* line 75, ../sass/_offline-theme-base.sass */
-.offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s .offline-ui-content:before {
-  content: "Connection attempt failed. ";
 }
 
 @-webkit-keyframes offline-fadein {

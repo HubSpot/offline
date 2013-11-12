@@ -22,16 +22,8 @@
   display: block;
 }
 /* line 19, ../sass/_offline-theme-base-indicator.sass */
-.offline-ui.offline-ui-up .offline-ui-content:before {
-  content: "Online";
-}
-/* line 22, ../sass/_offline-theme-base-indicator.sass */
 .offline-ui.offline-ui-down {
   display: block;
-}
-/* line 25, ../sass/_offline-theme-base-indicator.sass */
-.offline-ui.offline-ui-down .offline-ui-content:before {
-  content: "Offline";
 }
 
 /* line 8, ../sass/offline-theme-dark-indicator.sass */
