@@ -254,7 +254,9 @@ flashTimeouts = {}
     flashClass <span class="string">'offline-ui-reconnect-succeeded-2s'</span>, <span class="number">2</span>
     flashClass <span class="string">'offline-ui-reconnect-succeeded-5s'</span>, <span class="number">5</span>
 
-<span class="keyword">if</span> document.addEventListener?
+<span class="keyword">if</span> document.readyState <span class="keyword">in</span> [<span class="string">'interactive'</span>, <span class="string">'complete'</span>]
+  init()
+<span class="keyword">else</span> <span class="keyword">if</span> document.addEventListener?
   document.addEventListener <span class="string">'DOMContentLoaded'</span>, init, <span class="literal">false</span>
 <span class="keyword">else</span></pre></div></div>
             

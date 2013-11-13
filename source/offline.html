@@ -207,7 +207,7 @@ In Chrome they mean that the internet connection was lost or restored</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>document.addEventListener? <span class="string">'online'</span>, -&gt;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>window.addEventListener? <span class="string">'online'</span>, -&gt;</pre></div></div>
             
         </li>
         
@@ -225,7 +225,7 @@ In Chrome they mean that the internet connection was lost or restored</p>
             <div class="content"><div class='highlight'><pre>  setTimeout Offline.confirmUp, <span class="number">100</span>
 , <span class="literal">false</span>
 
-document.addEventListener? <span class="string">'offline'</span>, -&gt;
+window.addEventListener? <span class="string">'offline'</span>, -&gt;
   Offline.confirmDown()
 , <span class="literal">false</span>
 
