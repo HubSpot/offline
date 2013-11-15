@@ -65,14 +65,12 @@
 
   rc.tryNow = tryNow;
 
-  setTimeout(function() {
-    if (Offline.getOption('reconnect') !== false) {
-      reset();
-      Offline.on('down', down);
-      Offline.on('confirmed-down', nope);
-      Offline.on('up', up);
-      return Offline.reconnect = rc;
-    }
-  }, 0);
+  if (Offline.getOption('reconnect') !== false) {
+    reset();
+    Offline.on('down', down);
+    Offline.on('confirmed-down', nope);
+    Offline.on('up', up);
+    return Offline.reconnect = rc;
+  }
 
 }).call(this);
