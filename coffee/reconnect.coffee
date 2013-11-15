@@ -50,13 +50,11 @@ nope = ->
 
 rc.tryNow = tryNow
 
-setTimeout ->
-  unless Offline.getOption('reconnect') is false
-    reset()
+unless Offline.getOption('reconnect') is false
+  reset()
 
-    Offline.on 'down', down
-    Offline.on 'confirmed-down', nope
-    Offline.on 'up', up
+  Offline.on 'down', down
+  Offline.on 'confirmed-down', nope
+  Offline.on 'up', up
 
-    Offline.reconnect = rc
-, 0
+  Offline.reconnect = rc
