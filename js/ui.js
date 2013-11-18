@@ -80,7 +80,7 @@
     var button, handler;
     el = createFromHTML(TEMPLATE);
     document.body.appendChild(el);
-    if (Offline.reconnect != null) {
+    if ((Offline.reconnect != null) && Offline.getOption('reconnect')) {
       el.appendChild(createFromHTML(RETRY_TEMPLATE));
       button = el.querySelector('.offline-ui-retry');
       handler = function(e) {

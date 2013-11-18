@@ -1,12 +1,12 @@
 unless window.Offline
   throw new Error "Offline Reconnect brought in without offline.js"
 
-rc = {}
+rc = Offline.reconnect = {}
 
 retryIntv = null
 
 reset = ->
-  if rc.state?
+  if rc.state? and rc.state isnt 'inactive'
     Offline.trigger 'reconnect:stopped'
 
   rc.state = 'inactive'
@@ -34,15 +34,24 @@ tryNow = ->
   Offline.check()
 
 down = ->
+  return unless Offline.getOption('reconnect')
+
+  reset()
+
   rc.state = 'waiting'
+  
   Offline.trigger 'reconnect:started'
   retryIntv = setInterval tick, 1000
 
 up = ->
-  clearInterval retryIntv
+  if retryIntv?
+    clearInterval retryIntv
+
   reset()
 
 nope = ->
+  return unless Offline.getOption('reconnect')
+
   if rc.state is 'connecting'
     Offline.trigger 'reconnect:failure'
     rc.state = 'waiting'
@@ -50,13 +59,8 @@ nope = ->
 
 rc.tryNow = tryNow
 
-setTimeout ->
-  unless Offline.getOption('reconnect') is false
-    reset()
+reset()
 
-    Offline.on 'down', down
-    Offline.on 'confirmed-down', nope
-    Offline.on 'up', up
-
-    Offline.reconnect = rc
-, 0
+Offline.on 'down', down
+Offline.on 'confirmed-down', nope
+Offline.on 'up', up

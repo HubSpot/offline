@@ -59,7 +59,7 @@ render = ->
   el = createFromHTML TEMPLATE
   document.body.appendChild el
 
-  if Offline.reconnect?
+  if Offline.reconnect? and Offline.getOption('reconnect')
     el.appendChild createFromHTML RETRY_TEMPLATE
 
     button = el.querySelector('.offline-ui-retry')
