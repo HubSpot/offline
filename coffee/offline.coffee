@@ -32,12 +32,19 @@ defaultOptions =
 
   interceptRequests: true
 
+  reconnect: true
+
 grab = (obj, key) ->
   cur = obj
-  for part, i in key.split('.')
+  parts = key.split('.')
+  for part, i in parts
     cur = cur[part]
     break if typeof cur isnt 'object'
-  cur
+
+  if i is parts.length - 1
+    cur
+  else
+    undefined
   
 Offline.getOption = (key) ->
   val = grab(Offline.options, key) ? grab(defaultOptions, key)

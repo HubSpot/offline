@@ -40,21 +40,26 @@
       active: 'image'
     },
     checkOnLoad: false,
-    interceptRequests: true
+    interceptRequests: true,
+    reconnect: true
   };
 
   grab = function(obj, key) {
-    var cur, i, part, _i, _len, _ref;
+    var cur, i, part, parts, _i, _len;
     cur = obj;
-    _ref = key.split('.');
-    for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
-      part = _ref[i];
+    parts = key.split('.');
+    for (i = _i = 0, _len = parts.length; _i < _len; i = ++_i) {
+      part = parts[i];
       cur = cur[part];
       if (typeof cur !== 'object') {
         break;
       }
     }
-    return cur;
+    if (i === parts.length - 1) {
+      return cur;
+    } else {
+      return void 0;
+    }
   };
 
   Offline.getOption = function(key) {
