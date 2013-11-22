@@ -1,5 +1,5 @@
 (function() {
-  var RETRY_TEMPLATE, TEMPLATE, addClass, content, createFromHTML, el, flashClass, flashTimeouts, init, removeClass, render, retryIn, roundTime, _onreadystatechange;
+  var RETRY_TEMPLATE, TEMPLATE, addClass, content, createFromHTML, el, flashClass, flashTimeouts, init, removeClass, render, roundTime, _onreadystatechange;
 
   if (!window.Offline) {
     throw new Error("Offline UI brought in without offline.js");
@@ -7,7 +7,7 @@
 
   TEMPLATE = '<div class="offline-ui"><div class="offline-ui-content"></div></div>';
 
-  RETRY_TEMPLATE = '<span class="offline-ui-retry-countdown"></span><a href class="offline-ui-retry"></a>';
+  RETRY_TEMPLATE = '<a href class="offline-ui-retry"></a>';
 
   createFromHTML = function(html) {
     var el;
@@ -16,7 +16,7 @@
     return el.children[0];
   };
 
-  el = content = retryIn = null;
+  el = content = null;
 
   addClass = function(name) {
     removeClass(name);
@@ -64,7 +64,6 @@
     document.body.appendChild(el);
     if (Offline.reconnect != null) {
       el.appendChild(createFromHTML(RETRY_TEMPLATE));
-      retryIn = el.querySelector('.offline-ui-retry-countdown');
       button = el.querySelector('.offline-ui-retry');
       handler = function(e) {
         e.preventDefault();
@@ -103,13 +102,13 @@
       addClass('offline-ui-waiting');
       removeClass('offline-ui-connecting');
       _ref = roundTime(Offline.reconnect.remaining), time = _ref[0], unit = _ref[1];
-      retryIn.setAttribute('data-value', time);
-      return retryIn.setAttribute('data-unit', unit);
+      content.setAttribute('data-retry-in-value', time);
+      return content.setAttribute('data-retry-in-unit', unit);
     });
     Offline.on('reconnect:stopped', function() {
       removeClass('offline-ui-connecting offline-ui-waiting');
-      retryIn.setAttribute('data-value', null);
-      return retryIn.setAttribute('data-unit', null);
+      content.setAttribute('data-retry-in-value', null);
+      return content.setAttribute('data-retry-in-unit', null);
     });
     Offline.on('reconnect:failure', function() {
       flashClass('offline-ui-reconnect-failed-2s', 2);

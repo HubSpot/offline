@@ -2,14 +2,14 @@ unless window.Offline
   throw new Error "Offline UI brought in without offline.js"
 
 TEMPLATE = '<div class="offline-ui"><div class="offline-ui-content"></div></div>'
-RETRY_TEMPLATE = '<span class="offline-ui-retry-countdown"></span><a href class="offline-ui-retry"></a>'
+RETRY_TEMPLATE = '<a href class="offline-ui-retry"></a>'
 
 createFromHTML = (html) ->
   el = document.createElement('div')
   el.innerHTML = html
   el.children[0]
 
-el = content = retryIn = null
+el = content = null
 addClass = (name) ->
   removeClass name
   el.className += " #{ name }"
@@ -50,8 +50,6 @@ render = ->
 
   if Offline.reconnect?
     el.appendChild createFromHTML RETRY_TEMPLATE
-
-    retryIn = el.querySelector('.offline-ui-retry-countdown')
 
     button = el.querySelector('.offline-ui-retry')
     handler = (e) ->
@@ -95,14 +93,14 @@ init = ->
 
     [time, unit] = roundTime Offline.reconnect.remaining
 
-    retryIn.setAttribute 'data-value', time
-    retryIn.setAttribute 'data-unit', unit
+    content.setAttribute 'data-retry-in-value', time
+    content.setAttribute 'data-retry-in-unit', unit
 
   Offline.on 'reconnect:stopped', ->
     removeClass 'offline-ui-connecting offline-ui-waiting'
 
-    retryIn.setAttribute 'data-value', null
-    retryIn.setAttribute 'data-unit', null
+    content.setAttribute 'data-retry-in-value', null
+    content.setAttribute 'data-retry-in-unit', null
 
   Offline.on 'reconnect:failure', ->
     flashClass 'offline-ui-reconnect-failed-2s', 2
