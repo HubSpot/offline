@@ -34,7 +34,7 @@
       },
       image: {
         url: function() {
-          return "http://dqakt69vkj09v.cloudfront.net/are-we-online.gif?_=" + (Math.floor(Math.random() * 1000000000));
+          return ("https:" === document.location.protocol ? "https:" : "http:") + "//dqakt69vkj09v.cloudfront.net/are-we-online.gif?_=" + (Math.floor(Math.random() * 1000000000));
         }
       },
       active: 'image'
