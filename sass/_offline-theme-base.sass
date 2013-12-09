@@ -42,15 +42,6 @@
     &.offline-ui-down
         display: block
 
-        .offline-ui-content:before
-            content: "Your computer lost its internet connection. "
-
-            @media (max-width: 1024px)
-                content: "Your device lost its internet connection. "
-
-            @media (max-width: 568px)
-                content: "Your device isn't connected. "
-
         &.offline-ui-connecting, &.offline-ui-connecting-2s
 
             .offline-ui-content:before
@@ -74,3 +65,17 @@
 
             .offline-ui-content:before
                 content: "Connection attempt failed. "
+
+        &.offline-ui-down-5s
+
+            .offline-ui-content:before
+                content: "Your computer lost its internet connection. "
+
+                @media (max-width: 1024px)
+                    content: "Your device lost its internet connection. "
+
+                @media (max-width: 568px)
+                    content: "Your device isn't connected. "
+
+            &.offline-ui-waiting .offline-ui-retry
+                display: none
