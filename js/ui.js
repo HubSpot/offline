@@ -1,5 +1,5 @@
 (function() {
-  var RETRY_TEMPLATE, TEMPLATE, addClass, content, createFromHTML, el, flashClass, flashTimeouts, formatTime, init, removeClass, render, _onreadystatechange, _ref;
+  var RETRY_TEMPLATE, TEMPLATE, addClass, content, createFromHTML, el, flashClass, flashTimeouts, formatTime, init, removeClass, render, _onreadystatechange;
 
   if (!window.Offline) {
     throw new Error("Offline UI brought in without offline.js");
@@ -138,7 +138,7 @@
     });
   };
 
-  if ((_ref = document.readyState) === 'interactive' || _ref === 'complete') {
+  if (document.readyState === 'complete') {
     init();
   } else if (document.addEventListener != null) {
     document.addEventListener('DOMContentLoaded', init, false);
