@@ -408,8 +408,8 @@
   -o-animation: offline-fadeout-and-hide forwards 0.5s 2s;
   animation: offline-fadeout-and-hide forwards 0.5s 2s;
   -webkit-backface-visibility: hidden;
-  background: #aacbf5;
-  color: #1f4779;
+  background: #d6e9c6;
+  color: #468847;
 }
 /* line 50, ../sass/offline-theme-default.sass */
 .offline-ui.offline-ui-down {

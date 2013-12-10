@@ -556,8 +556,8 @@
   -o-animation: offline-dropout forwards 0.5s 2s;
   animation: offline-dropout forwards 0.5s 2s;
   -webkit-backface-visibility: hidden;
-  background: #aacbf5;
-  color: #1f4779;
+  background: #d6e9c6;
+  color: #468847;
 }
 /* line 48, ../sass/offline-theme-slide.sass */
 .offline-ui.offline-ui-down {
