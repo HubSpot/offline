@@ -521,7 +521,6 @@
   -o-border-radius: 0 0 4px 4px;
   border-radius: 0 0 4px 4px;
   font-family: "Helvetica Neue", sans-serif;
-  font-weight: 300;
   white-space: nowrap;
   padding: 1em;
   width: 34em;
@@ -539,11 +538,11 @@
     border-radius: 0;
   }
 }
-/* line 30, ../sass/offline-theme-dark.sass */
+/* line 29, ../sass/offline-theme-dark.sass */
 .offline-ui .offline-ui-content {
   padding-left: 2em;
 }
-/* line 33, ../sass/offline-theme-dark.sass */
+/* line 32, ../sass/offline-theme-dark.sass */
 .offline-ui .offline-ui-content:after {
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
@@ -560,7 +559,7 @@
   height: 1em;
   width: 1em;
 }
-/* line 45, ../sass/offline-theme-dark.sass */
+/* line 44, ../sass/offline-theme-dark.sass */
 .offline-ui .offline-ui-retry {
   position: absolute;
   right: 3em;
@@ -572,7 +571,7 @@
   line-height: 3em;
   padding: 0 1em;
 }
-/* line 56, ../sass/offline-theme-dark.sass */
+/* line 55, ../sass/offline-theme-dark.sass */
 .offline-ui.offline-ui-up {
   -webkit-animation: offline-dropout forwards 0.5s 2s;
   -moz-animation: offline-dropout forwards 0.5s 2s;
@@ -581,11 +580,11 @@
   animation: offline-dropout forwards 0.5s 2s;
   -webkit-backface-visibility: hidden;
 }
-/* line 59, ../sass/offline-theme-dark.sass */
+/* line 58, ../sass/offline-theme-dark.sass */
 .offline-ui.offline-ui-up .offline-ui-content:after {
   background: #80d580;
 }
-/* line 62, ../sass/offline-theme-dark.sass */
+/* line 61, ../sass/offline-theme-dark.sass */
 .offline-ui.offline-ui-down {
   -webkit-animation: offline-dropin 0.5s;
   -moz-animation: offline-dropin 0.5s;
@@ -594,19 +593,19 @@
   animation: offline-dropin 0.5s;
   -webkit-backface-visibility: hidden;
 }
-/* line 65, ../sass/offline-theme-dark.sass */
+/* line 64, ../sass/offline-theme-dark.sass */
 .offline-ui.offline-ui-down .offline-ui-content:after {
   background: #e24949;
 }
-/* line 68, ../sass/offline-theme-dark.sass */
+/* line 67, ../sass/offline-theme-dark.sass */
 .offline-ui.offline-ui-down.offline-ui-connecting, .offline-ui.offline-ui-down.offline-ui-waiting {
   padding-right: 3em;
 }
-/* line 71, ../sass/offline-theme-dark.sass */
+/* line 70, ../sass/offline-theme-dark.sass */
 .offline-ui.offline-ui-down.offline-ui-connecting .offline-ui-content:after, .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content:after {
   background: #e24949;
 }
-/* line 74, ../sass/offline-theme-dark.sass */
+/* line 73, ../sass/offline-theme-dark.sass */
 .offline-ui.offline-ui-down.offline-ui-connecting:after, .offline-ui.offline-ui-down.offline-ui-waiting:after {
   -webkit-animation: offline-rotation 0.7s linear infinite;
   -moz-animation: offline-rotation 0.7s linear infinite;
