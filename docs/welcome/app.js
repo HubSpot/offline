@@ -48,13 +48,13 @@ $(function(){
         doc.open();
         doc.write('' +
             '<link rel="stylesheet" href="/offline/themes/offline-theme-' + themeName + '.css" />' +
-            '<div data-phase="0" class="offline-ui offline-ui-down"><div class="offline-ui-content"></div><a class="offline-ui-retry"></a></div>' +
+            '<div data-phase="0" class="offline-ui offline-ui-down offline-ui-down-5s"><div class="offline-ui-content"></div><a class="offline-ui-retry"></a></div>' +
         '');
         doc.close();
     });
 
     var phases = [
-        [5, 'offline-ui offline-ui-down', '', ''],
+        [5, 'offline-ui offline-ui-down offline-ui-down-5s', '', ''],
         [3, 'offline-ui offline-ui-down offline-ui-connecting offline-ui-waiting', '5 seconds', '5s'],
         [1, 'offline-ui offline-ui-down offline-ui-connecting offline-ui-waiting', '4 seconds', '4s'],
         [1, 'offline-ui offline-ui-down offline-ui-connecting offline-ui-waiting', '3 seconds', '3s'],
