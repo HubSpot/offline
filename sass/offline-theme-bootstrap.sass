@@ -1,0 +1,85 @@
+@import compass/css3
+
+@import mixins
+@import keyframes
+
+@import offline-theme-base
+
+$red: #ebccd1
+$green: #d6e9c6
+$yellow: #faebcc
+
+$lightRed: #f2dede
+$lightGreen: #dff0d8
+$lightYellow: #fcf8e3
+
+$darkRed: #b94a48
+$darkGreen: #468847
+$darkYellow: #c09853
+
++keyframes-offline-fadein
++keyframes-offline-fadeout-and-hide
+
++keyframes-offline-rotation
+
+.offline-ui
+    +border-radius(4px)
+    font-family: "Helvetica Neue", sans-serif
+    white-space: nowrap
+    padding: 1em
+    top: 1em
+    width: 34em
+    max-width: 100%
+
+    @media (max-width: 34em)
+        +border-radius(0)
+        top: 0
+
+    .offline-ui-retry
+        position: absolute
+        right: 3em
+        top: 0
+        bottom: 0
+        background: rgba(0, 0, 0, .1)
+        text-decoration: none
+        color: inherit
+        line-height: 3em
+        padding: 0 1em
+
+    &.offline-ui-up
+        +offline-animation(offline-fadeout-and-hide forwards .5s 2s)
+        background: $lightGreen
+        color: $darkGreen
+        border-color: $green
+
+    &.offline-ui-down
+        +offline-animation(offline-fadein .5s)
+        background: $lightRed
+        color: $darkRed
+        border-color: $red
+
+        &.offline-ui-connecting, &.offline-ui-waiting
+            background: $lightYellow
+            color: $darkYellow
+            border-color: $yellow
+            padding-right: 3em
+
+            &:after
+                +offline-animation(offline-rotation .7s linear infinite)
+                +border-radius(50%)
+                content: " "
+                display: block
+                position: absolute
+                right: 1em
+                top: 0
+                bottom: 0
+                margin: auto
+                height: 1em
+                width: 1em
+                border: 2px solid rgba(0, 0, 0, 0)
+                border-top-color: $darkYellow
+                border-left-color: $darkYellow
+                opacity: 0.7
+
+        &.offline-ui-waiting
+            padding-right: 11em
