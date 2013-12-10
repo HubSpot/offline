@@ -134,12 +134,12 @@
             <div class="content"><div class='highlight'><pre><span class="keyword">unless</span> window.Offline
   <span class="keyword">throw</span> <span class="keyword">new</span> Error <span class="string">"Offline Reconnect brought in without offline.js"</span>
 
-rc = {}
+rc = Offline.reconnect = {}
 
 retryIntv = <span class="literal">null</span>
 
 <span class="function"><span class="title">reset</span></span> = -&gt;
-  <span class="keyword">if</span> rc.state?
+  <span class="keyword">if</span> rc.state? <span class="keyword">and</span> rc.state <span class="keyword">isnt</span> <span class="string">'inactive'</span>
     Offline.trigger <span class="string">'reconnect:stopped'</span>
 
   rc.state = <span class="string">'inactive'</span>
@@ -167,15 +167,24 @@ retryIntv = <span class="literal">null</span>
   Offline.check()
 
 <span class="function"><span class="title">down</span></span> = -&gt;
+  <span class="keyword">return</span> <span class="keyword">unless</span> Offline.getOption(<span class="string">'reconnect'</span>)
+
+  reset()
+
   rc.state = <span class="string">'waiting'</span>
+  
   Offline.trigger <span class="string">'reconnect:started'</span>
   retryIntv = setInterval tick, <span class="number">1000</span>
 
 <span class="function"><span class="title">up</span></span> = -&gt;
-  clearInterval retryIntv
+  <span class="keyword">if</span> retryIntv?
+    clearInterval retryIntv
+
   reset()
 
 <span class="function"><span class="title">nope</span></span> = -&gt;
+  <span class="keyword">return</span> <span class="keyword">unless</span> Offline.getOption(<span class="string">'reconnect'</span>)
+
   <span class="keyword">if</span> rc.state <span class="keyword">is</span> <span class="string">'connecting'</span>
     Offline.trigger <span class="string">'reconnect:failure'</span>
     rc.state = <span class="string">'waiting'</span>
@@ -183,16 +192,11 @@ retryIntv = <span class="literal">null</span>
 
 rc.tryNow = tryNow
 
-setTimeout -&gt;
-  <span class="keyword">unless</span> Offline.getOption(<span class="string">'reconnect'</span>) <span class="keyword">is</span> <span class="literal">false</span>
-    reset()
+reset()
 
-    Offline.<span class="literal">on</span> <span class="string">'down'</span>, down
-    Offline.<span class="literal">on</span> <span class="string">'confirmed-down'</span>, nope
-    Offline.<span class="literal">on</span> <span class="string">'up'</span>, up
-
-    Offline.reconnect = rc
-, <span class="number">0</span></pre></div></div>
+Offline.<span class="literal">on</span> <span class="string">'down'</span>, down
+Offline.<span class="literal">on</span> <span class="string">'confirmed-down'</span>, nope
+Offline.<span class="literal">on</span> <span class="string">'up'</span>, up</pre></div></div>
             
         </li>
         

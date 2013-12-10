@@ -1,5 +1,5 @@
 (function() {
-  var RETRY_TEMPLATE, TEMPLATE, addClass, content, createFromHTML, el, flashClass, flashTimeouts, formatTime, init, removeClass, render, _onreadystatechange, _ref;
+  var RETRY_TEMPLATE, TEMPLATE, addClass, content, createFromHTML, el, flashClass, flashTimeouts, formatTime, init, removeClass, render, _onreadystatechange;
 
   if (!window.Offline) {
     throw new Error("Offline UI brought in without offline.js");
@@ -80,7 +80,7 @@
     var button, handler;
     el = createFromHTML(TEMPLATE);
     document.body.appendChild(el);
-    if (Offline.reconnect != null) {
+    if ((Offline.reconnect != null) && Offline.getOption('reconnect')) {
       el.appendChild(createFromHTML(RETRY_TEMPLATE));
       button = el.querySelector('.offline-ui-retry');
       handler = function(e) {
@@ -138,7 +138,7 @@
     });
   };
 
-  if ((_ref = document.readyState) === 'interactive' || _ref === 'complete') {
+  if (document.readyState === 'complete') {
     init();
   } else if (document.addEventListener != null) {
     document.addEventListener('DOMContentLoaded', init, false);

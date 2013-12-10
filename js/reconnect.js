@@ -5,13 +5,13 @@
     throw new Error("Offline Reconnect brought in without offline.js");
   }
 
-  rc = {};
+  rc = Offline.reconnect = {};
 
   retryIntv = null;
 
   reset = function() {
     var _ref;
-    if (rc.state != null) {
+    if ((rc.state != null) && rc.state !== 'inactive') {
       Offline.trigger('reconnect:stopped');
     }
     rc.state = 'inactive';
@@ -45,17 +45,26 @@
   };
 
   down = function() {
+    if (!Offline.getOption('reconnect')) {
+      return;
+    }
+    reset();
     rc.state = 'waiting';
     Offline.trigger('reconnect:started');
     return retryIntv = setInterval(tick, 1000);
   };
 
   up = function() {
-    clearInterval(retryIntv);
+    if (retryIntv != null) {
+      clearInterval(retryIntv);
+    }
     return reset();
   };
 
   nope = function() {
+    if (!Offline.getOption('reconnect')) {
+      return;
+    }
     if (rc.state === 'connecting') {
       Offline.trigger('reconnect:failure');
       rc.state = 'waiting';
@@ -65,14 +74,12 @@
 
   rc.tryNow = tryNow;
 
-  setTimeout(function() {
-    if (Offline.getOption('reconnect') !== false) {
-      reset();
-      Offline.on('down', down);
-      Offline.on('confirmed-down', nope);
-      Offline.on('up', up);
-      return Offline.reconnect = rc;
-    }
-  }, 0);
+  reset();
+
+  Offline.on('down', down);
+
+  Offline.on('confirmed-down', nope);
+
+  Offline.on('up', up);
 
 }).call(this);

@@ -177,12 +177,19 @@ defaultOptions =
 
   interceptRequests: <span class="literal">true</span>
 
+  reconnect: <span class="literal">true</span>
+
 <span class="function"><span class="title">grab</span></span> = (obj, key) -&gt;
   cur = obj
-  <span class="keyword">for</span> part, i <span class="keyword">in</span> key.split(<span class="string">'.'</span>)
+  parts = key.split(<span class="string">'.'</span>)
+  <span class="keyword">for</span> part, i <span class="keyword">in</span> parts
     cur = cur[part]
     <span class="keyword">break</span> <span class="keyword">if</span> <span class="keyword">typeof</span> cur <span class="keyword">isnt</span> <span class="string">'object'</span>
-  cur
+
+  <span class="keyword">if</span> i <span class="keyword">is</span> parts.length - <span class="number">1</span>
+    cur
+  <span class="keyword">else</span>
+    <span class="literal">undefined</span>
   
 Offline.<span class="function"><span class="title">getOption</span></span> = (key) -&gt;
   val = grab(Offline.options, key) ? grab(defaultOptions, key)
