@@ -2,7 +2,7 @@
 .offline-ui.offline-ui-up .offline-ui-content:before {
   content: "Online";
 }
-/* line 8, ../sass/offline-language-english-indicator.sass */
-.offline-ui.offline-ui-up .offline-ui-content:before {
+/* line 10, ../sass/offline-language-english-indicator.sass */
+.offline-ui.offline-ui-down .offline-ui-content:before {
   content: "Offline";
 }

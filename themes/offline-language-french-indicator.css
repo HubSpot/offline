@@ -3,7 +3,7 @@
 .offline-ui.offline-ui-up .offline-ui-content:before {
   content: "Connecté";
 }
-/* line 8, ../sass/offline-language-french-indicator.sass */
-.offline-ui.offline-ui-up .offline-ui-content:before {
+/* line 10, ../sass/offline-language-french-indicator.sass */
+.offline-ui.offline-ui-down .offline-ui-content:before {
   content: "Pas connecté";
 }
