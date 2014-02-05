@@ -17,15 +17,18 @@ $red: #ec8787
     +box-shadow(0 0 0 1px rgba(0, 0, 0, .15), 0 0 1em rgba(0, 0, 0, .3))
     font-family: "Lucida Grande", sans-serif
     font-size: 14px
-    white-space: nowrap
     padding: 1em
-    width: 34em
+    width: 38em
     max-width: 100%
     background: #f6f6f6
     color: #444
+    overflow: hidden
 
     .offline-ui-content
         padding-left: 2em
+
+        &:before
+            line-height: 1.25em
 
         &:after
             +border-radius(50%)
@@ -51,6 +54,8 @@ $red: #ec8787
         text-shadow: 0 1px 0 #f0f0f0
         padding: 0 1em
         line-height: 1.6em
+        height: 1.7em
+        margin: auto
         font-size: 12px
         text-decoration: none
         color: inherit
@@ -89,3 +94,9 @@ $red: #ec8787
                 border-top-color: rgba(0, 0, 0, .5)
                 border-left-color: rgba(0, 0, 0, .5)
                 opacity: 0.7
+
+        &.offline-ui-waiting
+            padding-right: 11em
+
+            &.offline-ui-reconnect-failed-2s
+                padding-right: 0

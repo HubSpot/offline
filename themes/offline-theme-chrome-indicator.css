@@ -22,16 +22,8 @@
   display: block;
 }
 /* line 19, ../sass/_offline-theme-base-indicator.sass */
-.offline-ui.offline-ui-up .offline-ui-content:before {
-  content: "Online";
-}
-/* line 22, ../sass/_offline-theme-base-indicator.sass */
 .offline-ui.offline-ui-down {
   display: block;
-}
-/* line 25, ../sass/_offline-theme-base-indicator.sass */
-.offline-ui.offline-ui-down .offline-ui-content:before {
-  content: "Offline";
 }
 
 /* line 8, ../sass/offline-theme-chrome-indicator.sass */
@@ -46,7 +38,6 @@
   border-radius: 4px 4px 0 0;
   font-family: "Lucida Grande", sans-serif;
   font-size: 12px;
-  white-space: nowrap;
   padding: 7px;
   width: 69px;
   background: #f6f6f6;
@@ -54,11 +45,11 @@
   bottom: 0;
   left: 20px;
 }
-/* line 21, ../sass/offline-theme-chrome-indicator.sass */
+/* line 20, ../sass/offline-theme-chrome-indicator.sass */
 .offline-ui .offline-ui-content {
   padding-left: 16px;
 }
-/* line 24, ../sass/offline-theme-chrome-indicator.sass */
+/* line 23, ../sass/offline-theme-chrome-indicator.sass */
 .offline-ui .offline-ui-content:after {
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
@@ -75,11 +66,11 @@
   height: 9px;
   width: 9px;
 }
-/* line 38, ../sass/offline-theme-chrome-indicator.sass */
+/* line 37, ../sass/offline-theme-chrome-indicator.sass */
 .offline-ui.offline-ui-up .offline-ui-content:after {
   background: #80d580;
 }
-/* line 43, ../sass/offline-theme-chrome-indicator.sass */
+/* line 42, ../sass/offline-theme-chrome-indicator.sass */
 .offline-ui.offline-ui-down .offline-ui-content:after {
   background: #ec8787;
 }

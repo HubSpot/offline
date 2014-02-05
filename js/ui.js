@@ -1,5 +1,5 @@
 (function() {
-  var RETRY_TEMPLATE, TEMPLATE, addClass, content, createFromHTML, el, flashClass, flashTimeouts, formatTime, init, removeClass, render, _onreadystatechange;
+  var RETRY_TEMPLATE, TEMPLATE, addClass, content, createFromHTML, el, flashClass, flashTimeouts, init, removeClass, render, roundTime, _onreadystatechange;
 
   if (!window.Offline) {
     throw new Error("Offline UI brought in without offline.js");
@@ -40,40 +40,22 @@
     }, time * 1000);
   };
 
-  formatTime = function(sec, long) {
-    var formatters, longUnits, mult, out, unit, val;
-    if (long == null) {
-      long = false;
-    }
-    if (sec === 0) {
-      return 'now';
-    }
-    formatters = {
-      'd': 86400,
-      'h': 3600,
-      'm': 60,
-      's': 1
+  roundTime = function(sec) {
+    var mult, unit, units, val;
+    units = {
+      'day': 86400,
+      'hour': 3600,
+      'minute': 60,
+      'second': 1
     };
-    longUnits = {
-      's': 'second',
-      'm': 'minute',
-      'h': 'hour',
-      'd': 'day'
-    };
-    out = '';
-    for (unit in formatters) {
-      mult = formatters[unit];
+    for (unit in units) {
+      mult = units[unit];
       if (sec >= mult) {
         val = Math.floor(sec / mult);
-        if (long) {
-          unit = " " + longUnits[unit];
-          if (val !== 1) {
-            unit += 's';
-          }
-        }
-        return "" + val + unit;
+        return [val, unit];
       }
     }
+    return ['now', ''];
   };
 
   render = function() {
@@ -116,17 +98,17 @@
       return removeClass('offline-ui-waiting');
     });
     Offline.on('reconnect:tick', function() {
+      var time, unit, _ref;
       addClass('offline-ui-waiting');
       removeClass('offline-ui-connecting');
-      content.setAttribute('data-retry-in-seconds', Offline.reconnect.remaining);
-      content.setAttribute('data-retry-in-abbr', formatTime(Offline.reconnect.remaining));
-      return content.setAttribute('data-retry-in', formatTime(Offline.reconnect.remaining, true));
+      _ref = roundTime(Offline.reconnect.remaining), time = _ref[0], unit = _ref[1];
+      content.setAttribute('data-retry-in-value', time);
+      return content.setAttribute('data-retry-in-unit', unit);
     });
     Offline.on('reconnect:stopped', function() {
       removeClass('offline-ui-connecting offline-ui-waiting');
-      content.setAttribute('data-retry-in-seconds', null);
-      content.setAttribute('data-retry-in-abbr', null);
-      return content.setAttribute('data-retry-in', null);
+      content.setAttribute('data-retry-in-value', null);
+      return content.setAttribute('data-retry-in-unit', null);
     });
     Offline.on('reconnect:failure', function() {
       flashClass('offline-ui-reconnect-failed-2s', 2);

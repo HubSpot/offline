@@ -22,16 +22,8 @@
   display: block;
 }
 /* line 19, ../sass/_offline-theme-base-indicator.sass */
-.offline-ui.offline-ui-up .offline-ui-content:before {
-  content: "Online";
-}
-/* line 22, ../sass/_offline-theme-base-indicator.sass */
 .offline-ui.offline-ui-down {
   display: block;
-}
-/* line 25, ../sass/_offline-theme-base-indicator.sass */
-.offline-ui.offline-ui-down .offline-ui-content:before {
-  content: "Offline";
 }
 
 /* line 8, ../sass/offline-theme-dark-indicator.sass */
@@ -45,7 +37,7 @@
   -o-border-radius: 4px 4px 0 0;
   border-radius: 4px 4px 0 0;
   font-family: "Helvetica Neue", sans-serif;
-  white-space: nowrap;
+  font-weight: 300;
   padding: 1em;
   width: 6.3em;
   background: black;
