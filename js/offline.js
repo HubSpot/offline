@@ -34,10 +34,10 @@
       },
       image: {
         url: function() {
-          return "http://dqakt69vkj09v.cloudfront.net/are-we-online.gif?_=" + (Math.floor(Math.random() * 1000000000));
+          return "img/tiny-image.gif?_=" + (Math.floor(Math.random() * 1000000000));
         }
       },
-      active: 'image'
+      active: 'xhr'
     },
     checkOnLoad: false,
     interceptRequests: true,
