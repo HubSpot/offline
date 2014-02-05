@@ -30,76 +30,21 @@
 /* line 24, ../sass/_offline-theme-base.sass */
 .offline-ui .offline-ui-retry:before {
   display: inline;
-  content: "Reconnect";
 }
-/* line 30, ../sass/_offline-theme-base.sass */
-.offline-ui.offline-ui-up .offline-ui-content:before {
-  content: "Your computer is connected to the internet. ";
-}
-@media (max-width: 1024px) {
-  /* line 30, ../sass/_offline-theme-base.sass */
-  .offline-ui.offline-ui-up .offline-ui-content:before {
-    content: "Your device is connected to the internet. ";
-  }
-}
-@media (max-width: 568px) {
-  /* line 30, ../sass/_offline-theme-base.sass */
-  .offline-ui.offline-ui-up .offline-ui-content:before {
-    content: "Your device is connected. ";
-  }
-}
-/* line 39, ../sass/_offline-theme-base.sass */
+/* line 29, ../sass/_offline-theme-base.sass */
 .offline-ui.offline-ui-up.offline-ui-up-5s {
   display: block;
 }
-/* line 42, ../sass/_offline-theme-base.sass */
+/* line 32, ../sass/_offline-theme-base.sass */
 .offline-ui.offline-ui-down {
   display: block;
 }
-/* line 47, ../sass/_offline-theme-base.sass */
-.offline-ui.offline-ui-down.offline-ui-connecting .offline-ui-content:before, .offline-ui.offline-ui-down.offline-ui-connecting-2s .offline-ui-content:before {
-  content: "Attempting to reconnect... ";
-}
-/* line 52, ../sass/_offline-theme-base.sass */
+/* line 37, ../sass/_offline-theme-base.sass */
 .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-retry {
   display: block;
 }
-/* line 55, ../sass/_offline-theme-base.sass */
-.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content:before {
-  content: "Attempting to reconnect in " attr(data-retry-in) "... ";
-}
-@media (max-width: 568px) {
-  /* line 55, ../sass/_offline-theme-base.sass */
-  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content:before {
-    content: "Connecting in " attr(data-retry-in-abbr) "... ";
-  }
-}
-/* line 63, ../sass/_offline-theme-base.sass */
+/* line 42, ../sass/_offline-theme-base.sass */
 .offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s.offline-ui-waiting .offline-ui-retry {
-  display: none;
-}
-/* line 66, ../sass/_offline-theme-base.sass */
-.offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s .offline-ui-content:before {
-  content: "Connection attempt failed. ";
-}
-/* line 71, ../sass/_offline-theme-base.sass */
-.offline-ui.offline-ui-down.offline-ui-down-5s .offline-ui-content:before {
-  content: "Your computer lost its internet connection. ";
-}
-@media (max-width: 1024px) {
-  /* line 71, ../sass/_offline-theme-base.sass */
-  .offline-ui.offline-ui-down.offline-ui-down-5s .offline-ui-content:before {
-    content: "Your device lost its internet connection. ";
-  }
-}
-@media (max-width: 568px) {
-  /* line 71, ../sass/_offline-theme-base.sass */
-  .offline-ui.offline-ui-down.offline-ui-down-5s .offline-ui-content:before {
-    content: "Your device isn't connected. ";
-  }
-}
-/* line 80, ../sass/_offline-theme-base.sass */
-.offline-ui.offline-ui-down.offline-ui-down-5s.offline-ui-waiting .offline-ui-retry {
   display: none;
 }
 
@@ -520,18 +465,22 @@
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15), 0 0 1em rgba(0, 0, 0, 0.3);
   font-family: "Lucida Grande", sans-serif;
   font-size: 14px;
-  white-space: nowrap;
   padding: 1em;
-  width: 34em;
+  width: 38em;
   max-width: 100%;
   background: #f6f6f6;
   color: #444444;
+  overflow: hidden;
 }
 /* line 27, ../sass/offline-theme-chrome.sass */
 .offline-ui .offline-ui-content {
   padding-left: 2em;
 }
 /* line 30, ../sass/offline-theme-chrome.sass */
+.offline-ui .offline-ui-content:before {
+  line-height: 1.25em;
+}
+/* line 33, ../sass/offline-theme-chrome.sass */
 .offline-ui .offline-ui-content:after {
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
@@ -548,7 +497,7 @@
   height: 1em;
   width: 1em;
 }
-/* line 42, ../sass/offline-theme-chrome.sass */
+/* line 45, ../sass/offline-theme-chrome.sass */
 .offline-ui .offline-ui-retry {
   -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08), inset 0 1px 2px rgba(255, 255, 255, 0.75);
   -moz-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08), inset 0 1px 2px rgba(255, 255, 255, 0.75);
@@ -571,11 +520,13 @@
   text-shadow: 0 1px 0 #f0f0f0;
   padding: 0 1em;
   line-height: 1.6em;
+  height: 1.7em;
+  margin: auto;
   font-size: 12px;
   text-decoration: none;
   color: inherit;
 }
-/* line 58, ../sass/offline-theme-chrome.sass */
+/* line 63, ../sass/offline-theme-chrome.sass */
 .offline-ui.offline-ui-up {
   -webkit-animation: offline-dropout forwards 0.5s 2s;
   -moz-animation: offline-dropout forwards 0.5s 2s;
@@ -584,11 +535,11 @@
   animation: offline-dropout forwards 0.5s 2s;
   -webkit-backface-visibility: hidden;
 }
-/* line 61, ../sass/offline-theme-chrome.sass */
+/* line 66, ../sass/offline-theme-chrome.sass */
 .offline-ui.offline-ui-up .offline-ui-content:after {
   background: #80d580;
 }
-/* line 64, ../sass/offline-theme-chrome.sass */
+/* line 69, ../sass/offline-theme-chrome.sass */
 .offline-ui.offline-ui-down {
   -webkit-animation: offline-dropin 0.5s;
   -moz-animation: offline-dropin 0.5s;
@@ -597,19 +548,19 @@
   animation: offline-dropin 0.5s;
   -webkit-backface-visibility: hidden;
 }
-/* line 67, ../sass/offline-theme-chrome.sass */
+/* line 72, ../sass/offline-theme-chrome.sass */
 .offline-ui.offline-ui-down .offline-ui-content:after {
   background: #ec8787;
 }
-/* line 70, ../sass/offline-theme-chrome.sass */
+/* line 75, ../sass/offline-theme-chrome.sass */
 .offline-ui.offline-ui-down.offline-ui-connecting, .offline-ui.offline-ui-down.offline-ui-waiting {
   padding-right: 3em;
 }
-/* line 73, ../sass/offline-theme-chrome.sass */
+/* line 78, ../sass/offline-theme-chrome.sass */
 .offline-ui.offline-ui-down.offline-ui-connecting .offline-ui-content:after, .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content:after {
   background: #ec8787;
 }
-/* line 76, ../sass/offline-theme-chrome.sass */
+/* line 81, ../sass/offline-theme-chrome.sass */
 .offline-ui.offline-ui-down.offline-ui-connecting:after, .offline-ui.offline-ui-down.offline-ui-waiting:after {
   -webkit-animation: offline-rotation 0.7s linear infinite;
   -moz-animation: offline-rotation 0.7s linear infinite;
@@ -635,4 +586,12 @@
   border-top-color: rgba(0, 0, 0, 0.5);
   border-left-color: rgba(0, 0, 0, 0.5);
   opacity: 0.7;
+}
+/* line 98, ../sass/offline-theme-chrome.sass */
+.offline-ui.offline-ui-down.offline-ui-waiting {
+  padding-right: 11em;
+}
+/* line 101, ../sass/offline-theme-chrome.sass */
+.offline-ui.offline-ui-down.offline-ui-waiting.offline-ui-reconnect-failed-2s {
+  padding-right: 0;
 }

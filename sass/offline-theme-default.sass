@@ -21,15 +21,18 @@ $darkYellow: #7c6d1f
 .offline-ui
     +border-radius(4px)
     font-family: "Helvetica Neue", sans-serif
-    white-space: nowrap
     padding: 1em
     top: 1em
-    width: 34em
+    width: 38em
     max-width: 100%
+    overflow: hidden
 
-    @media (max-width: 34em)
+    @media (max-width: 38em)
         +border-radius(0)
         top: 0
+
+    .offline-ui-content:before
+        line-height: 1.25em
 
     .offline-ui-retry
         position: absolute
@@ -39,7 +42,9 @@ $darkYellow: #7c6d1f
         background: rgba(0, 0, 0, .1)
         text-decoration: none
         color: inherit
-        line-height: 3em
+        line-height: 3.5em
+        height: 3.5em
+        margin: auto
         padding: 0 1em
 
     &.offline-ui-up
@@ -76,3 +81,6 @@ $darkYellow: #7c6d1f
 
         &.offline-ui-waiting
             padding-right: 11em
+
+            &.offline-ui-reconnect-failed-2s
+                padding-right: 0

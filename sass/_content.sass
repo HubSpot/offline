@@ -1,0 +1,94 @@
+=offline-content
+    .offline-ui
+
+        .offline-ui-retry
+
+            &:before
+                content: $retryButton
+
+        &.offline-ui-up
+
+            .offline-ui-content:before
+                content: $upComputer
+
+                @media (max-width: 1024px)
+                    content: $upDevice
+
+                @media (max-width: 568px)
+                    content: $upDeviceSmall
+
+        &.offline-ui-down
+
+            .offline-ui-content:before
+                content: $downComputer
+
+                @media (max-width: 1024px)
+                    content: $downDevice
+
+                @media (max-width: 568px)
+                    content: $downDeviceSmall
+
+            &.offline-ui-connecting, &.offline-ui-connecting-2s
+
+                .offline-ui-content:before
+                    content: $connecting
+
+            &.offline-ui-waiting
+
+                .offline-ui-content
+
+                    &[data-retry-in-unit="second"]
+
+                        &:before
+                            content: $retryingSecondBeforeValuePluralComputer attr(data-retry-in-value) $retryingSecondAfterValuePluralComputer
+
+                            @media (max-width: 568px)
+                                content: $retryingSecondBeforeValuePluralDeviceSmall attr(data-retry-in-value) $retryingSecondAfterValuePluralDeviceSmall
+
+                        &[data-retry-in-value="1"]
+
+                            &:before
+                                content: $retryingSecondBeforeValueSingularComputer attr(data-retry-in-value) $retryingSecondAfterValueSingularComputer
+
+                                @media (max-width: 568px)
+                                    content: $retryingSecondBeforeValueSingularDeviceSmall attr(data-retry-in-value) $retryingSecondAfterValueSingularDeviceSmall
+
+                    &[data-retry-in-unit="minute"]
+
+                        &:before
+                            content: $retryingMinuteBeforeValuePluralComputer attr(data-retry-in-value) $retryingMinuteAfterValuePluralComputer
+
+                            @media (max-width: 568px)
+                                content: $retryingMinuteBeforeValuePluralDeviceSmall attr(data-retry-in-value) $retryingMinuteAfterValuePluralDeviceSmall
+
+                        &[data-retry-in-value="1"]
+
+                            &:before
+                                content: $retryingMinuteBeforeValueSingularComputer attr(data-retry-in-value) $retryingMinuteAfterValueSingularComputer
+
+                                @media (max-width: 568px)
+                                    content: $retryingMinuteBeforeValueSingularDeviceSmall attr(data-retry-in-value) $retryingMinuteAfterValueSingularDeviceSmall
+
+                    &[data-retry-in-unit="hour"]
+
+                        &:before
+                            content: $retryingHourBeforeValuePluralComputer attr(data-retry-in-value) $retryingHourAfterValuePluralComputer
+
+                            @media (max-width: 568px)
+                                content: $retryingHourBeforeValuePluralDeviceSmall attr(data-retry-in-value) $retryingHourAfterValuePluralDeviceSmall
+
+                        &[data-retry-in-value="1"]
+
+                            &:before
+                                content: $retryingHourBeforeValueSingularComputer attr(data-retry-in-value) $retryingHourAfterValueSingularComputer
+
+                                @media (max-width: 568px)
+                                    content: $retryingHourBeforeValueSingularDeviceSmall attr(data-retry-in-value) $retryingHourAfterValueSingularDeviceSmall
+
+            &.offline-ui-reconnect-failed-2s
+
+                &.offline-ui-waiting .offline-ui-retry
+                    display: none
+
+                .offline-ui-content:before
+                    content: $reconnectFailed
