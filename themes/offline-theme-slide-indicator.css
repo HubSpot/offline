@@ -34,19 +34,18 @@
   -o-border-radius: 4px 4px 0 0;
   border-radius: 4px 4px 0 0;
   font-family: "Helvetica Neue", sans-serif;
-  white-space: nowrap;
   padding: 1em;
   width: 5em;
   max-width: 100%;
   bottom: 0;
   left: 1em;
 }
-/* line 21, ../sass/offline-theme-slide-indicator.sass */
+/* line 20, ../sass/offline-theme-slide-indicator.sass */
 .offline-ui.offline-ui-up {
   background: #aacbf5;
   color: #1f4779;
 }
-/* line 25, ../sass/offline-theme-slide-indicator.sass */
+/* line 24, ../sass/offline-theme-slide-indicator.sass */
 .offline-ui.offline-ui-down {
   background: #ec8787;
   color: #551313;

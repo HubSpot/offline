@@ -466,12 +466,12 @@
   -o-border-radius: 0 0 4px 4px;
   border-radius: 0 0 4px 4px;
   font-family: "Helvetica Neue", sans-serif;
-  white-space: nowrap;
   padding: 1em;
-  width: 34em;
+  width: 38em;
   max-width: 100%;
+  overflow: hidden;
 }
-@media (max-width: 34em) {
+@media (max-width: 38em) {
   /* line 21, ../sass/offline-theme-slide.sass */
   .offline-ui {
     -webkit-border-radius: 0;
@@ -490,10 +490,12 @@
   background: rgba(0, 0, 0, 0.1);
   text-decoration: none;
   color: inherit;
-  line-height: 3em;
+  line-height: 3.5em;
+  height: 3.5em;
+  margin: auto;
   padding: 0 1em;
 }
-/* line 43, ../sass/offline-theme-slide.sass */
+/* line 45, ../sass/offline-theme-slide.sass */
 .offline-ui.offline-ui-up {
   -webkit-animation: offline-dropout forwards 0.5s 2s;
   -moz-animation: offline-dropout forwards 0.5s 2s;
@@ -504,7 +506,7 @@
   background: #aacbf5;
   color: #1f4779;
 }
-/* line 48, ../sass/offline-theme-slide.sass */
+/* line 50, ../sass/offline-theme-slide.sass */
 .offline-ui.offline-ui-down {
   -webkit-animation: offline-dropin 0.5s;
   -moz-animation: offline-dropin 0.5s;
@@ -515,13 +517,13 @@
   background: #ec8787;
   color: #551313;
 }
-/* line 53, ../sass/offline-theme-slide.sass */
+/* line 55, ../sass/offline-theme-slide.sass */
 .offline-ui.offline-ui-down.offline-ui-connecting, .offline-ui.offline-ui-down.offline-ui-waiting {
   background: #f8ecad;
   color: #7c6d1f;
   padding-right: 3em;
 }
-/* line 58, ../sass/offline-theme-slide.sass */
+/* line 60, ../sass/offline-theme-slide.sass */
 .offline-ui.offline-ui-down.offline-ui-connecting:after, .offline-ui.offline-ui-down.offline-ui-waiting:after {
   -webkit-animation: offline-rotation 0.7s linear infinite;
   -moz-animation: offline-rotation 0.7s linear infinite;
@@ -548,7 +550,11 @@
   border-left-color: #7c6d1f;
   opacity: 0.7;
 }
-/* line 75, ../sass/offline-theme-slide.sass */
+/* line 77, ../sass/offline-theme-slide.sass */
 .offline-ui.offline-ui-down.offline-ui-waiting {
   padding-right: 11em;
+}
+/* line 80, ../sass/offline-theme-slide.sass */
+.offline-ui.offline-ui-down.offline-ui-waiting.offline-ui-reconnect-failed-2s {
+  padding-right: 0;
 }
