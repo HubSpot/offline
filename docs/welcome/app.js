@@ -48,6 +48,7 @@ $(function(){
         doc.open();
         doc.write('' +
             '<link rel="stylesheet" href="/offline/themes/offline-theme-' + themeName + '.css" />' +
+            '<link rel="stylesheet" href="/offline/themes/offline-language-english' + (themeName.match(/\-indicator$/) ? '-indicator' : '') + '.css" />' +
             '<div data-phase="0" class="offline-ui offline-ui-down offline-ui-down-5s"><div class="offline-ui-content"></div><a class="offline-ui-retry"></a></div>' +
         '');
         doc.close();
