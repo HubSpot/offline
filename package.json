@@ -1,6 +1,6 @@
 {
   "name": "offline",
-  "version": "0.4.7",
+  "version": "0.5.0",
   "description": "Automatically detect when a browser is offline",
   "authors": [
     "Adam Schwartz <aschwartz@hubspot.com>",
