@@ -1,6 +1,8 @@
 Offline
 ======
 
+**Note to users pre-0.6.0:  Offline previously used a cloudfront hosted file as one of it's methods of detecting the connection status.  This method is now deprecated.  If your app is getting cloudfront 404s, please upgrade to Offline 0.6.0.**
+
 Improve the experience of your app when your users lose connection.
 
 - Monitors ajax requests looking for failure
