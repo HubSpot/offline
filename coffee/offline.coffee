@@ -19,14 +19,15 @@ defaultOptions =
   checks:
     xhr:
       url: ->
+        # This can be any endpoint, even one that will 404.
         "/offline-test-request/#{ Math.floor(Math.random() * 1000000000) }"
 
     image:
       url: ->
         # This can be any image:
-        "img/tiny-image.gif?_=#{ Math.floor(Math.random() * 1000000000) }"
+        "/favicon.ico?_=#{ Math.floor(Math.random() * 1000000000) }"
 
-    active: 'xhr'
+    active: 'image'
 
   checkOnLoad: false
 
