@@ -79,18 +79,14 @@ Properties
 Checking
 --------
 
-Offline ships with two methods for checking the connection.  One makes a request for a tiny image hosted on a
-cloudfront account for the benevolence of all, the other makes an XHR request against the current domain,
-hoping to get back any sort of response (even a 404).
+Offline ships with two methods for checking the connection.  One makes a request for your `/favicon.ico` file
+, the other makes an XHR request against the current domain, hoping to get back any sort of response (even a 404).
 
-You can change the url of the image to be one you control, if you like:
+You can change the url of the image, if you like:
 
 ```javascript
 Offline.options = {checks: {image: {url: 'my-image.gif'}}};
 ```
-
-Loading an image was chosen (rather than a script file), because it limits the potential damage if a
-hostile party were to be in control of it.
 
 You can also switch to the XHR method:
 
@@ -107,7 +103,6 @@ that's the perfect solution.  You can set the endpoint in settings as well:
 ```javascript
 Offline.options = {checks: {xhr: {url: '/health-check'}}};
 ```
-
 
 Reconnect
 ---------
