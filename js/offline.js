@@ -29,7 +29,7 @@
     checks: {
       xhr: {
         url: function() {
-          return "/offline-test-request/" + (Math.floor(Math.random() * 1000000000));
+          return "/favicon.ico?_=" + (Math.floor(Math.random() * 1000000000));
         }
       },
       image: {
@@ -37,7 +37,7 @@
           return "/favicon.ico?_=" + (Math.floor(Math.random() * 1000000000));
         }
       },
-      active: 'image'
+      active: 'xhr'
     },
     checkOnLoad: false,
     interceptRequests: true,

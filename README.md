@@ -79,30 +79,26 @@ Properties
 Checking
 --------
 
-Offline ships with two methods for checking the connection.  One makes a request for your `/favicon.ico` file
-, the other makes an XHR request against the current domain, hoping to get back any sort of response (even a 404).
-
-You can change the url of the image, if you like:
-
-```javascript
-Offline.options = {checks: {image: {url: 'my-image.gif'}}};
-```
-
-You can also switch to the XHR method:
+By default, Offline makes an XHR request to load your `/favicon.ico` to check the connection.  If you don't
+have such a file, it will 404 in the console, but otherwise work fine (even a 404 means the connection is up).
+You can change the URL it hits (an endpoint which will respond with a quick 204 is perfect):
 
 ```javascript
-Offline.options = {checks: {active: 'xhr'}}
+Offline.options = {checks: {xhr: {url: '/connection-test'}}};
 ```
 
-The XHR method is not enabled by default because of a concern that some sites do a significant amount of
-processing to build their 404 page, so it's not something we want to send unnecessarily.  It's also
-possible that the page would respond with a redirect to a different domain, creating a CORS problem.
-If you have control of the domain and can create an endpoint which just responds with a quick 204,
-that's the perfect solution.  You can set the endpoint in settings as well:
+Make sure that the URL you check has the same origin as your page (the connection method, domain and port all must be the same), or you
+will run into CORS issues.  You can add `Access-Control` headers to the endpoint to fix it on modern browsers, but it will still cause issues on
+IE9 and below.
+
+If you do want to run tests on a different domain, try the image method.  It loads an image, which are allowed to cross domains.
 
 ```javascript
-Offline.options = {checks: {xhr: {url: '/health-check'}}};
+Offline.options = {checks: {image: {url: 'my-image.gif'}, active: 'image'}}
 ```
+
+The one cavet is that with the image method, we can't distinguish a 404 from a genuine connection issue, so any error at all will
+appear to Offline as a connection issue.
 
 Reconnect
 ---------
