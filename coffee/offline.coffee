@@ -165,6 +165,9 @@ Offline.checks.image = ->
   
   undefined
 
+Offline.checks.down = Offline.markDown
+Offline.checks.up = Offline.markUp
+
 Offline.check = ->
   Offline.trigger 'checking'
 
