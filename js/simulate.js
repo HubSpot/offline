@@ -1,12 +1,22 @@
 (function() {
+  var state, _base, _i, _len, _ref;
+
   if (!Offline) {
     throw new Error("Offline simulate brought in without offline.js");
   }
 
-  if (document.querySelector('script[data-simulate="down"]') || localStorage.OFFLINE_FORCE_DOWN) {
-    Offline.options.checks.active = 'down';
-  } else if (document.querySelector('script[data-simulate="up"]') || localStorage.OFFLINE_FORCE_UP) {
-    Offline.options.checks.active = 'up';
+  _ref = ['up', 'down'];
+  for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+    state = _ref[_i];
+    if (document.querySelector("script[data-simulate='" + state + "']") || localStorage.OFFLINE_SIMULATE === state) {
+      if (Offline.options == null) {
+        Offline.options = {};
+      }
+      if ((_base = Offline.options).checks == null) {
+        _base.checks = {};
+      }
+      Offline.options.checks.active = state;
+    }
   }
 
 }).call(this);
