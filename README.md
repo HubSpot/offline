@@ -1,10 +1,9 @@
 Offline
 ======
 
-**Note to users pre-0.6.0:  Offline previously used a cloudfront hosted file as one of it's methods of detecting the connection status.  This method is now deprecated.  Please upgrade to Offline 0.7.0+.
+**Note to users pre-0.6.0:  Offline previously used a cloudfront hosted file as one of it's methods of detecting the connection status.  This method is now deprecated.  Please upgrade to Offline 0.7.0+.**
 
-Note that the cloudfront file will be removed at the end of March, please upgrade before then.
-**
+**Note that the cloudfront file will be removed at the end of March, please upgrade before then.**
 
 Improve the experience of your app when your users lose connection.
 
