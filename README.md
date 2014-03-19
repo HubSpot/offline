@@ -19,6 +19,8 @@ Installing
 
 Include [the javascript](https://raw.github.com/HubSpot/offline/v0.7.1/offline.min.js) and one of [the themes](http://github.hubspot.com/offline/docs/welcome/) on your site.  You're done!
 
+If you'd like to get a peek at how it looks on your site, disconnect your internet, or try out the [simulator](http://craigshoemaker.github.io/offlinejs-simulate-ui/).
+
 Advanced
 --------
 
