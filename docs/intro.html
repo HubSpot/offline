@@ -29,6 +29,7 @@
     </div>
 </div>
 <div class="hs-page-width-normal"><div class="row-fluid"><div class="span6"><h1 class="hs-doc-page-header"><a class="hs-doc-homepage-link" href="../">offline</a></h1></div><div class="span6 hidden-phone"><div class="hs-doc-slim-github-link-wrapper"><a class="hs-doc-slim-github-link" href="http://github.com/HubSpot/offline">★ On GitHub</a></div></div></div></div><div class="hs-page-width-normal"><div class="row-fluid"><div class="span3"><div class="hs-doc-sidenav"><nav><ul class="hs-public-sidenav"><li class=""><a href="../">Home</a></li></ul></nav></div></div><div class="span9"><div class="hs-doc-content"><h1 id="offline">Offline</h1>
+<p><strong>Note to users pre-0.6.0:  Offline previously used a cloudfront hosted file as one of it&#39;s methods of detecting the connection status.  This method is now deprecated.  Please upgrade to Offline 0.6.0+.</strong></p>
 <p>Improve the experience of your app when your users lose connection.</p>
 <ul>
 <li>Monitors ajax requests looking for failure</li>
@@ -39,7 +40,7 @@ after the connection is restored.</li>
 <li>3kb minified and compressed</li>
 </ul>
 <h2 id="installing">Installing</h2>
-<p>Include <a href="https://raw.github.com/HubSpot/offline/v0.4.7/offline.min.js">the javascript</a> and one of <a href="http://github.hubspot.com/offline/docs/welcome/">the themes</a> on your site.  You&#39;re done!</p>
+<p>Include <a href="https://raw.github.com/HubSpot/offline/v0.7.2/offline.min.js">the javascript</a> and one of <a href="http://github.hubspot.com/offline/docs/welcome/">the themes</a> on your site.  You&#39;re done!</p>
 <h2 id="advanced">Advanced</h2>
 <p>Optionally, you can provide some configuration by setting <code>Offline.options</code> after
 bringing in the script.</p>
@@ -61,7 +62,7 @@ bringing in the script.</p>
   },
 
   <span class="comment">// Should we store and attempt to remake requests which fail while the connection is down.</span>
-  requests: <span class="literal">true</span>
+  requests: <span class="literal">true</span>,
 
   <span class="comment">// Should we show a snake game while the connection is down to keep the user entertained?</span>
   <span class="comment">// It's not included in the normal build, you should bring in js/snake.js in addition to</span>
@@ -88,21 +89,20 @@ bringing in the script.</p>
 </ul>
 <p><code>Offline.off(event, handler)</code>: Unbind an event</p>
 <h2 id="checking">Checking</h2>
-<p>Offline ships with two methods for checking the connection.  One makes a request for a tiny image hosted on a
-cloudfront account for the benevolence of all, the other makes an XHR request against the current domain,
-hoping to get back any sort of response (even a 404).</p>
-<p>You can change the url of the image to be one you control, if you like:</p>
-<pre><code class="lang-javascript">Offline.options = {checks: {image: {url: <span class="string">'my-image.gif'</span>}}};</code></pre>
-<p>Loading an image was chosen (rather than a script file), because it limits the potential damage if a
-hostile party were to be in control of it.</p>
-<p>You can also switch to the XHR method:</p>
-<pre><code class="lang-javascript">Offline.options = {checks: {active: <span class="string">'xhr'</span>}}</code></pre>
-<p>The XHR method is not enabled by default because of a concern that some sites do a significant amount of
-processing to build their 404 page, so it&#39;s not something we want to send unnecessarily.  It&#39;s also
-possible that the page would respond with a redirect to a different domain, creating a CORS problem.
-If you have control of the domain and can create an endpoint which just responds with a quick 204,
-that&#39;s the perfect solution.  You can set the endpoint in settings as well:</p>
-<pre><code class="lang-javascript">Offline.options = {checks: {xhr: {url: <span class="string">'/health-check'</span>}}};</code></pre>
+<p>By default, Offline makes an XHR request to load your <code>/favicon.ico</code> to check the connection.  If you don&#39;t
+have such a file, it will 404 in the console, but otherwise work fine (even a 404 means the connection is up).
+You can change the URL it hits (an endpoint which will respond with a quick 204 is perfect):</p>
+<pre><code class="lang-javascript">Offline.options = {checks: {xhr: {url: <span class="string">'/connection-test'</span>}}};</code></pre>
+<p>Make sure that the URL you check has the same origin as your page (the connection method, domain and port all must be the same), or you
+will run into CORS issues.  You can add <code>Access-Control</code> headers to the endpoint to fix it on modern browsers, but it will still cause issues on
+IE9 and below.</p>
+<p>If you do want to run tests on a different domain, try the image method.  It loads an image, which are allowed to cross domains.</p>
+<pre><code class="lang-javascript">Offline.options = {checks: {image: {url: <span class="string">'my-image.gif'</span>}, active: <span class="string">'image'</span>}}</code></pre>
+<p>The one cavet is that with the image method, we can&#39;t distinguish a 404 from a genuine connection issue, so any error at all will
+appear to Offline as a connection issue.</p>
+<p>Offline also includes a check called <code>&#39;up&#39;</code> and another called <code>&#39;down&#39;</code> which will always report being up or down respectively for
+testing.  You can activate them by setting the <code>active</code> option, adding a data attribute to your script tag with the name
+<code>data-simulate</code> and value <code>&#39;up&#39;</code> or <code>&#39;down&#39;</code>, or by setting <code>localStorage.OFFLINE_SIMULATE</code> to <code>&#39;up&#39;</code> or <code>&#39;down&#39;</code>.</p>
 <h2 id="reconnect">Reconnect</h2>
 <p>The reconnect module automatically retests the connection periodically when it is down.
 A successful AJAX request will also trigger a silent recheck (if <code>interceptRequests</code> is not false).</p>

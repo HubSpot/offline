@@ -29,12 +29,12 @@
     checks: {
       xhr: {
         url: function() {
-          return "/offline-test-request/" + (Math.floor(Math.random() * 1000000000));
+          return "/favicon.ico?_=" + (Math.floor(Math.random() * 1000000000));
         }
       },
       image: {
         url: function() {
-          return "img/tiny-image.gif?_=" + (Math.floor(Math.random() * 1000000000));
+          return "/favicon.ico?_=" + (Math.floor(Math.random() * 1000000000));
         }
       },
       active: 'xhr'
@@ -210,6 +210,10 @@
     img.src = Offline.getOption('checks.image.url');
     return void 0;
   };
+
+  Offline.checks.down = Offline.markDown;
+
+  Offline.checks.up = Offline.markUp;
 
   Offline.check = function() {
     Offline.trigger('checking');
