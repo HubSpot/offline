@@ -1,7 +1,9 @@
 Offline
 ======
 
-**Note to users pre-0.6.0:  Offline previously used a cloudfront hosted file as one of it's methods of detecting the connection status.  This method is now deprecated.  Please upgrade to Offline 0.6.0+.**
+**Note to users pre-0.6.0:  Offline previously used a cloudfront hosted file as one of it's methods of detecting the connection status.  This method is now deprecated.  Please upgrade to Offline 0.7.0+.**
+
+**Note that the cloudfront file will be removed at the end of March, please upgrade before then.**
 
 Improve the experience of your app when your users lose connection.
 
@@ -16,6 +18,8 @@ Installing
 ----------
 
 Include [the javascript](https://raw.github.com/HubSpot/offline/v0.7.2/offline.min.js) and one of [the themes](http://github.hubspot.com/offline/docs/welcome/) on your site.  You're done!
+
+If you'd like to get a peek at how it looks on your site, disconnect your internet, or try out the [simulator](http://craigshoemaker.github.io/offlinejs-simulate-ui/).
 
 Advanced
 --------
