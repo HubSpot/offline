@@ -30,7 +30,8 @@
       xhr: {
         url: function() {
           return "/favicon.ico?_=" + (Math.floor(Math.random() * 1000000000));
-        }
+        },
+        timeout: 5000
       },
       image: {
         url: function() {
@@ -192,6 +193,9 @@
     xhr = new XMLHttpRequest;
     xhr.offline = false;
     xhr.open('HEAD', Offline.getOption('checks.xhr.url'), true);
+    if (xhr.timeout != null) {
+      xhr.timeout = Offline.getOption('checks.xhr.timeout');
+    }
     checkXHR(xhr, Offline.markUp, Offline.markDown);
     try {
       xhr.send();
