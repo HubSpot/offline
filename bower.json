@@ -7,7 +7,7 @@
     "Adam Schwartz <adam.flynn.schwartz@gmail.com>"
   ],
   "description": "Automatically detect when a browser is offline",
-  "main": "offline.js",
+  "main": "offline.min.js",
   "keywords": [
     "offline",
     "online",
