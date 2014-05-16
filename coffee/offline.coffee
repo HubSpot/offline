@@ -47,7 +47,7 @@ grab = (obj, key) ->
     cur
   else
     undefined
-  
+
 Offline.getOption = (key) ->
   val = grab(Offline.options, key) ? grab(defaultOptions, key)
 
@@ -125,9 +125,25 @@ checkXHR = (xhr, onUp, onDown) ->
 
   if xhr.onprogress is null
     # onprogress would be undefined on older browsers
-    xhr.addEventListener 'error', onDown, false
-    xhr.addEventListener 'timeout', onDown, false
-    xhr.addEventListener 'load', checkStatus, false
+
+    # XDomainRequest doesn't implement addEventListener
+    _onerror = xhr.onerror
+    xhr.onerror = ->
+      onDown()
+
+      _onerror?(arguments...)
+
+    _ontimeout = xhr.ontimeout
+    xhr.ontimeout = ->
+      onDown()
+
+      _ontimeout?(arguments...)
+
+    _onload = xhr.onload
+    xhr.onload = ->
+      checkStatus()
+
+      _onload?(arguments...)
   else
     _onreadystatechange = xhr.onreadystatechange
     xhr.onreadystatechange = ->
@@ -143,11 +159,11 @@ Offline.checks.xhr = ->
   xhr = new XMLHttpRequest
 
   xhr.offline = false
-  
+
   # It doesn't matter what this hits, even a 404 is considered up.  It is important however that
   # it's on the same domain and port, so CORS issues don't come into play.
   xhr.open('HEAD', Offline.getOption('checks.xhr.url'), true)
-  
+
   if xhr.timeout?
     xhr.timeout = Offline.getOption('checks.xhr.timeout')
 
@@ -166,7 +182,7 @@ Offline.checks.image = ->
   img.onerror = Offline.markDown
   img.onload = Offline.markUp
   img.src = Offline.getOption('checks.image.url')
-  
+
   undefined
 
 Offline.checks.down = Offline.markDown
