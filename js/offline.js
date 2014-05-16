@@ -161,7 +161,7 @@
   };
 
   checkXHR = function(xhr, onUp, onDown) {
-    var checkStatus, _onreadystatechange;
+    var checkStatus, _onerror, _onload, _onreadystatechange, _ontimeout;
     checkStatus = function() {
       if (xhr.status && xhr.status < 12000) {
         return onUp();
@@ -170,9 +170,21 @@
       }
     };
     if (xhr.onprogress === null) {
-      xhr.addEventListener('error', onDown, false);
-      xhr.addEventListener('timeout', onDown, false);
-      return xhr.addEventListener('load', checkStatus, false);
+      _onerror = xhr.onerror;
+      xhr.onerror = function() {
+        onDown();
+        return typeof _onerror === "function" ? _onerror.apply(null, arguments) : void 0;
+      };
+      _ontimeout = xhr.ontimeout;
+      xhr.ontimeout = function() {
+        onDown();
+        return typeof _ontimeout === "function" ? _ontimeout.apply(null, arguments) : void 0;
+      };
+      _onload = xhr.onload;
+      return xhr.onload = function() {
+        checkStatus();
+        return typeof _onload === "function" ? _onload.apply(null, arguments) : void 0;
+      };
     } else {
       _onreadystatechange = xhr.onreadystatechange;
       return xhr.onreadystatechange = function() {
