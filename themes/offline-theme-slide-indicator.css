@@ -10,7 +10,7 @@
   display: none;
   position: fixed;
   background: white;
-  z-index: 800;
+  z-index: 2000;
   display: inline-block;
 }
 /* line 13, ../sass/_offline-theme-base-indicator.sass */
