@@ -120,7 +120,7 @@
     });
   };
 
-  if (document.readyState === 'complete') {
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
     init();
   } else if (document.addEventListener != null) {
     document.addEventListener('DOMContentLoaded', init, false);
