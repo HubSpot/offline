@@ -1,0 +1,70 @@
+{
+  "resources": {
+    "head": [
+      {
+        "type": "script",
+        "src": "./offline.min.js"
+      },
+      {
+        "type": "style",
+        "src": "./themes/offline-language-{{ options.language }}.css"
+      },
+      {
+        "type": "style",
+        "src": "./themes/offline-language-{{ options.language }}-indicator.css"
+      },
+      {
+        "type": "style",
+        "src": "./themes/offline-theme-{{ options.theme }}.css"
+      }
+    ]
+  },
+  "options": {
+    "properties": {
+      "language": {
+        "title": "Language",
+        "description": "The language of the message displayed to the user when connectivity is lost or regained.",
+        "type": "string",
+        "enum": [
+          "english",
+          "spanish",
+          "french",
+          "portuguese-brazil"
+        ],
+        "enumNames": {
+          "english": "English",
+          "spanish": "Spanish",
+          "french": "French",
+          "portuguese-brazil": "Brazilian Portuguese"
+        },
+        "default": "english"
+      },
+      "theme": {
+        "title": "Theme",
+        "description": "The styling of the message. (Previews themes here: http://github.hubspot.com/offline/docs/welcome)",
+        "type": "string",
+        "enum": [
+          "default",
+          "dark",
+          "chrome",
+          "slide",
+          "default-indicator",
+          "dark-indicator",
+          "chrome-indicator",
+          "slide-indicator"
+        ],
+        "enumNames": {
+          "default": "Default",
+          "dark": "Dark",
+          "chrome": "Chrome",
+          "slide": "Slide",
+          "default-indicator": "Default (Indicator)",
+          "dark-indicator": "Dark (Indicator)",
+          "chrome-indicator": "Chrome (Indicator)",
+          "slide-indicator": "Slide (Indicator)"
+        },
+        "default": "default"
+      }
+    }
+  }
+}
