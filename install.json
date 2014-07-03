@@ -41,7 +41,7 @@
       },
       "theme": {
         "title": "Theme",
-        "description": "The styling of the message. (Previews themes here: http://github.hubspot.com/offline/docs/welcome)",
+        "description": "Describes the look and feel of the message. Non-'Indicator' themes only show when there are connectivity issues, and 'Indicator' themes are always present in the bottom-left corner of the screen.",
         "type": "string",
         "enum": [
           "default",
