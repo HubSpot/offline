@@ -1,4 +1,4 @@
-/* line 6, ../sass/_content.sass */
+ï»¿/* line 6, ../sass/_content.sass */
 .offline-ui .offline-ui-retry:before {
   content: "Wiederverbinden";
 }
@@ -9,13 +9,13 @@
 @media (max-width: 1024px) {
   /* line 11, ../sass/_content.sass */
   .offline-ui.offline-ui-up .offline-ui-content:before {
-    content: "Ihr Gerät ist mit dem Internet verbunden.";
+    content: "Ihr GerÃ¤t ist mit dem Internet verbunden.";
   }
 }
 @media (max-width: 568px) {
   /* line 11, ../sass/_content.sass */
   .offline-ui.offline-ui-up .offline-ui-content:before {
-    content: "Ihr Gerät ist verbunden.";
+    content: "Ihr GerÃ¤t ist verbunden.";
   }
 }
 /* line 22, ../sass/_content.sass */
@@ -25,13 +25,13 @@
 @media (max-width: 1024px) {
   /* line 22, ../sass/_content.sass */
   .offline-ui.offline-ui-down .offline-ui-content:before {
-    content: "Ihr Gerät hat die Internetverbindung verloren.";
+    content: "Ihr GerÃ¤t hat die Internetverbindung verloren.";
   }
 }
 @media (max-width: 568px) {
   /* line 22, ../sass/_content.sass */
   .offline-ui.offline-ui-down .offline-ui-content:before {
-    content: "Ihr Gerät ist nicht verbunden.";
+    content: "Ihr GerÃ¤t ist nicht verbunden.";
   }
 }
 /* line 33, ../sass/_content.sass */
