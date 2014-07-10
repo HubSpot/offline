@@ -36,7 +36,7 @@
 }
 /* line 33, ../sass/_content.sass */
 .offline-ui.offline-ui-down.offline-ui-connecting .offline-ui-content:before, .offline-ui.offline-ui-down.offline-ui-connecting-2s .offline-ui-content:before {
-  content: "Versuche Verbindung wiederherzustellen";
+  content: "Versuche Verbindung wiederherzustellen ...";
 }
 /* line 42, ../sass/_content.sass */
 .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"]:before {
