@@ -17,7 +17,13 @@
       },
       {
         "type": "style",
-        "src": "./themes/offline-theme-{{ options.theme }}.css"
+        "src": "./themes/offline-theme-{{ options.theme }}.css",
+        "if": "!options.indicator"
+      },
+      {
+        "type": "style",
+        "src": "./themes/offline-theme-{{ options.theme }}-indicator.css",
+        "if": "options.indicator"
       }
     ]
   },
