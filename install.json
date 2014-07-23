@@ -61,11 +61,10 @@
       }
     },
     "indicator": {
-        "title": "Indicator",
-        "description": "Should the 'online' state always be shown in the lower corner of the page?",
-        "type": "boolean",
-        "default": false
-      }
+      "title": "Indicator",
+      "description": "Should the 'online' state always be shown in the lower corner of the page?",
+      "type": "boolean",
+      "default": false
     }
   }
 }
