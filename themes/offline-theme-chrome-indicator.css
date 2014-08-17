@@ -39,17 +39,16 @@
   font-family: "Lucida Grande", sans-serif;
   font-size: 12px;
   padding: 7px;
-  width: 69px;
   background: #f6f6f6;
   color: #888888;
   bottom: 0;
   left: 20px;
 }
-/* line 20, ../sass/offline-theme-chrome-indicator.sass */
+/* line 19, ../sass/offline-theme-chrome-indicator.sass */
 .offline-ui .offline-ui-content {
   padding-left: 16px;
 }
-/* line 23, ../sass/offline-theme-chrome-indicator.sass */
+/* line 22, ../sass/offline-theme-chrome-indicator.sass */
 .offline-ui .offline-ui-content:after {
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
@@ -66,11 +65,11 @@
   height: 9px;
   width: 9px;
 }
-/* line 37, ../sass/offline-theme-chrome-indicator.sass */
+/* line 36, ../sass/offline-theme-chrome-indicator.sass */
 .offline-ui.offline-ui-up .offline-ui-content:after {
   background: #80d580;
 }
-/* line 42, ../sass/offline-theme-chrome-indicator.sass */
+/* line 41, ../sass/offline-theme-chrome-indicator.sass */
 .offline-ui.offline-ui-down .offline-ui-content:after {
   background: #ec8787;
 }
