@@ -17,7 +17,7 @@ Improve the experience of your app when your users lose connection.
 Installing
 ----------
 
-Include [the javascript](https://raw.github.com/HubSpot/offline/v0.7.8/offline.min.js), one of [the themes](http://github.hubspot.com/offline/docs/welcome/), and one of [the
+Include [the javascript](https://raw.github.com/HubSpot/offline/v0.7.11/offline.min.js), one of [the themes](http://github.hubspot.com/offline/docs/welcome/), and one of [the
 languages](https://github.com/HubSpot/offline/tree/master/themes) on your site.  You're done!
 
 If you'd like to get a peek at how it looks on your site, disconnect your internet, or try out the [simulator](http://craigshoemaker.github.io/offlinejs-simulate-ui/).

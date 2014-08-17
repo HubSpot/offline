@@ -1,6 +1,6 @@
 {
   "name": "offline",
-  "version": "0.7.8",
+  "version": "0.7.11",
   "description": "Automatically detect when a browser is offline",
   "authors": [
     "Adam Schwartz <adam.flynn.schwartz@gmail.com>",
