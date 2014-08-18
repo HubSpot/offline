@@ -54,6 +54,18 @@ Offline.getOption = (key) ->
   if typeof val is 'function'
     val()
   else
+
+    if key in ['checks.image.url', 'checks.xhr.url']
+      replaceFinalParam = (regex) ->
+        randInt = Math.floor(Math.random() * 1000000000)
+        paramPosition = val.search(regex)
+        val.slice(0, paramPosition) + "?#{randInt}"
+
+      if /\?\d+/.test(val)
+        val = replaceFinalParam(/\?\d+/)
+      else
+        val = "#{val}?#{Math.floor(Math.random() * 1000000000)}"
+
     val
 
 # These events are available in modern browsers, but they mean different things.
