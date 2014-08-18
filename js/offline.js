@@ -36,7 +36,8 @@
       image: {
         url: function() {
           return "/favicon.ico?_=" + (Math.floor(Math.random() * 1000000000));
-        }
+        },
+        timeout: 5000
       },
       active: 'xhr'
     },
@@ -219,11 +220,19 @@
   };
 
   Offline.checks.image = function() {
-    var img;
+    var imageTimeout, img;
     img = document.createElement('img');
     img.onerror = Offline.markDown;
     img.onload = Offline.markUp;
     img.src = Offline.getOption('checks.image.url');
+    imageTimeout = Offline.getOption('checks.image.timeout');
+    if (imageTimeout) {
+      setTimeout(function() {
+        if (!img.width) {
+          return Offline.markDown();
+        }
+      }, imageTimeout);
+    }
     return void 0;
   };
 
