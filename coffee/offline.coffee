@@ -118,7 +118,9 @@ Offline.trigger = (event) ->
 
 checkXHR = (xhr, onUp, onDown) ->
   checkStatus = ->
-    if xhr.status and xhr.status < 12000
+    if xhr.status && (500 <= xhr.status <= 599)
+      onDown()
+    else if xhr.status && xhr.status < 12000
       onUp()
     else
       onDown()
