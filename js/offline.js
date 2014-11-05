@@ -64,11 +64,24 @@
   };
 
   Offline.getOption = function(key) {
-    var val, _ref;
+    var replaceFinalParam, val, _ref;
     val = (_ref = grab(Offline.options, key)) != null ? _ref : grab(defaultOptions, key);
     if (typeof val === 'function') {
       return val();
     } else {
+      if (key === 'checks.image.url' || key === 'checks.xhr.url') {
+        replaceFinalParam = function(regex) {
+          var paramPosition, randInt;
+          randInt = Math.floor(Math.random() * 1000000000);
+          paramPosition = val.search(regex);
+          return val.slice(0, paramPosition) + ("?" + randInt);
+        };
+        if (/\?\d+/.test(val)) {
+          val = replaceFinalParam(/\?\d+/);
+        } else {
+          val = "" + val + "?" + (Math.floor(Math.random() * 1000000000));
+        }
+      }
       return val;
     }
   };
