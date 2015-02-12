@@ -241,7 +241,7 @@ init = ->
   if Offline.getOption 'interceptRequests'
     Offline.onXHR ({xhr}) ->
       unless xhr.offline is false
-        checkXHR xhr, Offline.confirmUp, Offline.confirmDown
+        checkXHR xhr, Offline.markUp, Offline.confirmDown
 
   if Offline.getOption 'checkOnLoad'
     Offline.check()

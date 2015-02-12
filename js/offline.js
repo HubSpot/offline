@@ -293,7 +293,7 @@
         var xhr;
         xhr = _arg.xhr;
         if (xhr.offline !== false) {
-          return checkXHR(xhr, Offline.confirmUp, Offline.confirmDown);
+          return checkXHR(xhr, Offline.markUp, Offline.confirmDown);
         }
       });
     }
