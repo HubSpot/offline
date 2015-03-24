@@ -42,7 +42,8 @@
     },
     checkOnLoad: false,
     interceptRequests: true,
-    reconnect: true
+    reconnect: true,
+    checkInterval: 5000
   };
 
   grab = function(obj, key) {
@@ -305,5 +306,11 @@
   setTimeout(init, 0);
 
   window.Offline = Offline;
+
+  if (navigator.userAgent.indexOf("Firefox") > 0) {
+    setInterval((function() {
+      return Offline.check();
+    }), Offline.getOption("checkInterval"));
+  }
 
 }).call(this);
