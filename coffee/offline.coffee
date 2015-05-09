@@ -20,13 +20,13 @@ defaultOptions =
     xhr:
       url: ->
         # This can be any endpoint, even one that will 404.
-        "/favicon.ico?_=#{ Math.floor(Math.random() * 1000000000) }"
+        "/favicon.ico" + cacheBust()
       timeout: 5000
 
     image:
       url: ->
         # This can be any image, this is the better option if your image is on a different domain, otherwise just use XHR
-        "/favicon.ico?_=#{ Math.floor(Math.random() * 1000000000) }"
+        "/favicon.ico" + cacheBust()
 
     active: 'xhr'
 
@@ -35,6 +35,9 @@ defaultOptions =
   interceptRequests: true
 
   reconnect: true
+
+cacheBust = ->
+  return "?_=#{ Math.floor(Math.random() * 1000000000) }"
 
 grab = (obj, key) ->
   cur = obj
@@ -181,7 +184,7 @@ Offline.checks.image = ->
   img = document.createElement 'img'
   img.onerror = Offline.markDown
   img.onload = Offline.markUp
-  img.src = Offline.getOption('checks.image.url')
+  img.src = Offline.getOption('checks.image.url') + cacheBust()
 
   undefined
 
