@@ -34,6 +34,8 @@ defaultOptions =
 
   interceptRequests: true
 
+  blacklist: []
+
   reconnect: true
 
 cacheBust = ->
