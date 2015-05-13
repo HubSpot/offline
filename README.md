@@ -62,7 +62,7 @@ Options (any can be provided as a function), with their defaults:
   requests: true,
   
   // URLs that you do not want Offline to remake Ajax calls for, accepts regular expressions or strings.
-  blacklist: []
+  blacklist: [],
   
   // Should we show a snake game while the connection is down to keep the user entertained?
   // It's not included in the normal build, you should bring in js/snake.js in addition to
