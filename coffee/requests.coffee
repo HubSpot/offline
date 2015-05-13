@@ -2,6 +2,7 @@ unless window.Offline
   throw new Error "Requests module brought in without offline.js"
 
 held = []
+
 waitingOnConfirm = false
 
 isBlacklisted = (url) ->
