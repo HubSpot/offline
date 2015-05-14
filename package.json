@@ -6,6 +6,7 @@
     "Adam Schwartz <adam.flynn.schwartz@gmail.com>",
     "Zack Bloom <zackbloom@gmail.com>"
   ],
+  "main": "offline.min.js",
   "license": "MIT",
   "devDependencies": {
     "grunt-contrib-coffee": "~0.7.0",
