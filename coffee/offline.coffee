@@ -19,8 +19,19 @@ defaultOptions =
   checks:
     xhr:
       url: ->
-        # This can be any endpoint, even one that will 404.
-        "/favicon.ico?_=#{ Math.floor(Math.random() * 1000000000) }"
+        linkEl = document.querySelector('link[rel="shortcut icon"], link[rel="icon"]')
+        if linkEl
+          url = linkEl.getAttribute('href')
+        else
+          url = "/favicon.ico"
+          
+        if url.indexOf("?") != -1
+          url += "&"
+        else
+          url += "?"
+        
+        return url + "_=#{ Math.floor(Math.random() * 1000000000) }"
+
       timeout: 5000
 
     image:
