@@ -1,9 +1,6 @@
-Path = require('path')
-fs = require('fs')
-
 module.exports = (grunt) ->
   grunt.initConfig
-    pkg: grunt.file.readJSON("package.json")
+    pkg: grunt.file.readJSON('package.json')
 
     coffee:
       compile:
@@ -19,15 +16,25 @@ module.exports = (grunt) ->
           true
       coffee:
         files: ['coffee/*', 'sass/*']
-        tasks: ["coffee", "uglify", "compass"]
+        tasks: ['coffee', 'uglify', 'compass']
 
     uglify:
       options:
-        banner: "/*! <%= pkg.name %> <%= pkg.version %> */\n"
+        banner: '/*! <%= pkg.name %> <%= pkg.version %> */\n'
 
-      dist:
+      minified:
         src: ['js/*', '!js/snake.js']
         dest: 'offline.min.js'
+
+      original:
+        src: ['js/*', '!js/snake.js']
+        dest: 'offline.js'
+        options:
+          mangle: false
+          beautify:
+            beautify: true
+            indent_level: 2
+            space_colon: false
 
     compass:
       dist:
