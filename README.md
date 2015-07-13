@@ -43,7 +43,7 @@ Options (any can be provided as a function), with their defaults:
 
 ```javascript
 {
-  // Should we check the connection status immediatly on page load.
+  // Should we check the connection status immediately on page load.
   checkOnLoad: false,
 
   // Should we monitor AJAX requests to help decide if we have a connection.
@@ -60,7 +60,10 @@ Options (any can be provided as a function), with their defaults:
 
   // Should we store and attempt to remake requests which fail while the connection is down.
   requests: true,
-
+  
+  // URLs that you do not want Offline to remake Ajax calls for, accepts regular expressions or strings.
+  blacklist: [],
+  
   // Should we show a snake game while the connection is down to keep the user entertained?
   // It's not included in the normal build, you should bring in js/snake.js in addition to
   // offline.min.js.

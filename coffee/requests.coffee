@@ -4,13 +4,25 @@ unless window.Offline
 held = []
 
 waitingOnConfirm = false
+
+isBlacklisted = (url) ->
+  cooties =  Offline.options.blacklist;
+  cooties.some (cootie) ->
+    if typeof cootie == 'string' and cootie != ''
+      url.indexOf(cootie) > -1
+    else if typeof cootie == 'object'
+      cootie.test url
+    else
+      false
+
 holdRequest = (req) ->
   Offline.trigger 'requests:capture'
 
   if Offline.state isnt 'down'
     waitingOnConfirm = true
 
-  held.push req
+  if !isBlacklisted(req.url)
+    held.push req
 
 makeRequest = ({xhr, url, type, user, password, body}) ->
   xhr.abort()
