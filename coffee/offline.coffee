@@ -36,6 +36,8 @@ defaultOptions =
 
   reconnect: true
 
+  checkInterval: 5000
+
 grab = (obj, key) ->
   cur = obj
   parts = key.split('.')
@@ -250,3 +252,8 @@ init = ->
 setTimeout init, 0
 
 window.Offline = Offline
+
+if navigator.userAgent.indexOf("Firefox") > 0
+  setInterval (->
+    Offline.check()
+  ), Offline.getOption("checkInterval")
