@@ -38,7 +38,7 @@
   };
 
   flush = function() {
-    var key, request, requests, url, _i, _len;
+    var body, key, request, requests, url, _i, _len;
     Offline.trigger('requests:flush');
     requests = {};
     for (_i = 0, _len = held.length; _i < _len; _i++) {
@@ -50,7 +50,17 @@
           return '';
         }
       });
-      requests["" + (request.type.toUpperCase()) + " - " + url] = request;
+      if (Offline.getOption('deDupBody')) {
+        body = request.body;
+        if (body.toString() === '[object Object]') {
+          body = JSON.stringify(body);
+        } else {
+          body = body.toString();
+        }
+        requests["" + (request.type.toUpperCase()) + " - " + url + " - " + body] = request;
+      } else {
+        requests["" + (request.type.toUpperCase()) + " - " + url] = request;
+      }
     }
     for (key in requests) {
       request = requests[key];

@@ -36,7 +36,15 @@ flush = ->
     url = request.url.replace /(\?|&)_=[0-9]+/, (match, char) ->
       if char is '?' then char else ''
 
-    requests["#{ request.type.toUpperCase() } - #{ url }"] = request
+    if Offline.getOption('deDupBody')
+      body = request.body
+      if body.toString() is '[object Object]'
+        body = JSON.stringify(body)
+      else
+        body = body.toString()
+      requests["#{ request.type.toUpperCase() } - #{ url } - #{ body }"] = request;
+    else
+      requests["#{ request.type.toUpperCase() } - #{ url }"] = request
 
   for key, request of requests
     makeRequest request

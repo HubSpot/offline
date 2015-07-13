@@ -137,6 +137,8 @@ is restored.
 
 You can disable it by setting the `requests` setting to false.
 
+You can also set deDupBody to be true if you want deduping to also take into account the content of the request.
+
 Dependencies
 ------------
 
