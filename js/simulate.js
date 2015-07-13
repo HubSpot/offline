@@ -1,19 +1,19 @@
 (function() {
-  var state, _base, _i, _len, _ref;
+  var base, i, len, ref, state;
 
   if (!Offline) {
     throw new Error("Offline simulate brought in without offline.js");
   }
 
-  _ref = ['up', 'down'];
-  for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-    state = _ref[_i];
+  ref = ['up', 'down'];
+  for (i = 0, len = ref.length; i < len; i++) {
+    state = ref[i];
     if (document.querySelector("script[data-simulate='" + state + "']") || localStorage.OFFLINE_SIMULATE === state) {
       if (Offline.options == null) {
         Offline.options = {};
       }
-      if ((_base = Offline.options).checks == null) {
-        _base.checks = {};
+      if ((base = Offline.options).checks == null) {
+        base.checks = {};
       }
       Offline.options.checks.active = state;
     }

@@ -10,17 +10,17 @@
   retryIntv = null;
 
   reset = function() {
-    var _ref;
+    var ref;
     if ((rc.state != null) && rc.state !== 'inactive') {
       Offline.trigger('reconnect:stopped');
     }
     rc.state = 'inactive';
-    return rc.remaining = rc.delay = (_ref = Offline.getOption('reconnect.initialDelay')) != null ? _ref : 3;
+    return rc.remaining = rc.delay = (ref = Offline.getOption('reconnect.initialDelay')) != null ? ref : 3;
   };
 
   next = function() {
-    var delay, _ref;
-    delay = (_ref = Offline.getOption('reconnect.delay')) != null ? _ref : Math.min(Math.ceil(rc.delay * 1.5), 3600);
+    var delay, ref;
+    delay = (ref = Offline.getOption('reconnect.delay')) != null ? ref : Math.min(Math.ceil(rc.delay * 1.5), 3600);
     return rc.remaining = rc.delay = delay;
   };
 

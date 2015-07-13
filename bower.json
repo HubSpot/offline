@@ -1,13 +1,18 @@
 {
   "name": "offline",
-  "version": "0.7.11",
+  "version": "0.7.12",
   "homepage": "http://github.hubspot.com/offline/docs/welcome",
   "authors": [
     "Zack Bloom <zackbloom@gmail.com>",
     "Adam Schwartz <adam.flynn.schwartz@gmail.com>"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/HubSpot/offline.git"
+  },
   "description": "Automatically detect when a browser is offline",
-  "main": "offline.min.js",
+  "main": "offline.js",
+  "license": "MIT",
   "keywords": [
     "offline",
     "online",
@@ -18,7 +23,6 @@
     "javascript",
     "client-side"
   ],
-  "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
