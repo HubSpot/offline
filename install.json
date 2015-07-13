@@ -44,14 +44,16 @@
           "spanish",
           "french",
           "portuguese-brazil",
-          "dutch"
+          "dutch",
+          "german"
         ],
         "enumNames": {
           "english": "English",
           "spanish": "Spanish",
           "french": "French",
           "portuguese-brazil": "Brazilian Portuguese",
-          "dutch": "Dutch"
+          "dutch": "Dutch",
+          "german": "German"
         },
         "default": "english"
       },
