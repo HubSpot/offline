@@ -22,7 +22,7 @@ defaultOptions =
         # This can be any endpoint, even one that will 404.
         "/favicon.ico?_=#{ Math.floor(Math.random() * 1000000000) }"
       timeout: 5000
-
+      type: 'HEAD'
     image:
       url: ->
         # This can be any image, this is the better option if your image is on a different domain, otherwise just use XHR
@@ -162,7 +162,7 @@ Offline.checks.xhr = ->
 
   # It doesn't matter what this hits, even a 404 is considered up.  It is important however that
   # it's on the same domain and port, so CORS issues don't come into play.
-  xhr.open('HEAD', Offline.getOption('checks.xhr.url'), true)
+  xhr.open(Offline.getOption('checks.xhr.type'), Offline.getOption('checks.xhr.url'), true)
 
   if xhr.timeout?
     xhr.timeout = Offline.getOption('checks.xhr.timeout')
