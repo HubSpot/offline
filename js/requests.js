@@ -17,14 +17,14 @@
     return held.push(req);
   };
 
-  makeRequest = function(arg) {
-    var body, name, password, ref, type, url, user, val, xhr;
-    xhr = arg.xhr, url = arg.url, type = arg.type, user = arg.user, password = arg.password, body = arg.body;
+  makeRequest = function(_arg) {
+    var body, name, password, type, url, user, val, xhr, _ref;
+    xhr = _arg.xhr, url = _arg.url, type = _arg.type, user = _arg.user, password = _arg.password, body = _arg.body;
     xhr.abort();
     xhr.open(type, url, true, user, password);
-    ref = xhr.headers;
-    for (name in ref) {
-      val = ref[name];
+    _ref = xhr.headers;
+    for (name in _ref) {
+      val = _ref[name];
       xhr.setRequestHeader(name, val);
     }
     if (xhr.mimeType) {
@@ -38,11 +38,11 @@
   };
 
   flush = function() {
-    var i, key, len, request, requests, url;
+    var key, request, requests, url, _i, _len;
     Offline.trigger('requests:flush');
     requests = {};
-    for (i = 0, len = held.length; i < len; i++) {
-      request = held[i];
+    for (_i = 0, _len = held.length; _i < _len; _i++) {
+      request = held[_i];
       url = request.url.replace(/(\?|&)_=[0-9]+/, function(match, char) {
         if (char === '?') {
           return char;
@@ -50,7 +50,7 @@
           return '';
         }
       });
-      requests[(request.type.toUpperCase()) + " - " + url] = request;
+      requests["" + (request.type.toUpperCase()) + " - " + url] = request;
     }
     for (key in requests) {
       request = requests[key];
@@ -72,7 +72,7 @@
         return waitingOnConfirm = false;
       });
       Offline.onXHR(function(request) {
-        var _onreadystatechange, _send, async, hold, xhr;
+        var async, hold, xhr, _onreadystatechange, _send;
         xhr = request.xhr, async = request.async;
         if (xhr.offline === false) {
           return;

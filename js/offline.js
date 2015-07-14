@@ -2,21 +2,21 @@
   var Offline, checkXHR, defaultOptions, extendNative, grab, handlers, init;
 
   extendNative = function(to, from) {
-    var e, key, results, val;
-    results = [];
+    var e, key, val, _results;
+    _results = [];
     for (key in from.prototype) {
       try {
         val = from.prototype[key];
         if ((to[key] == null) && typeof val !== 'function') {
-          results.push(to[key] = val);
+          _results.push(to[key] = val);
         } else {
-          results.push(void 0);
+          _results.push(void 0);
         }
       } catch (_error) {
         e = _error;
       }
     }
-    return results;
+    return _results;
   };
 
   Offline = {};
@@ -31,7 +31,8 @@
         url: function() {
           return "/favicon.ico?_=" + (Math.floor(Math.random() * 1000000000));
         },
-        timeout: 5000
+        timeout: 5000,
+        type: 'HEAD'
       },
       image: {
         url: function() {
@@ -46,10 +47,10 @@
   };
 
   grab = function(obj, key) {
-    var cur, i, j, len, part, parts;
+    var cur, i, part, parts, _i, _len;
     cur = obj;
     parts = key.split('.');
-    for (i = j = 0, len = parts.length; j < len; i = ++j) {
+    for (i = _i = 0, _len = parts.length; _i < _len; i = ++_i) {
       part = parts[i];
       cur = cur[part];
       if (typeof cur !== 'object') {
@@ -64,8 +65,8 @@
   };
 
   Offline.getOption = function(key) {
-    var ref, val;
-    val = (ref = grab(Offline.options, key)) != null ? ref : grab(defaultOptions, key);
+    var val, _ref;
+    val = (_ref = grab(Offline.options, key)) != null ? _ref : grab(defaultOptions, key);
     if (typeof val === 'function') {
       return val();
     } else {
@@ -108,15 +109,15 @@
   handlers = {};
 
   Offline.on = function(event, handler, ctx) {
-    var e, events, j, len, results;
+    var e, events, _i, _len, _results;
     events = event.split(' ');
     if (events.length > 1) {
-      results = [];
-      for (j = 0, len = events.length; j < len; j++) {
-        e = events[j];
-        results.push(Offline.on(e, handler, ctx));
+      _results = [];
+      for (_i = 0, _len = events.length; _i < _len; _i++) {
+        e = events[_i];
+        _results.push(Offline.on(e, handler, ctx));
       }
-      return results;
+      return _results;
     } else {
       if (handlers[event] == null) {
         handlers[event] = [];
@@ -126,7 +127,7 @@
   };
 
   Offline.off = function(event, handler) {
-    var _handler, ctx, i, ref, results;
+    var ctx, i, _handler, _ref, _results;
     if (handlers[event] == null) {
       return;
     }
@@ -134,34 +135,34 @@
       return handlers[event] = [];
     } else {
       i = 0;
-      results = [];
+      _results = [];
       while (i < handlers[event].length) {
-        ref = handlers[event][i], ctx = ref[0], _handler = ref[1];
+        _ref = handlers[event][i], ctx = _ref[0], _handler = _ref[1];
         if (_handler === handler) {
-          results.push(handlers[event].splice(i, 1));
+          _results.push(handlers[event].splice(i, 1));
         } else {
-          results.push(i++);
+          _results.push(i++);
         }
       }
-      return results;
+      return _results;
     }
   };
 
   Offline.trigger = function(event) {
-    var ctx, handler, j, len, ref, ref1, results;
+    var ctx, handler, _i, _len, _ref, _ref1, _results;
     if (handlers[event] != null) {
-      ref = handlers[event];
-      results = [];
-      for (j = 0, len = ref.length; j < len; j++) {
-        ref1 = ref[j], ctx = ref1[0], handler = ref1[1];
-        results.push(handler.call(ctx));
+      _ref = handlers[event];
+      _results = [];
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        _ref1 = _ref[_i], ctx = _ref1[0], handler = _ref1[1];
+        _results.push(handler.call(ctx));
       }
-      return results;
+      return _results;
     }
   };
 
   checkXHR = function(xhr, onUp, onDown) {
-    var _onerror, _onload, _onreadystatechange, _ontimeout, checkStatus;
+    var checkStatus, _onerror, _onload, _onreadystatechange, _ontimeout;
     checkStatus = function() {
       if (xhr.status && xhr.status < 12000) {
         return onUp();
@@ -204,7 +205,7 @@
     var e, xhr;
     xhr = new XMLHttpRequest;
     xhr.offline = false;
-    xhr.open('HEAD', Offline.getOption('checks.xhr.url'), true);
+    xhr.open(Offline.getOption('checks.xhr.type'), Offline.getOption('checks.xhr.url'), true);
     if (xhr.timeout != null) {
       xhr.timeout = Offline.getOption('checks.xhr.timeout');
     }
@@ -239,7 +240,7 @@
   Offline.confirmUp = Offline.confirmDown = Offline.check;
 
   Offline.onXHR = function(cb) {
-    var _XDomainRequest, _XMLHttpRequest, monitorXHR;
+    var monitorXHR, _XDomainRequest, _XMLHttpRequest;
     monitorXHR = function(req, flags) {
       var _open;
       _open = req.open;
@@ -258,7 +259,7 @@
     };
     _XMLHttpRequest = window.XMLHttpRequest;
     window.XMLHttpRequest = function(flags) {
-      var _overrideMimeType, _setRequestHeader, req;
+      var req, _overrideMimeType, _setRequestHeader;
       req = new _XMLHttpRequest(flags);
       monitorXHR(req, flags);
       _setRequestHeader = req.setRequestHeader;
@@ -289,9 +290,9 @@
 
   init = function() {
     if (Offline.getOption('interceptRequests')) {
-      Offline.onXHR(function(arg) {
+      Offline.onXHR(function(_arg) {
         var xhr;
-        xhr = arg.xhr;
+        xhr = _arg.xhr;
         if (xhr.offline !== false) {
           return checkXHR(xhr, Offline.markUp, Offline.confirmDown);
         }

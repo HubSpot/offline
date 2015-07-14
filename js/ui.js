@@ -1,5 +1,5 @@
 (function() {
-  var RETRY_TEMPLATE, TEMPLATE, _onreadystatechange, addClass, content, createFromHTML, el, flashClass, flashTimeouts, init, removeClass, render, roundTime;
+  var RETRY_TEMPLATE, TEMPLATE, addClass, content, createFromHTML, el, flashClass, flashTimeouts, init, removeClass, render, roundTime, _onreadystatechange;
 
   if (!window.Offline) {
     throw new Error("Offline UI brought in without offline.js");
@@ -98,10 +98,10 @@
       return removeClass('offline-ui-waiting');
     });
     Offline.on('reconnect:tick', function() {
-      var ref, time, unit;
+      var time, unit, _ref;
       addClass('offline-ui-waiting');
       removeClass('offline-ui-connecting');
-      ref = roundTime(Offline.reconnect.remaining), time = ref[0], unit = ref[1];
+      _ref = roundTime(Offline.reconnect.remaining), time = _ref[0], unit = _ref[1];
       content.setAttribute('data-retry-in-value', time);
       return content.setAttribute('data-retry-in-unit', unit);
     });
