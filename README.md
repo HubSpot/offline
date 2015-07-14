@@ -26,7 +26,7 @@ Click Install to see a live preview of Offline on your website.
 Manual Installation
 -------------------
 
-Include [the javascript](https://raw.github.com/HubSpot/offline/v0.7.11/offline.min.js), one of [the themes](http://github.hubspot.com/offline/docs/welcome/), and one of [the
+Include [the javascript](https://raw.github.com/HubSpot/offline/v0.7.13/offline.min.js), one of [the themes](http://github.hubspot.com/offline/docs/welcome/), and one of [the
 languages](https://github.com/HubSpot/offline/tree/master/themes) on your site.  You're done!
 
 To use only the JavaScript API without a UI indicator, simply leave out the CSS file.
