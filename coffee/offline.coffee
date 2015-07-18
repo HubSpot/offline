@@ -36,6 +36,8 @@ defaultOptions =
 
   reconnect: true
 
+  deDupBody: false
+
 grab = (obj, key) ->
   cur = obj
   parts = key.split('.')

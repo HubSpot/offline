@@ -43,7 +43,8 @@
     },
     checkOnLoad: false,
     interceptRequests: true,
-    reconnect: true
+    reconnect: true,
+    deDupBody: false
   };
 
   grab = function(obj, key) {
