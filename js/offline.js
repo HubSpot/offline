@@ -29,13 +29,13 @@
     checks: {
       xhr: {
         url: function() {
-          return "/favicon.ico?_=" + (new Date()).getTime();
+          return "/favicon.ico?_=" + ((new Date()).getTime());
         },
         timeout: 5000
       },
       image: {
         url: function() {
-          return "/favicon.ico?_=" + (new Date()).getTime();
+          return "/favicon.ico?_=" + ((new Date()).getTime());
         }
       },
       active: 'xhr'
