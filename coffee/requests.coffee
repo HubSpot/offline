@@ -5,6 +5,7 @@ held = []
 
 waitingOnConfirm = false
 holdRequest = (req) ->
+  return if Offline.getOption('requests') is false
   Offline.trigger 'requests:capture'
 
   if Offline.state isnt 'down'
@@ -13,6 +14,7 @@ holdRequest = (req) ->
   held.push req
 
 makeRequest = ({xhr, url, type, user, password, body}) ->
+  return if Offline.getOption('requests') is false
   xhr.abort()
   xhr.open(type, url, true, user, password)
   xhr.setRequestHeader(name, val) for name, val of xhr.headers
@@ -26,6 +28,7 @@ clear = ->
   held = []
 
 flush = ->
+  return if Offline.getOption('requests') is false
   Offline.trigger 'requests:flush'
 
   requests = {}

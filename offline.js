@@ -2,41 +2,42 @@
 (function() {
   var Offline, checkXHR, defaultOptions, extendNative, grab, handlers, init;
   extendNative = function(to, from) {
-    var e, key, val, _results;
-    _results = [];
+    var e, key, results, val;
+    results = [];
     for (key in from.prototype) try {
-      val = from.prototype[key], null == to[key] && "function" != typeof val ? _results.push(to[key] = val) :_results.push(void 0);
+      val = from.prototype[key], null == to[key] && "function" != typeof val ? results.push(to[key] = val) :results.push(void 0);
     } catch (_error) {
       e = _error;
     }
-    return _results;
+    return results;
   }, Offline = {}, null == Offline.options && (Offline.options = {}), defaultOptions = {
     checks:{
       xhr:{
         url:function() {
-          return "/favicon.ico?_=" + Math.floor(1e9 * Math.random());
+          return "/favicon.ico?_=" + new Date().getTime();
         },
         timeout:5e3,
         type:"HEAD"
       },
       image:{
         url:function() {
-          return "/favicon.ico?_=" + Math.floor(1e9 * Math.random());
+          return "/favicon.ico?_=" + new Date().getTime();
         }
       },
       active:"xhr"
     },
     checkOnLoad:!1,
     interceptRequests:!0,
-    reconnect:!0
+    reconnect:!0,
+    deDupBody:!1
   }, grab = function(obj, key) {
-    var cur, i, part, parts, _i, _len;
-    for (cur = obj, parts = key.split("."), i = _i = 0, _len = parts.length; _len > _i && (part = parts[i], 
-    cur = cur[part], "object" == typeof cur); i = ++_i) ;
+    var cur, i, j, len, part, parts;
+    for (cur = obj, parts = key.split("."), i = j = 0, len = parts.length; len > j && (part = parts[i], 
+    cur = cur[part], "object" == typeof cur); i = ++j) ;
     return i === parts.length - 1 ? cur :void 0;
   }, Offline.getOption = function(key) {
-    var val, _ref;
-    return val = null != (_ref = grab(Offline.options, key)) ? _ref :grab(defaultOptions, key), 
+    var ref, val;
+    return val = null != (ref = grab(Offline.options, key)) ? ref :grab(defaultOptions, key), 
     "function" == typeof val ? val() :val;
   }, "function" == typeof window.addEventListener && window.addEventListener("online", function() {
     return setTimeout(Offline.confirmUp, 100);
@@ -49,32 +50,31 @@
     return Offline.trigger("confirmed-down"), "down" !== Offline.state ? (Offline.state = "down", 
     Offline.trigger("down")) :void 0;
   }, handlers = {}, Offline.on = function(event, handler, ctx) {
-    var e, events, _i, _len, _results;
+    var e, events, j, len, results;
     if (events = event.split(" "), events.length > 1) {
-      for (_results = [], _i = 0, _len = events.length; _len > _i; _i++) e = events[_i], 
-      _results.push(Offline.on(e, handler, ctx));
-      return _results;
+      for (results = [], j = 0, len = events.length; len > j; j++) e = events[j], results.push(Offline.on(e, handler, ctx));
+      return results;
     }
     return null == handlers[event] && (handlers[event] = []), handlers[event].push([ ctx, handler ]);
   }, Offline.off = function(event, handler) {
-    var ctx, i, _handler, _ref, _results;
+    var _handler, ctx, i, ref, results;
     if (null != handlers[event]) {
       if (handler) {
-        for (i = 0, _results = []; i < handlers[event].length; ) _ref = handlers[event][i], 
-        ctx = _ref[0], _handler = _ref[1], _handler === handler ? _results.push(handlers[event].splice(i, 1)) :_results.push(i++);
-        return _results;
+        for (i = 0, results = []; i < handlers[event].length; ) ref = handlers[event][i], 
+        ctx = ref[0], _handler = ref[1], _handler === handler ? results.push(handlers[event].splice(i, 1)) :results.push(i++);
+        return results;
       }
       return handlers[event] = [];
     }
   }, Offline.trigger = function(event) {
-    var ctx, handler, _i, _len, _ref, _ref1, _results;
+    var ctx, handler, j, len, ref, ref1, results;
     if (null != handlers[event]) {
-      for (_ref = handlers[event], _results = [], _i = 0, _len = _ref.length; _len > _i; _i++) _ref1 = _ref[_i], 
-      ctx = _ref1[0], handler = _ref1[1], _results.push(handler.call(ctx));
-      return _results;
+      for (ref = handlers[event], results = [], j = 0, len = ref.length; len > j; j++) ref1 = ref[j], 
+      ctx = ref1[0], handler = ref1[1], results.push(handler.call(ctx));
+      return results;
     }
   }, checkXHR = function(xhr, onUp, onDown) {
-    var checkStatus, _onerror, _onload, _onreadystatechange, _ontimeout;
+    var _onerror, _onload, _onreadystatechange, _ontimeout, checkStatus;
     return checkStatus = function() {
       return xhr.status && xhr.status < 12e3 ? onUp() :onDown();
     }, null === xhr.onprogress ? (_onerror = xhr.onerror, xhr.onerror = function() {
@@ -104,7 +104,7 @@
   }, Offline.checks.down = Offline.markDown, Offline.checks.up = Offline.markUp, Offline.check = function() {
     return Offline.trigger("checking"), Offline.checks[Offline.getOption("checks.active")]();
   }, Offline.confirmUp = Offline.confirmDown = Offline.check, Offline.onXHR = function(cb) {
-    var monitorXHR, _XDomainRequest, _XMLHttpRequest;
+    var _XDomainRequest, _XMLHttpRequest, monitorXHR;
     return monitorXHR = function(req, flags) {
       var _open;
       return _open = req.open, req.open = function(type, url, async, user, password) {
@@ -119,7 +119,7 @@
         }), _open.apply(req, arguments);
       };
     }, _XMLHttpRequest = window.XMLHttpRequest, window.XMLHttpRequest = function(flags) {
-      var req, _overrideMimeType, _setRequestHeader;
+      var _overrideMimeType, _setRequestHeader, req;
       return req = new _XMLHttpRequest(flags), monitorXHR(req, flags), _setRequestHeader = req.setRequestHeader, 
       req.headers = {}, req.setRequestHeader = function(name, value) {
         return req.headers[name] = value, _setRequestHeader.call(req, name, value);
@@ -132,21 +132,21 @@
       return req = new _XDomainRequest(), monitorXHR(req), req;
     }, extendNative(window.XDomainRequest, _XDomainRequest)) :void 0;
   }, init = function() {
-    return Offline.getOption("interceptRequests") && Offline.onXHR(function(_arg) {
+    return Offline.getOption("interceptRequests") && Offline.onXHR(function(arg) {
       var xhr;
-      return xhr = _arg.xhr, xhr.offline !== !1 ? checkXHR(xhr, Offline.markUp, Offline.confirmDown) :void 0;
+      return xhr = arg.xhr, xhr.offline !== !1 ? checkXHR(xhr, Offline.markUp, Offline.confirmDown) :void 0;
     }), Offline.getOption("checkOnLoad") ? Offline.check() :void 0;
   }, setTimeout(init, 0), window.Offline = Offline;
 }).call(this), function() {
   var down, next, nope, rc, reset, retryIntv, tick, tryNow, up;
   if (!window.Offline) throw new Error("Offline Reconnect brought in without offline.js");
   rc = Offline.reconnect = {}, retryIntv = null, reset = function() {
-    var _ref;
+    var ref;
     return null != rc.state && "inactive" !== rc.state && Offline.trigger("reconnect:stopped"), 
-    rc.state = "inactive", rc.remaining = rc.delay = null != (_ref = Offline.getOption("reconnect.initialDelay")) ? _ref :3;
+    rc.state = "inactive", rc.remaining = rc.delay = null != (ref = Offline.getOption("reconnect.initialDelay")) ? ref :3;
   }, next = function() {
-    var delay, _ref;
-    return delay = null != (_ref = Offline.getOption("reconnect.delay")) ? _ref :Math.min(Math.ceil(1.5 * rc.delay), 3600), 
+    var delay, ref;
+    return delay = null != (ref = Offline.getOption("reconnect.delay")) ? ref :Math.min(Math.ceil(1.5 * rc.delay), 3600), 
     rc.remaining = rc.delay = delay;
   }, tick = function() {
     return "connecting" !== rc.state ? (rc.remaining -= 1, Offline.trigger("reconnect:tick"), 
@@ -168,31 +168,36 @@
   var clear, flush, held, holdRequest, makeRequest, waitingOnConfirm;
   if (!window.Offline) throw new Error("Requests module brought in without offline.js");
   held = [], waitingOnConfirm = !1, holdRequest = function(req) {
-    return Offline.trigger("requests:capture"), "down" !== Offline.state && (waitingOnConfirm = !0), 
-    held.push(req);
-  }, makeRequest = function(_arg) {
-    var body, name, password, type, url, user, val, xhr, _ref;
-    xhr = _arg.xhr, url = _arg.url, type = _arg.type, user = _arg.user, password = _arg.password, 
-    body = _arg.body, xhr.abort(), xhr.open(type, url, !0, user, password), _ref = xhr.headers;
-    for (name in _ref) val = _ref[name], xhr.setRequestHeader(name, val);
-    return xhr.mimeType && xhr.overrideMimeType(xhr.mimeType), xhr.send(body);
+    return Offline.getOption("requests") !== !1 ? (Offline.trigger("requests:capture"), 
+    "down" !== Offline.state && (waitingOnConfirm = !0), held.push(req)) :void 0;
+  }, makeRequest = function(arg) {
+    var body, name, password, ref, type, url, user, val, xhr;
+    if (xhr = arg.xhr, url = arg.url, type = arg.type, user = arg.user, password = arg.password, 
+    body = arg.body, Offline.getOption("requests") !== !1) {
+      xhr.abort(), xhr.open(type, url, !0, user, password), ref = xhr.headers;
+      for (name in ref) val = ref[name], xhr.setRequestHeader(name, val);
+      return xhr.mimeType && xhr.overrideMimeType(xhr.mimeType), xhr.send(body);
+    }
   }, clear = function() {
     return held = [];
   }, flush = function() {
-    var key, request, requests, url, _i, _len;
-    for (Offline.trigger("requests:flush"), requests = {}, _i = 0, _len = held.length; _len > _i; _i++) request = held[_i], 
-    url = request.url.replace(/(\?|&)_=[0-9]+/, function(match, char) {
-      return "?" === char ? char :"";
-    }), requests["" + request.type.toUpperCase() + " - " + url] = request;
-    for (key in requests) request = requests[key], makeRequest(request);
-    return clear();
+    var body, i, key, len, request, requests, url;
+    if (Offline.getOption("requests") !== !1) {
+      for (Offline.trigger("requests:flush"), requests = {}, i = 0, len = held.length; len > i; i++) request = held[i], 
+      url = request.url.replace(/(\?|&)_=[0-9]+/, function(match, char) {
+        return "?" === char ? char :"";
+      }), Offline.getOption("deDupBody") ? (body = request.body, body = "[object Object]" === body.toString() ? JSON.stringify(body) :body.toString(), 
+      requests[request.type.toUpperCase() + " - " + url + " - " + body] = request) :requests[request.type.toUpperCase() + " - " + url] = request;
+      for (key in requests) request = requests[key], makeRequest(request);
+      return clear();
+    }
   }, setTimeout(function() {
     return Offline.getOption("requests") !== !1 ? (Offline.on("confirmed-up", function() {
       return waitingOnConfirm ? (waitingOnConfirm = !1, clear()) :void 0;
     }), Offline.on("up", flush), Offline.on("down", function() {
       return waitingOnConfirm = !1;
     }), Offline.onXHR(function(request) {
-      var async, hold, xhr, _onreadystatechange, _send;
+      var _onreadystatechange, _send, async, hold, xhr;
       return xhr = request.xhr, async = request.async, xhr.offline !== !1 && (hold = function() {
         return holdRequest(request);
       }, _send = xhr.send, xhr.send = function(body) {
@@ -209,13 +214,13 @@
     }) :void 0;
   }, 0);
 }.call(this), function() {
-  var state, _base, _i, _len, _ref;
+  var base, i, len, ref, state;
   if (!Offline) throw new Error("Offline simulate brought in without offline.js");
-  for (_ref = [ "up", "down" ], _i = 0, _len = _ref.length; _len > _i; _i++) state = _ref[_i], 
+  for (ref = [ "up", "down" ], i = 0, len = ref.length; len > i; i++) state = ref[i], 
   (document.querySelector("script[data-simulate='" + state + "']") || ("undefined" != typeof localStorage && null !== localStorage ? localStorage.OFFLINE_SIMULATE :void 0) === state) && (null == Offline.options && (Offline.options = {}), 
-  null == (_base = Offline.options).checks && (_base.checks = {}), Offline.options.checks.active = state);
+  null == (base = Offline.options).checks && (base.checks = {}), Offline.options.checks.active = state);
 }.call(this), function() {
-  var RETRY_TEMPLATE, TEMPLATE, addClass, content, createFromHTML, el, flashClass, flashTimeouts, init, removeClass, render, roundTime, _onreadystatechange;
+  var RETRY_TEMPLATE, TEMPLATE, _onreadystatechange, addClass, content, createFromHTML, el, flashClass, flashTimeouts, init, removeClass, render, roundTime;
   if (!window.Offline) throw new Error("Offline UI brought in without offline.js");
   TEMPLATE = '<div class="offline-ui"><div class="offline-ui-content"></div></div>', 
   RETRY_TEMPLATE = '<a href class="offline-ui-retry"></a>', createFromHTML = function(html) {
@@ -258,9 +263,9 @@
     }), Offline.on("reconnect:connecting", function() {
       return addClass("offline-ui-connecting"), removeClass("offline-ui-waiting");
     }), Offline.on("reconnect:tick", function() {
-      var time, unit, _ref;
-      return addClass("offline-ui-waiting"), removeClass("offline-ui-connecting"), _ref = roundTime(Offline.reconnect.remaining), 
-      time = _ref[0], unit = _ref[1], content.setAttribute("data-retry-in-value", time), 
+      var ref, time, unit;
+      return addClass("offline-ui-waiting"), removeClass("offline-ui-connecting"), ref = roundTime(Offline.reconnect.remaining), 
+      time = ref[0], unit = ref[1], content.setAttribute("data-retry-in-value", time), 
       content.setAttribute("data-retry-in-unit", unit);
     }), Offline.on("reconnect:stopped", function() {
       return removeClass("offline-ui-connecting offline-ui-waiting"), content.setAttribute("data-retry-in-value", null), 

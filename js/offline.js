@@ -2,21 +2,21 @@
   var Offline, checkXHR, defaultOptions, extendNative, grab, handlers, init;
 
   extendNative = function(to, from) {
-    var e, key, val, _results;
-    _results = [];
+    var e, key, results, val;
+    results = [];
     for (key in from.prototype) {
       try {
         val = from.prototype[key];
         if ((to[key] == null) && typeof val !== 'function') {
-          _results.push(to[key] = val);
+          results.push(to[key] = val);
         } else {
-          _results.push(void 0);
+          results.push(void 0);
         }
       } catch (_error) {
         e = _error;
       }
     }
-    return _results;
+    return results;
   };
 
   Offline = {};
@@ -48,10 +48,10 @@
   };
 
   grab = function(obj, key) {
-    var cur, i, part, parts, _i, _len;
+    var cur, i, j, len, part, parts;
     cur = obj;
     parts = key.split('.');
-    for (i = _i = 0, _len = parts.length; _i < _len; i = ++_i) {
+    for (i = j = 0, len = parts.length; j < len; i = ++j) {
       part = parts[i];
       cur = cur[part];
       if (typeof cur !== 'object') {
@@ -66,8 +66,8 @@
   };
 
   Offline.getOption = function(key) {
-    var val, _ref;
-    val = (_ref = grab(Offline.options, key)) != null ? _ref : grab(defaultOptions, key);
+    var ref, val;
+    val = (ref = grab(Offline.options, key)) != null ? ref : grab(defaultOptions, key);
     if (typeof val === 'function') {
       return val();
     } else {
@@ -110,15 +110,15 @@
   handlers = {};
 
   Offline.on = function(event, handler, ctx) {
-    var e, events, _i, _len, _results;
+    var e, events, j, len, results;
     events = event.split(' ');
     if (events.length > 1) {
-      _results = [];
-      for (_i = 0, _len = events.length; _i < _len; _i++) {
-        e = events[_i];
-        _results.push(Offline.on(e, handler, ctx));
+      results = [];
+      for (j = 0, len = events.length; j < len; j++) {
+        e = events[j];
+        results.push(Offline.on(e, handler, ctx));
       }
-      return _results;
+      return results;
     } else {
       if (handlers[event] == null) {
         handlers[event] = [];
@@ -128,7 +128,7 @@
   };
 
   Offline.off = function(event, handler) {
-    var ctx, i, _handler, _ref, _results;
+    var _handler, ctx, i, ref, results;
     if (handlers[event] == null) {
       return;
     }
@@ -136,34 +136,34 @@
       return handlers[event] = [];
     } else {
       i = 0;
-      _results = [];
+      results = [];
       while (i < handlers[event].length) {
-        _ref = handlers[event][i], ctx = _ref[0], _handler = _ref[1];
+        ref = handlers[event][i], ctx = ref[0], _handler = ref[1];
         if (_handler === handler) {
-          _results.push(handlers[event].splice(i, 1));
+          results.push(handlers[event].splice(i, 1));
         } else {
-          _results.push(i++);
+          results.push(i++);
         }
       }
-      return _results;
+      return results;
     }
   };
 
   Offline.trigger = function(event) {
-    var ctx, handler, _i, _len, _ref, _ref1, _results;
+    var ctx, handler, j, len, ref, ref1, results;
     if (handlers[event] != null) {
-      _ref = handlers[event];
-      _results = [];
-      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-        _ref1 = _ref[_i], ctx = _ref1[0], handler = _ref1[1];
-        _results.push(handler.call(ctx));
+      ref = handlers[event];
+      results = [];
+      for (j = 0, len = ref.length; j < len; j++) {
+        ref1 = ref[j], ctx = ref1[0], handler = ref1[1];
+        results.push(handler.call(ctx));
       }
-      return _results;
+      return results;
     }
   };
 
   checkXHR = function(xhr, onUp, onDown) {
-    var checkStatus, _onerror, _onload, _onreadystatechange, _ontimeout;
+    var _onerror, _onload, _onreadystatechange, _ontimeout, checkStatus;
     checkStatus = function() {
       if (xhr.status && xhr.status < 12000) {
         return onUp();
@@ -241,7 +241,7 @@
   Offline.confirmUp = Offline.confirmDown = Offline.check;
 
   Offline.onXHR = function(cb) {
-    var monitorXHR, _XDomainRequest, _XMLHttpRequest;
+    var _XDomainRequest, _XMLHttpRequest, monitorXHR;
     monitorXHR = function(req, flags) {
       var _open;
       _open = req.open;
@@ -260,7 +260,7 @@
     };
     _XMLHttpRequest = window.XMLHttpRequest;
     window.XMLHttpRequest = function(flags) {
-      var req, _overrideMimeType, _setRequestHeader;
+      var _overrideMimeType, _setRequestHeader, req;
       req = new _XMLHttpRequest(flags);
       monitorXHR(req, flags);
       _setRequestHeader = req.setRequestHeader;
@@ -291,9 +291,9 @@
 
   init = function() {
     if (Offline.getOption('interceptRequests')) {
-      Offline.onXHR(function(_arg) {
+      Offline.onXHR(function(arg) {
         var xhr;
-        xhr = _arg.xhr;
+        xhr = arg.xhr;
         if (xhr.offline !== false) {
           return checkXHR(xhr, Offline.markUp, Offline.confirmDown);
         }
