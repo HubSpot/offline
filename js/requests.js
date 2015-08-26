@@ -10,6 +10,9 @@
   waitingOnConfirm = false;
 
   holdRequest = function(req) {
+    if (Offline.getOption('requests') === false) {
+      return;
+    }
     Offline.trigger('requests:capture');
     if (Offline.state !== 'down') {
       waitingOnConfirm = true;
@@ -17,14 +20,17 @@
     return held.push(req);
   };
 
-  makeRequest = function(_arg) {
-    var body, name, password, type, url, user, val, xhr, _ref;
-    xhr = _arg.xhr, url = _arg.url, type = _arg.type, user = _arg.user, password = _arg.password, body = _arg.body;
+  makeRequest = function(arg) {
+    var body, name, password, ref, type, url, user, val, xhr;
+    xhr = arg.xhr, url = arg.url, type = arg.type, user = arg.user, password = arg.password, body = arg.body;
+    if (Offline.getOption('requests') === false) {
+      return;
+    }
     xhr.abort();
     xhr.open(type, url, true, user, password);
-    _ref = xhr.headers;
-    for (name in _ref) {
-      val = _ref[name];
+    ref = xhr.headers;
+    for (name in ref) {
+      val = ref[name];
       xhr.setRequestHeader(name, val);
     }
     if (xhr.mimeType) {
@@ -38,11 +44,14 @@
   };
 
   flush = function() {
-    var body, key, request, requests, url, _i, _len;
+    var body, i, key, len, request, requests, url;
+    if (Offline.getOption('requests') === false) {
+      return;
+    }
     Offline.trigger('requests:flush');
     requests = {};
-    for (_i = 0, _len = held.length; _i < _len; _i++) {
-      request = held[_i];
+    for (i = 0, len = held.length; i < len; i++) {
+      request = held[i];
       url = request.url.replace(/(\?|&)_=[0-9]+/, function(match, char) {
         if (char === '?') {
           return char;
@@ -57,9 +66,9 @@
         } else {
           body = body.toString();
         }
-        requests["" + (request.type.toUpperCase()) + " - " + url + " - " + body] = request;
+        requests[(request.type.toUpperCase()) + " - " + url + " - " + body] = request;
       } else {
-        requests["" + (request.type.toUpperCase()) + " - " + url] = request;
+        requests[(request.type.toUpperCase()) + " - " + url] = request;
       }
     }
     for (key in requests) {
@@ -82,7 +91,7 @@
         return waitingOnConfirm = false;
       });
       Offline.onXHR(function(request) {
-        var async, hold, xhr, _onreadystatechange, _send;
+        var _onreadystatechange, _send, async, hold, xhr;
         xhr = request.xhr, async = request.async;
         if (xhr.offline === false) {
           return;

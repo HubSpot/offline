@@ -64,8 +64,8 @@
   };
 
   keyHandler = function(e) {
-    var _ref;
-    if ((37 <= (_ref = e.keyCode) && _ref <= 40)) {
+    var ref;
+    if ((37 <= (ref = e.keyCode) && ref <= 40)) {
       snake.direction = Math.PI / 2 * ((e.keyCode - 35) % 4);
       return false;
     }
