@@ -1,5 +1,5 @@
 (function() {
-  var Offline, checkXHR, defaultOptions, extendNative, grab, handlers, init;
+  var Offline, checkXHR, defaultOptions, extendNative, getURL, grab, handlers, init;
 
   extendNative = function(to, from) {
     var e, key, results, val;
@@ -29,17 +29,18 @@
     checks: {
       xhr: {
         url: function() {
-          return "/favicon.ico?_=" + ((new Date()).getTime());
+          return "/favicon.ico";
         },
         timeout: 5000,
         type: 'HEAD'
       },
       image: {
         url: function() {
-          return "/favicon.ico?_=" + ((new Date()).getTime());
+          return "/favicon.ico";
         }
       },
-      active: 'xhr'
+      active: 'xhr',
+      cacheBust: true
     },
     checkOnLoad: false,
     interceptRequests: true,
@@ -200,13 +201,27 @@
     }
   };
 
+  getURL = function(url) {
+    var bust;
+    if (Offline.getOption('checks.cacheBust')) {
+      bust = 'cacheBust' + '=' + (new Date).getTime();
+      if (url.indexOf('?') > -1) {
+        bust = '&' + bust;
+      } else {
+        bust = '?' + bust;
+      }
+      url = url + bust;
+    }
+    return url;
+  };
+
   Offline.checks = {};
 
   Offline.checks.xhr = function() {
     var e, xhr;
     xhr = new XMLHttpRequest;
     xhr.offline = false;
-    xhr.open(Offline.getOption('checks.xhr.type'), Offline.getOption('checks.xhr.url'), true);
+    xhr.open(Offline.getOption('checks.xhr.type'), getURL(Offline.getOption('checks.xhr.url')), true);
     if (xhr.timeout != null) {
       xhr.timeout = Offline.getOption('checks.xhr.timeout');
     }
@@ -225,7 +240,7 @@
     img = document.createElement('img');
     img.onerror = Offline.markDown;
     img.onload = Offline.markUp;
-    img.src = Offline.getOption('checks.image.url');
+    img.src = getURL(Offline.getOption('checks.image.url'));
     return void 0;
   };
 

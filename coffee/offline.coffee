@@ -20,15 +20,17 @@ defaultOptions =
     xhr:
       url: ->
         # This can be any endpoint, even one that will 404.
-        "/favicon.ico?_=#{ (new Date()).getTime() }"
+        "/favicon.ico"
       timeout: 5000
       type: 'HEAD'
     image:
       url: ->
         # This can be any image, this is the better option if your image is on a different domain, otherwise just use XHR
-        "/favicon.ico?_=#{ (new Date()).getTime() }"
+        "/favicon.ico"
 
     active: 'xhr'
+
+    cacheBust: true
 
   checkOnLoad: false
 
@@ -37,6 +39,7 @@ defaultOptions =
   reconnect: true
 
   deDupBody: false
+
 
 grab = (obj, key) ->
   cur = obj
@@ -156,6 +159,16 @@ checkXHR = (xhr, onUp, onDown) ->
 
       _onreadystatechange?(arguments...)
 
+getURL = (url) ->
+  if Offline.getOption('checks.cacheBust')
+    bust = 'cacheBust' + '=' + (new Date).getTime()
+    if url.indexOf('?') > -1
+      bust = '&' + bust
+    else
+      bust = '?' + bust
+    url = url + bust
+  url
+
 Offline.checks = {}
 Offline.checks.xhr = ->
   xhr = new XMLHttpRequest
@@ -164,7 +177,8 @@ Offline.checks.xhr = ->
 
   # It doesn't matter what this hits, even a 404 is considered up.  It is important however that
   # it's on the same domain and port, so CORS issues don't come into play.
-  xhr.open(Offline.getOption('checks.xhr.type'), Offline.getOption('checks.xhr.url'), true)
+
+  xhr.open(Offline.getOption('checks.xhr.type'), getURL(Offline.getOption('checks.xhr.url')), true)
 
   if xhr.timeout?
     xhr.timeout = Offline.getOption('checks.xhr.timeout')
@@ -183,7 +197,7 @@ Offline.checks.image = ->
   img = document.createElement 'img'
   img.onerror = Offline.markDown
   img.onload = Offline.markUp
-  img.src = Offline.getOption('checks.image.url')
+  img.src = getURL(Offline.getOption('checks.image.url'))
 
   undefined
 
