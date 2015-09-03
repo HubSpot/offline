@@ -116,6 +116,13 @@ Offline.options = {checks: {image: {url: 'my-image.gif'}, active: 'image'}}
 The one cavet is that with the image method, we can't distinguish a 404 from a genuine connection issue, so any error at all will
 appear to Offline as a connection issue.
 
+By default, Offline will add a 'cacheBust' parameter to the xhr or image URL to prevent the browser from caching the request.
+You can disable this by setting the value to false:
+
+```javascript
+Offline.options = {checks: {xhr: {url: '/connection-test'}, cacheBust:false}};
+```
+
 Offline also includes a check called `'up'` and another called `'down'` which will always report being up or down respectively for
 testing.  You can activate them by setting the `active` option, adding a data attribute to your script tag with the name
 `data-simulate` and value `'up'` or `'down'`, or by setting `localStorage.OFFLINE_SIMULATE` to `'up'` or `'down'`.

@@ -1,6 +1,6 @@
 /*! offline-js 0.7.14 */
 (function() {
-  var Offline, checkXHR, defaultOptions, extendNative, grab, handlers, init;
+  var Offline, checkXHR, defaultOptions, extendNative, getURL, grab, handlers, init;
   extendNative = function(to, from) {
     var e, key, results, val;
     results = [];
@@ -14,17 +14,18 @@
     checks:{
       xhr:{
         url:function() {
-          return "/favicon.ico?_=" + new Date().getTime();
+          return "/favicon.ico";
         },
         timeout:5e3,
         type:"HEAD"
       },
       image:{
         url:function() {
-          return "/favicon.ico?_=" + new Date().getTime();
+          return "/favicon.ico";
         }
       },
-      active:"xhr"
+      active:"xhr",
+      cacheBust:!0
     },
     checkOnLoad:!1,
     interceptRequests:!0,
@@ -86,9 +87,13 @@
     }) :(_onreadystatechange = xhr.onreadystatechange, xhr.onreadystatechange = function() {
       return 4 === xhr.readyState ? checkStatus() :0 === xhr.readyState && onDown(), "function" == typeof _onreadystatechange ? _onreadystatechange.apply(null, arguments) :void 0;
     });
+  }, getURL = function(url) {
+    var bust;
+    return Offline.getOption("checks.cacheBust") && (bust = "cacheBust=" + new Date().getTime(), 
+    bust = url.indexOf("?") > -1 ? "&" + bust :"?" + bust, url += bust), url;
   }, Offline.checks = {}, Offline.checks.xhr = function() {
     var e, xhr;
-    xhr = new XMLHttpRequest(), xhr.offline = !1, xhr.open(Offline.getOption("checks.xhr.type"), Offline.getOption("checks.xhr.url"), !0), 
+    xhr = new XMLHttpRequest(), xhr.offline = !1, xhr.open(Offline.getOption("checks.xhr.type"), getURL(Offline.getOption("checks.xhr.url")), !0), 
     null != xhr.timeout && (xhr.timeout = Offline.getOption("checks.xhr.timeout")), 
     checkXHR(xhr, Offline.markUp, Offline.markDown);
     try {
@@ -100,7 +105,7 @@
   }, Offline.checks.image = function() {
     var img;
     return img = document.createElement("img"), img.onerror = Offline.markDown, img.onload = Offline.markUp, 
-    void (img.src = Offline.getOption("checks.image.url"));
+    void (img.src = getURL(Offline.getOption("checks.image.url")));
   }, Offline.checks.down = Offline.markDown, Offline.checks.up = Offline.markUp, Offline.check = function() {
     return Offline.trigger("checking"), Offline.checks[Offline.getOption("checks.active")]();
   }, Offline.confirmUp = Offline.confirmDown = Offline.check, Offline.onXHR = function(cb) {
