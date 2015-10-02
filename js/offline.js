@@ -21,9 +21,7 @@
 
   Offline = {};
 
-  if (Offline.options == null) {
-    Offline.options = {};
-  }
+  Offline.options = window.Offline ? window.Offline.options || {} : {};
 
   defaultOptions = {
     checks: {
