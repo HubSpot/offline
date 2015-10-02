@@ -14,7 +14,7 @@ extendNative = (to, from) ->
 
 Offline = {}
 
-Offline.options ?= {}
+Offline.options = if window.Offline then window.Offline.options or {} else {}
 defaultOptions =
   checks:
     xhr:
