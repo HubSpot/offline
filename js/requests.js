@@ -52,9 +52,9 @@
     requests = {};
     for (i = 0, len = held.length; i < len; i++) {
       request = held[i];
-      url = request.url.replace(/(\?|&)_=[0-9]+/, function(match, char) {
-        if (char === '?') {
-          return char;
+      url = request.url.replace(/(\?|&)_=[0-9]+/, function(match, chr) {
+        if (chr === '?') {
+          return chr;
         } else {
           return '';
         }
