@@ -42,6 +42,7 @@
         "enum": [
           "dutch",
           "english",
+          "russian",
           "french",
           "german",
           "portuguese-brazil",
@@ -51,6 +52,7 @@
         "enumNames": {
           "dutch": "Dutch",
           "english": "English",
+          "russian": "Russian",
           "french": "French",
           "german": "German",
           "portuguese-brazil": "Brazilian Portuguese",
