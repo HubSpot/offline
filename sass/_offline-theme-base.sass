@@ -14,6 +14,9 @@
     left: 0
     right: 0
 
+    .offline-ui-content
+        margin: auto
+
     .offline-ui-content:before
         display: inline
 
@@ -32,10 +35,24 @@
     &.offline-ui-down
         display: block
 
+        display: -webkit-flex
+        display: -moz-flex
+        display: -ms-flex
+        display: -o-flex
+        display: flex
+
+        -webkit-box-orient: horizontal
+        -webkit-box-direction: reverse
+        -webkit-flex-direction: row-reverse
+        -ms-flex-direction: row-reverse
+        flex-direction: row-reverse
+
         &.offline-ui-waiting
 
             .offline-ui-retry
                 display: block
+                float: right
+                margin-left: 1em
 
         &.offline-ui-reconnect-failed-2s
 
