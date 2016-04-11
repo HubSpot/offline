@@ -100,8 +100,8 @@
     return xhr;
   }, Offline.checks.image = function() {
     var img;
-    return img = document.createElement("img"), img.onerror = Offline.markDown, img.onload = Offline.markUp, 
-    void (img.src = Offline.getOption("checks.image.url"));
+    img = document.createElement("img"), img.onerror = Offline.markDown, img.onload = Offline.markUp, 
+    img.src = Offline.getOption("checks.image.url");
   }, Offline.checks.down = Offline.markDown, Offline.checks.up = Offline.markUp, Offline.check = function() {
     return Offline.trigger("checking"), Offline.checks[Offline.getOption("checks.active")]();
   }, Offline.confirmUp = Offline.confirmDown = Offline.check, Offline.onXHR = function(cb) {
@@ -249,7 +249,7 @@
     return [ "now", "" ];
   }, render = function() {
     var button, handler;
-    return el = createFromHTML(TEMPLATE), document.body.appendChild(el), null != Offline.reconnect && Offline.getOption("reconnect") && (el.appendChild(createFromHTML(RETRY_TEMPLATE)), 
+    return el = createFromHTML(TEMPLATE), document.body.appendChild(el), null != Offline.reconnect && Offline.getOption("reconnect") && (el.insertBefore(createFromHTML(RETRY_TEMPLATE), el.firstChild), 
     button = el.querySelector(".offline-ui-retry"), handler = function(e) {
       return e.preventDefault(), Offline.reconnect.tryNow();
     }, null != button.addEventListener ? button.addEventListener("click", handler, !1) :button.attachEvent("click", handler)), 
