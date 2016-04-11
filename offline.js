@@ -1,4 +1,4 @@
-/*! offline-js 0.7.14 */
+/*! offline-js 0.7.16 */
 (function() {
   var Offline, checkXHR, defaultOptions, extendNative, grab, handlers, init;
   extendNative = function(to, from) {
@@ -100,8 +100,8 @@
     return xhr;
   }, Offline.checks.image = function() {
     var img;
-    return img = document.createElement("img"), img.onerror = Offline.markDown, img.onload = Offline.markUp, 
-    void (img.src = Offline.getOption("checks.image.url"));
+    img = document.createElement("img"), img.onerror = Offline.markDown, img.onload = Offline.markUp, 
+    img.src = Offline.getOption("checks.image.url");
   }, Offline.checks.down = Offline.markDown, Offline.checks.up = Offline.markUp, Offline.check = function() {
     return Offline.trigger("checking"), Offline.checks[Offline.getOption("checks.active")]();
   }, Offline.confirmUp = Offline.confirmDown = Offline.check, Offline.onXHR = function(cb) {
@@ -215,11 +215,18 @@
     }) :void 0;
   }, 0);
 }.call(this), function() {
-  var base, i, len, ref, state;
+  var base, e, i, len, ref, simulate, state;
   if (!Offline) throw new Error("Offline simulate brought in without offline.js");
-  for (ref = [ "up", "down" ], i = 0, len = ref.length; len > i; i++) state = ref[i], 
-  (document.querySelector("script[data-simulate='" + state + "']") || ("undefined" != typeof localStorage && null !== localStorage ? localStorage.OFFLINE_SIMULATE :void 0) === state) && (null == Offline.options && (Offline.options = {}), 
-  null == (base = Offline.options).checks && (base.checks = {}), Offline.options.checks.active = state);
+  for (ref = [ "up", "down" ], i = 0, len = ref.length; len > i; i++) {
+    state = ref[i];
+    try {
+      simulate = document.querySelector("script[data-simulate='" + state + "']") || ("undefined" != typeof localStorage && null !== localStorage ? localStorage.OFFLINE_SIMULATE :void 0) === state;
+    } catch (_error) {
+      e = _error, simulate = !1;
+    }
+  }
+  simulate && (null == Offline.options && (Offline.options = {}), null == (base = Offline.options).checks && (base.checks = {}), 
+  Offline.options.checks.active = state);
 }.call(this), function() {
   var RETRY_TEMPLATE, TEMPLATE, _onreadystatechange, addClass, content, createFromHTML, el, flashClass, flashTimeouts, init, removeClass, render, roundTime;
   if (!window.Offline) throw new Error("Offline UI brought in without offline.js");
