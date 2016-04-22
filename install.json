@@ -45,6 +45,7 @@
           "french",
           "german",
           "portuguese-brazil",
+          "simplified-chinese",
           "spanish",
           "italian",
           "turkish"
@@ -55,6 +56,7 @@
           "french": "French",
           "german": "German",
           "portuguese-brazil": "Brazilian Portuguese",
+          "simplified-chinese": "Simplified Chinese",
           "spanish": "Spanish",
           "italian": "Italian",
           "turkish": "Turkish"
