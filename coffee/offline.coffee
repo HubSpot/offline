@@ -115,9 +115,8 @@ Offline.off = (event, handler) ->
 
 Offline.trigger = (event) ->
   if handlers[event]?
-    # temporary cache the handlers since its possible that the called functions will modify the handlers array by calling off/on 
-    eventHandlers = handlers[event][..]
-    for [ctx, handler] in eventHandlers
+    # we have to make a copy of the handlers since its possible that the called functions will modify the handlers array by calling off/on 
+    for [ctx, handler] in handlers[event][..]
       handler.call(ctx)
 
 checkXHR = (xhr, onUp, onDown) ->
