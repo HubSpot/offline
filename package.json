@@ -21,5 +21,8 @@
     "grunt-contrib-compass": "^1.0.3",
     "grunt-contrib-uglify": "^0.9.1",
     "grunt-contrib-watch": "^0.6.1"
+  },
+  "scripts": {
+    "build": "grunt"
   }
 }
