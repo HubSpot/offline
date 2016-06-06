@@ -88,7 +88,7 @@ Properties
   - reconnect:connecting: We are reconnecting now
   - reconnect:failure: A reconnect check attempt failed
   - requests:flush: Any pending requests have been remade
-  - requests:hold: A new request is being held
+  - requests:capture: A new request is being held
 
 `Offline.off(event, handler)`: Unbind an event
 
