@@ -185,8 +185,8 @@
     var body, i, key, len, request, requests, url;
     if (Offline.getOption("requests") !== !1) {
       for (Offline.trigger("requests:flush"), requests = {}, i = 0, len = held.length; len > i; i++) request = held[i], 
-      url = request.url.replace(/(\?|&)_=[0-9]+/, function(match, char) {
-        return "?" === char ? char :"";
+      url = request.url.replace(/(\?|&)_=[0-9]+/, function(match, chr) {
+        return "?" === chr ? chr :"";
       }), Offline.getOption("deDupBody") ? (body = request.body, body = "[object Object]" === body.toString() ? JSON.stringify(body) :body.toString(), 
       requests[request.type.toUpperCase() + " - " + url + " - " + body] = request) :requests[request.type.toUpperCase() + " - " + url] = request;
       for (key in requests) request = requests[key], makeRequest(request);

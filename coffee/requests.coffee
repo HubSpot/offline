@@ -36,8 +36,8 @@ flush = ->
   # TODO: Throw out PUT/POST/DELETE requests after too much time?
   for request in held
     # Break cache breaking
-    url = request.url.replace /(\?|&)_=[0-9]+/, (match, char) ->
-      if char is '?' then char else ''
+    url = request.url.replace /(\?|&)_=[0-9]+/, (match, chr) ->
+      if chr is '?' then chr else ''
 
     if Offline.getOption('deDupBody')
       body = request.body
