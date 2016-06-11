@@ -4,6 +4,8 @@
 # we trigger an event and update our status.
 
 extendNative = (to, from) ->
+  to.prototype = from.prototype
+
   for key of from::
     try
       val = from::[key]
