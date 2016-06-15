@@ -150,7 +150,7 @@
   Offline.trigger = function(event) {
     var ctx, handler, j, len, ref, ref1, results;
     if (handlers[event] != null) {
-      ref = handlers[event];
+      ref = handlers[event].slice(0);
       results = [];
       for (j = 0, len = ref.length; j < len; j++) {
         ref1 = ref[j], ctx = ref1[0], handler = ref1[1];

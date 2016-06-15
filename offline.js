@@ -1,4 +1,4 @@
-/*! offline-js 0.7.17 */
+/*! offline-js 0.7.18 */
 (function() {
   var Offline, checkXHR, defaultOptions, extendNative, grab, handlers, init;
   extendNative = function(to, from) {
@@ -70,7 +70,7 @@
   }, Offline.trigger = function(event) {
     var ctx, handler, j, len, ref, ref1, results;
     if (null != handlers[event]) {
-      for (ref = handlers[event], results = [], j = 0, len = ref.length; len > j; j++) ref1 = ref[j], 
+      for (ref = handlers[event].slice(0), results = [], j = 0, len = ref.length; len > j; j++) ref1 = ref[j], 
       ctx = ref1[0], handler = ref1[1], results.push(handler.call(ctx));
       return results;
     }

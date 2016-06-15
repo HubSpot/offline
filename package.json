@@ -1,6 +1,6 @@
 {
   "name": "offline-js",
-  "version": "0.7.17",
+  "version": "0.7.18",
   "description": "Automatically detect when a browser is offline",
   "authors": [
     "Adam Schwartz <adam.flynn.schwartz@gmail.com>",
