@@ -66,6 +66,9 @@ setTimeout ->
     Offline.on 'down', ->
       waitingOnConfirm = false
 
+    Offline.on 'logout', ->
+      waitingOnConfirm = false
+
     Offline.onXHR (request) ->
       {xhr, async} = request
 

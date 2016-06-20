@@ -3,6 +3,7 @@ unless window.Offline
 
 TEMPLATE = '<div class="offline-ui"><div class="offline-ui-content"></div></div>'
 RETRY_TEMPLATE = '<a href class="offline-ui-retry"></a>'
+LOGIN_TEMPLATE = '<a href class="offline-ui-login"></a>'
 
 createFromHTML = (html) ->
   el = document.createElement('div')
@@ -62,6 +63,19 @@ render = ->
     else
       button.attachEvent 'click', handler
 
+  if Offline.getOption('login')
+    el.appendChild createFromHTML LOGIN_TEMPLATE
+
+    button = el.querySelector('.offline-ui-login')
+    handler = (e) ->
+      e.preventDefault()
+      window.location.href = Offline.getOption('login')
+
+    if button.addEventListener?
+      button.addEventListener 'click', handler, false
+    else
+      button.attachEvent 'click', handler
+
   addClass "offline-ui-#{ Offline.state }"
 
   content = el.querySelector('.offline-ui-content')
@@ -71,6 +85,7 @@ init = ->
 
   Offline.on 'up', ->
     removeClass 'offline-ui-down'
+    removeClass 'offline-ui-logout'
     addClass 'offline-ui-up'
 
     flashClass 'offline-ui-up-2s', 2
@@ -78,10 +93,19 @@ init = ->
 
   Offline.on 'down', ->
     removeClass 'offline-ui-up'
+    removeClass 'offline-ui-logout'
     addClass 'offline-ui-down'
 
     flashClass 'offline-ui-down-2s', 2
     flashClass 'offline-ui-down-5s', 5
+
+  Offline.on 'logout', ->
+    removeClass 'offline-ui-up'
+    removeClass 'offline-ui-down'
+    addClass 'offline-ui-logout'
+
+    flashClass 'offline-ui-logout-2s', 2
+    flashClass 'offline-ui-logout-5s', 5
 
   Offline.on 'reconnect:connecting', ->
     addClass 'offline-ui-connecting'

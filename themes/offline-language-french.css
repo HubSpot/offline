@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /* line 6, ../sass/_content.sass */
-.offline-ui .offline-ui-retry:before {
+.offline-ui .offline-ui-retry:before, .offline-ui .offline-ui-login:before {
   content: "Reconnecter";
 }
 /* line 11, ../sass/_content.sass */
@@ -36,74 +36,106 @@
   }
 }
 /* line 33, ../sass/_content.sass */
-.offline-ui.offline-ui-down.offline-ui-connecting .offline-ui-content:before, .offline-ui.offline-ui-down.offline-ui-connecting-2s .offline-ui-content:before {
+.offline-ui.offline-ui-logout .offline-ui-content:before {
+  content: "Votre session a expiré.";
+}
+/* line 40, ../sass/_content.sass */
+.offline-ui.offline-ui-down.offline-ui-connecting .offline-ui-content:before, .offline-ui.offline-ui-down.offline-ui-connecting-2s .offline-ui-content:before, .offline-ui.offline-ui-logout.offline-ui-connecting .offline-ui-content:before, .offline-ui.offline-ui-logout.offline-ui-connecting-2s .offline-ui-content:before {
   content: "Tentative de reconnexion...";
 }
-/* line 42, ../sass/_content.sass */
-.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"]:before {
+/* line 49, ../sass/_content.sass */
+.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"]:before, .offline-ui.offline-ui-logout.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"]:before {
   content: "Connexion perdue. Reconnexion dans " attr(data-retry-in-value) " secondes...";
 }
 @media (max-width: 568px) {
-  /* line 42, ../sass/_content.sass */
-  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"]:before {
+  /* line 49, ../sass/_content.sass */
+  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"]:before, .offline-ui.offline-ui-logout.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"]:before {
     content: "Reconnexion dans " attr(data-retry-in-value) "s...";
   }
 }
-/* line 50, ../sass/_content.sass */
-.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"][data-retry-in-value="1"]:before {
+/* line 57, ../sass/_content.sass */
+.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"][data-retry-in-value="1"]:before, .offline-ui.offline-ui-logout.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"][data-retry-in-value="1"]:before {
   content: "Connexion perdue. Reconnexion dans " attr(data-retry-in-value) " seconde...";
 }
 @media (max-width: 568px) {
-  /* line 50, ../sass/_content.sass */
-  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"][data-retry-in-value="1"]:before {
+  /* line 57, ../sass/_content.sass */
+  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"][data-retry-in-value="1"]:before, .offline-ui.offline-ui-logout.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"][data-retry-in-value="1"]:before {
     content: "Reconnexion dans " attr(data-retry-in-value) "s...";
   }
 }
-/* line 58, ../sass/_content.sass */
-.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"]:before {
+/* line 65, ../sass/_content.sass */
+.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"]:before, .offline-ui.offline-ui-logout.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"]:before {
   content: "Connexion perdue. Reconnexion dans " attr(data-retry-in-value) " minutes...";
 }
 @media (max-width: 568px) {
-  /* line 58, ../sass/_content.sass */
-  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"]:before {
+  /* line 65, ../sass/_content.sass */
+  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"]:before, .offline-ui.offline-ui-logout.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"]:before {
     content: "Reconnexion dans " attr(data-retry-in-value) "m...";
   }
 }
-/* line 66, ../sass/_content.sass */
-.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"][data-retry-in-value="1"]:before {
+/* line 73, ../sass/_content.sass */
+.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"][data-retry-in-value="1"]:before, .offline-ui.offline-ui-logout.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"][data-retry-in-value="1"]:before {
   content: "Connexion perdue. Reconnexion dans " attr(data-retry-in-value) " minute...";
 }
 @media (max-width: 568px) {
-  /* line 66, ../sass/_content.sass */
-  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"][data-retry-in-value="1"]:before {
+  /* line 73, ../sass/_content.sass */
+  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"][data-retry-in-value="1"]:before, .offline-ui.offline-ui-logout.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"][data-retry-in-value="1"]:before {
     content: "Reconnexion dans " attr(data-retry-in-value) "m...";
   }
 }
-/* line 74, ../sass/_content.sass */
-.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"]:before {
+/* line 81, ../sass/_content.sass */
+.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"]:before, .offline-ui.offline-ui-logout.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"]:before {
   content: "Connexion perdue. Reconnexion dans " attr(data-retry-in-value) " heures...";
 }
 @media (max-width: 568px) {
-  /* line 74, ../sass/_content.sass */
-  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"]:before {
+  /* line 81, ../sass/_content.sass */
+  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"]:before, .offline-ui.offline-ui-logout.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"]:before {
     content: "Reconnexion dans " attr(data-retry-in-value) "h...";
   }
 }
-/* line 82, ../sass/_content.sass */
-.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"][data-retry-in-value="1"]:before {
+/* line 89, ../sass/_content.sass */
+.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"][data-retry-in-value="1"]:before, .offline-ui.offline-ui-logout.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"][data-retry-in-value="1"]:before {
   content: "Connexion perdue. Reconnexion dans " attr(data-retry-in-value) " heure...";
 }
 @media (max-width: 568px) {
-  /* line 82, ../sass/_content.sass */
-  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"][data-retry-in-value="1"]:before {
+  /* line 89, ../sass/_content.sass */
+  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"][data-retry-in-value="1"]:before, .offline-ui.offline-ui-logout.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"][data-retry-in-value="1"]:before {
     content: "Reconnexion dans " attr(data-retry-in-value) "h...";
   }
 }
-/* line 90, ../sass/_content.sass */
-.offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s.offline-ui-waiting .offline-ui-retry {
+/* line 98, ../sass/_content.sass */
+.offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s.offline-ui-waiting .offline-ui-retry, .offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s.offline-ui-waiting .offline-ui-login, .offline-ui.offline-ui-logout.offline-ui-reconnect-failed-2s.offline-ui-waiting .offline-ui-retry, .offline-ui.offline-ui-logout.offline-ui-reconnect-failed-2s.offline-ui-waiting .offline-ui-login {
   display: none;
 }
-/* line 93, ../sass/_content.sass */
-.offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s .offline-ui-content:before {
+/* line 101, ../sass/_content.sass */
+.offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s .offline-ui-content:before, .offline-ui.offline-ui-logout.offline-ui-reconnect-failed-2s .offline-ui-content:before {
   content: "La tentative de connexion a échoué.";
+}
+/* line 109, ../sass/_content.sass */
+.offline-ui.offline-ui-logout.offline-ui-connecting .offline-ui-content:before, .offline-ui.offline-ui-logout.offline-ui-connecting-2s .offline-ui-content:before {
+  content: "Tentative de reconnexion...";
+}
+/* line 118, ../sass/_content.sass */
+.offline-ui.offline-ui-logout.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"]:before {
+  content: "Session expiré. Reconnexion dans " attr(data-retry-in-value) " secondes...";
+}
+/* line 123, ../sass/_content.sass */
+.offline-ui.offline-ui-logout.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"][data-retry-in-value="1"]:before {
+  content: "Session expiré. Reconnexion dans " attr(data-retry-in-value) " seconde...";
+}
+/* line 128, ../sass/_content.sass */
+.offline-ui.offline-ui-logout.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"]:before {
+  content: "Session expiré. Reconnexion dans " attr(data-retry-in-value) " minutes...";
+}
+/* line 133, ../sass/_content.sass */
+.offline-ui.offline-ui-logout.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"][data-retry-in-value="1"]:before {
+  content: "Session expiré. Reconnexion dans " attr(data-retry-in-value) " minute...";
+}
+/* line 138, ../sass/_content.sass */
+.offline-ui.offline-ui-logout.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"]:before {
+  content: "Session expiré. Reconnexion dans " attr(data-retry-in-value) " heures...";
+}
+/* line 142, ../sass/_content.sass */
+.offline-ui.offline-ui-logout.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"][data-retry-in-value="1"]:before {
+  content: "Session expiré. Reconnexion dans " attr(data-retry-in-value) " heure...";
 }

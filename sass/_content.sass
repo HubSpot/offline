@@ -1,7 +1,7 @@
 =offline-content
     .offline-ui
 
-        .offline-ui-retry
+        .offline-ui-retry, .offline-ui-login
 
             &:before
                 content: $retryButton
@@ -27,6 +27,13 @@
 
                 @media (max-width: 568px)
                     content: $downDeviceSmall
+
+        &.offline-ui-logout
+
+            .offline-ui-content:before
+                content: $logout
+
+        &.offline-ui-down, &.offline-ui-logout
 
             &.offline-ui-connecting, &.offline-ui-connecting-2s
 
@@ -87,8 +94,50 @@
 
             &.offline-ui-reconnect-failed-2s
 
-                &.offline-ui-waiting .offline-ui-retry
-                    display: none
+                &.offline-ui-waiting
+                    .offline-ui-retry, .offline-ui-login
+                        display: none
 
                 .offline-ui-content:before
                     content: $reconnectFailed
+
+                
+        &.offline-ui-logout
+
+            &.offline-ui-connecting, &.offline-ui-connecting-2s
+
+                .offline-ui-content:before
+                    content: $connecting
+
+            &.offline-ui-waiting
+
+                .offline-ui-content
+
+                    &[data-retry-in-unit="second"]
+
+                        &:before
+                            content: $retryingLoginSecondBeforeValuePluralComputer attr(data-retry-in-value) $retryingSecondAfterValuePluralComputer
+
+                        &[data-retry-in-value="1"]
+
+                            &:before
+                                content: $retryingLoginSecondBeforeValueSingularComputer attr(data-retry-in-value) $retryingSecondAfterValueSingularComputer
+
+                    &[data-retry-in-unit="minute"]
+
+                        &:before
+                            content: $retryingLoginMinuteBeforeValuePluralComputer attr(data-retry-in-value) $retryingMinuteAfterValuePluralComputer
+
+                        &[data-retry-in-value="1"]
+
+                            &:before
+                                content: $retryingLoginMinuteBeforeValueSingularComputer attr(data-retry-in-value) $retryingMinuteAfterValueSingularComputer
+
+                    &[data-retry-in-unit="hour"]
+
+                        &:before
+                            content: $retryingLoginHourBeforeValuePluralComputer attr(data-retry-in-value) $retryingHourAfterValuePluralComputer
+                        &[data-retry-in-value="1"]
+
+                            &:before
+                                content: $retryingLoginHourBeforeValueSingularComputer attr(data-retry-in-value) $retryingHourAfterValueSingularComputer

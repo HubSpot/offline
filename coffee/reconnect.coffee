@@ -33,7 +33,7 @@ tryNow = ->
 
   Offline.check()
 
-down = ->
+reconnect = ->
   return unless Offline.getOption('reconnect')
 
   reset()
@@ -61,6 +61,8 @@ rc.tryNow = tryNow
 
 reset()
 
-Offline.on 'down', down
+Offline.on 'down', reconnect
+Offline.on 'logout', reconnect
 Offline.on 'confirmed-down', nope
+Offline.on 'confirmed-logout', nope
 Offline.on 'up', up

@@ -88,6 +88,14 @@ Offline.markDown = ->
   Offline.state = 'down'
   Offline.trigger 'down'
 
+Offline.markLogout = ->
+  Offline.trigger 'confirmed-logout'
+
+  return if Offline.state is 'logout'
+
+  Offline.state = 'logout'
+  Offline.trigger 'logout'
+
 handlers = {}
 
 Offline.on = (event, handler, ctx) ->
@@ -119,10 +127,13 @@ Offline.trigger = (event) ->
     for [ctx, handler] in handlers[event][..]
       handler.call(ctx)
 
-checkXHR = (xhr, onUp, onDown) ->
+checkXHR = (xhr, onUp, onDown, onLogout) ->
   checkStatus = ->
     if xhr.status and xhr.status < 12000
-      onUp()
+      if Offline.getOption('logout') && xhr.status == 401 
+        onLogout()
+      else
+        onUp()
     else
       onDown()
 
@@ -170,7 +181,7 @@ Offline.checks.xhr = ->
   if xhr.timeout?
     xhr.timeout = Offline.getOption('checks.xhr.timeout')
 
-  checkXHR xhr, Offline.markUp, Offline.markDown
+  checkXHR xhr, Offline.markUp, Offline.markDown, Offline.markLogout
 
   try
     xhr.send()
@@ -196,7 +207,7 @@ Offline.check = ->
 
   Offline.checks[Offline.getOption('checks.active')]()
 
-Offline.confirmUp = Offline.confirmDown = Offline.check
+Offline.confirmUp = Offline.confirmDown = Offline.confirmLogout = Offline.check
 
 Offline.onXHR = (cb) ->
   monitorXHR = (req, flags) ->
@@ -244,7 +255,7 @@ init = ->
   if Offline.getOption 'interceptRequests'
     Offline.onXHR ({xhr}) ->
       unless xhr.offline is false
-        checkXHR xhr, Offline.markUp, Offline.confirmDown
+        checkXHR xhr, Offline.markUp, Offline.confirmDown, Offline.confirmLogout
 
   if Offline.getOption 'checkOnLoad'
     Offline.check()

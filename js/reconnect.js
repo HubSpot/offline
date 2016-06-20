@@ -1,5 +1,5 @@
 (function() {
-  var down, next, nope, rc, reset, retryIntv, tick, tryNow, up;
+  var next, nope, rc, reconnect, reset, retryIntv, tick, tryNow, up;
 
   if (!window.Offline) {
     throw new Error("Offline Reconnect brought in without offline.js");
@@ -44,7 +44,7 @@
     return Offline.check();
   };
 
-  down = function() {
+  reconnect = function() {
     if (!Offline.getOption('reconnect')) {
       return;
     }
@@ -76,9 +76,13 @@
 
   reset();
 
-  Offline.on('down', down);
+  Offline.on('down', reconnect);
+
+  Offline.on('logout', reconnect);
 
   Offline.on('confirmed-down', nope);
+
+  Offline.on('confirmed-logout', nope);
 
   Offline.on('up', up);
 

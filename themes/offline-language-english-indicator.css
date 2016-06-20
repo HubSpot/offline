@@ -3,6 +3,6 @@
   content: "Online";
 }
 /* line 10, ../sass/offline-language-english-indicator.sass */
-.offline-ui.offline-ui-down .offline-ui-content:before {
+.offline-ui.offline-ui-down .offline-ui-content:before, .offline-ui.offline-ui-logout .offline-ui-content:before {
   content: "Offline";
 }

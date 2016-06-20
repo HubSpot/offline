@@ -1,5 +1,5 @@
 (function() {
-  var RETRY_TEMPLATE, TEMPLATE, _onreadystatechange, addClass, content, createFromHTML, el, flashClass, flashTimeouts, init, removeClass, render, roundTime;
+  var LOGIN_TEMPLATE, RETRY_TEMPLATE, TEMPLATE, _onreadystatechange, addClass, content, createFromHTML, el, flashClass, flashTimeouts, init, removeClass, render, roundTime;
 
   if (!window.Offline) {
     throw new Error("Offline UI brought in without offline.js");
@@ -8,6 +8,8 @@
   TEMPLATE = '<div class="offline-ui"><div class="offline-ui-content"></div></div>';
 
   RETRY_TEMPLATE = '<a href class="offline-ui-retry"></a>';
+
+  LOGIN_TEMPLATE = '<a href class="offline-ui-login"></a>';
 
   createFromHTML = function(html) {
     var el;
@@ -75,6 +77,19 @@
         button.attachEvent('click', handler);
       }
     }
+    if (Offline.getOption('login')) {
+      el.appendChild(createFromHTML(LOGIN_TEMPLATE));
+      button = el.querySelector('.offline-ui-login');
+      handler = function(e) {
+        e.preventDefault();
+        return window.location.href = Offline.getOption('login');
+      };
+      if (button.addEventListener != null) {
+        button.addEventListener('click', handler, false);
+      } else {
+        button.attachEvent('click', handler);
+      }
+    }
     addClass("offline-ui-" + Offline.state);
     return content = el.querySelector('.offline-ui-content');
   };
@@ -83,15 +98,24 @@
     render();
     Offline.on('up', function() {
       removeClass('offline-ui-down');
+      removeClass('offline-ui-logout');
       addClass('offline-ui-up');
       flashClass('offline-ui-up-2s', 2);
       return flashClass('offline-ui-up-5s', 5);
     });
     Offline.on('down', function() {
       removeClass('offline-ui-up');
+      removeClass('offline-ui-logout');
       addClass('offline-ui-down');
       flashClass('offline-ui-down-2s', 2);
       return flashClass('offline-ui-down-5s', 5);
+    });
+    Offline.on('logout', function() {
+      removeClass('offline-ui-up');
+      removeClass('offline-ui-down');
+      addClass('offline-ui-logout');
+      flashClass('offline-ui-logout-2s', 2);
+      return flashClass('offline-ui-logout-5s', 5);
     });
     Offline.on('reconnect:connecting', function() {
       addClass('offline-ui-connecting');

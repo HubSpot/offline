@@ -17,7 +17,7 @@
     .offline-ui-content:before
         display: inline
 
-    .offline-ui-retry
+    .offline-ui-retry, .offline-ui-login
         +user-select(none)
         display: none
 
@@ -29,15 +29,13 @@
         &.offline-ui-up-5s
             display: block
 
-    &.offline-ui-down
+    &.offline-ui-down, &.offline-ui-logout
         display: block
 
-        &.offline-ui-waiting
-
+        &.offline-ui-reconnect-failed-2s.offline-ui-waiting
             .offline-ui-retry
-                display: block
-
-        &.offline-ui-reconnect-failed-2s
-
-            &.offline-ui-waiting .offline-ui-retry
                 display: none
+
+    &.offline-ui-down.offline-ui-waiting .offline-ui-retry
+        display: block
+

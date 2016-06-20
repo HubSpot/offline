@@ -105,6 +105,15 @@
     return Offline.trigger('down');
   };
 
+  Offline.markLogout = function() {
+    Offline.trigger('confirmed-logout');
+    if (Offline.state === 'logout') {
+      return;
+    }
+    Offline.state = 'logout';
+    return Offline.trigger('logout');
+  };
+
   handlers = {};
 
   Offline.on = function(event, handler, ctx) {
@@ -160,11 +169,15 @@
     }
   };
 
-  checkXHR = function(xhr, onUp, onDown) {
+  checkXHR = function(xhr, onUp, onDown, onLogout) {
     var _onerror, _onload, _onreadystatechange, _ontimeout, checkStatus;
     checkStatus = function() {
       if (xhr.status && xhr.status < 12000) {
-        return onUp();
+        if (Offline.getOption('logout') && xhr.status === 401) {
+          return onLogout();
+        } else {
+          return onUp();
+        }
       } else {
         return onDown();
       }
@@ -208,7 +221,7 @@
     if (xhr.timeout != null) {
       xhr.timeout = Offline.getOption('checks.xhr.timeout');
     }
-    checkXHR(xhr, Offline.markUp, Offline.markDown);
+    checkXHR(xhr, Offline.markUp, Offline.markDown, Offline.markLogout);
     try {
       xhr.send();
     } catch (_error) {
@@ -236,7 +249,7 @@
     return Offline.checks[Offline.getOption('checks.active')]();
   };
 
-  Offline.confirmUp = Offline.confirmDown = Offline.check;
+  Offline.confirmUp = Offline.confirmDown = Offline.confirmLogout = Offline.check;
 
   Offline.onXHR = function(cb) {
     var _XDomainRequest, _XMLHttpRequest, monitorXHR;
@@ -293,7 +306,7 @@
         var xhr;
         xhr = arg.xhr;
         if (xhr.offline !== false) {
-          return checkXHR(xhr, Offline.markUp, Offline.confirmDown);
+          return checkXHR(xhr, Offline.markUp, Offline.confirmDown, Offline.confirmLogout);
         }
       });
     }
