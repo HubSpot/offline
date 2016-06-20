@@ -49,13 +49,17 @@
   };
 
   grab = function(obj, key) {
-    var cur, part, parts;
+    var cur, i, j, len, part, parts;
     cur = obj;
     parts = key.split('.');
-    while ((cur != null) && (part = parts.shift())) {
+    for (i = j = 0, len = parts.length; j < len; i = ++j) {
+      part = parts[i];
       cur = cur[part];
+      if (typeof cur !== 'object') {
+        break;
+      }
     }
-    if (parts.length === 0) {
+    if (i === parts.length - 1) {
       return cur;
     } else {
       return void 0;

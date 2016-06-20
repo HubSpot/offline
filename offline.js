@@ -35,9 +35,10 @@
     signIn:"/",
     modal:!1
   }, grab = function(obj, key) {
-    var cur, part, parts;
-    for (cur = obj, parts = key.split("."); null != cur && (part = parts.shift()); ) cur = cur[part];
-    return 0 === parts.length ? cur :void 0;
+    var cur, i, j, len, part, parts;
+    for (cur = obj, parts = key.split("."), i = j = 0, len = parts.length; j < len && (part = parts[i], 
+    cur = cur[part], "object" == typeof cur); i = ++j) ;
+    return i === parts.length - 1 ? cur :void 0;
   }, Offline.getOption = function(key) {
     var ref, val;
     return val = null != (ref = grab(Offline.options, key)) ? ref :grab(defaultOptions, key), 
