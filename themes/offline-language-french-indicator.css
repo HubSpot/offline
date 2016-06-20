@@ -4,6 +4,6 @@
   content: "Connecté";
 }
 /* line 10, ../sass/offline-language-french-indicator.sass */
-.offline-ui.offline-ui-down .offline-ui-content:before, .offline-ui.offline-ui-logout .offline-ui-content:before {
+.offline-ui.offline-ui-down .offline-ui-content:before, .offline-ui.offline-ui-unauthorized .offline-ui-content:before {
   content: "Pas connecté";
 }

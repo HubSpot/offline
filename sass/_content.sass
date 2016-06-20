@@ -1,10 +1,15 @@
 =offline-content
     .offline-ui
 
-        .offline-ui-retry, .offline-ui-login
+        .offline-ui-retry
 
             &:before
                 content: $retryButton
+
+        .offline-ui-sign-in
+
+            &:before
+                content: $signInButton
 
         &.offline-ui-up
 
@@ -28,12 +33,12 @@
                 @media (max-width: 568px)
                     content: $downDeviceSmall
 
-        &.offline-ui-logout
+        &.offline-ui-unauthorized
 
             .offline-ui-content:before
-                content: $logout
+                content: $unauthorized
 
-        &.offline-ui-down, &.offline-ui-logout
+        &.offline-ui-down, &.offline-ui-unauthorized
 
             &.offline-ui-connecting, &.offline-ui-connecting-2s
 
@@ -95,14 +100,14 @@
             &.offline-ui-reconnect-failed-2s
 
                 &.offline-ui-waiting
-                    .offline-ui-retry, .offline-ui-login
+                    .offline-ui-retry
                         display: none
 
                 .offline-ui-content:before
                     content: $reconnectFailed
 
                 
-        &.offline-ui-logout
+        &.offline-ui-unauthorized
 
             &.offline-ui-connecting, &.offline-ui-connecting-2s
 

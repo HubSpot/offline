@@ -3,20 +3,23 @@ unless window.Offline
 
 TEMPLATE = '<div class="offline-ui"><div class="offline-ui-content"></div></div>'
 RETRY_TEMPLATE = '<a href class="offline-ui-retry"></a>'
-LOGIN_TEMPLATE = '<a href class="offline-ui-login"></a>'
+SIGN_IN_TEMPLATE = '<a href class="offline-ui-sign-in"></a>'
+MODAL_TEMPLATE = '<div class="offline-modal">'
 
 createFromHTML = (html) ->
   el = document.createElement('div')
   el.innerHTML = html
   el.children[0]
 
-el = content = null
+el = content = modal = null
 addClass = (name) ->
   removeClass name
   el.className += " #{ name }"
+  modal.className += " #{ name }" if modal
 
 removeClass = (name) ->
-  el.className = el.className.replace new RegExp("(^| )#{ name.split(' ').join('|') }( |$)", 'gi'), ' '
+  el.className = (el.className.replace new RegExp("(^| )#{ name.split(' ').join('|') }( |$)", 'gi'), ' ').split(/\s+/).join(' ')
+  modal.className = (modal.className.replace new RegExp("(^| )#{ name.split(' ').join('|') }( |$)", 'gi'), ' ').split(/\s+/).join(' ') if modal
 
 flashTimeouts = {}
 flashClass = (name, time) ->
@@ -63,18 +66,15 @@ render = ->
     else
       button.attachEvent 'click', handler
 
-  if Offline.getOption('login')
-    el.appendChild createFromHTML LOGIN_TEMPLATE
+  if Offline.getOption('signIn')
+    el.appendChild createFromHTML SIGN_IN_TEMPLATE
 
-    button = el.querySelector('.offline-ui-login')
-    handler = (e) ->
-      e.preventDefault()
-      window.location.href = Offline.getOption('login')
+    button = el.querySelector('.offline-ui-sign-in')
+    button.href = Offline.getOption('signIn')
 
-    if button.addEventListener?
-      button.addEventListener 'click', handler, false
-    else
-      button.attachEvent 'click', handler
+  if Offline.getOption('modal')
+    modal = createFromHTML MODAL_TEMPLATE
+    document.body.appendChild modal
 
   addClass "offline-ui-#{ Offline.state }"
 
@@ -85,7 +85,7 @@ init = ->
 
   Offline.on 'up', ->
     removeClass 'offline-ui-down'
-    removeClass 'offline-ui-logout'
+    removeClass 'offline-ui-unauthorized'
     addClass 'offline-ui-up'
 
     flashClass 'offline-ui-up-2s', 2
@@ -93,19 +93,19 @@ init = ->
 
   Offline.on 'down', ->
     removeClass 'offline-ui-up'
-    removeClass 'offline-ui-logout'
+    removeClass 'offline-ui-unauthorized'
     addClass 'offline-ui-down'
 
     flashClass 'offline-ui-down-2s', 2
     flashClass 'offline-ui-down-5s', 5
 
-  Offline.on 'logout', ->
+  Offline.on 'unauthorized', ->
     removeClass 'offline-ui-up'
     removeClass 'offline-ui-down'
-    addClass 'offline-ui-logout'
+    addClass 'offline-ui-unauthorized'
 
-    flashClass 'offline-ui-logout-2s', 2
-    flashClass 'offline-ui-logout-5s', 5
+    flashClass 'offline-ui-unauthorized-2s', 2
+    flashClass 'offline-ui-unauthorized-5s', 5
 
   Offline.on 'reconnect:connecting', ->
     addClass 'offline-ui-connecting'

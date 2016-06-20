@@ -38,6 +38,13 @@ defaultOptions =
 
   deDupBody: false
 
+  unauthorized: false
+
+  signIn: '/'
+
+  modal: false
+
+
 grab = (obj, key) ->
   cur = obj
   parts = key.split('.')
@@ -88,13 +95,13 @@ Offline.markDown = ->
   Offline.state = 'down'
   Offline.trigger 'down'
 
-Offline.markLogout = ->
-  Offline.trigger 'confirmed-logout'
+Offline.markUnauthorized = ->
+  Offline.trigger 'confirmed-unauthorized'
 
-  return if Offline.state is 'logout'
+  return if Offline.state is 'unauthorized'
 
-  Offline.state = 'logout'
-  Offline.trigger 'logout'
+  Offline.state = 'unauthorized'
+  Offline.trigger 'unauthorized'
 
 handlers = {}
 
@@ -127,11 +134,11 @@ Offline.trigger = (event) ->
     for [ctx, handler] in handlers[event][..]
       handler.call(ctx)
 
-checkXHR = (xhr, onUp, onDown, onLogout) ->
+checkXHR = (xhr, onUp, onDown, onUnauthorized) ->
   checkStatus = ->
     if xhr.status and xhr.status < 12000
-      if Offline.getOption('logout') && xhr.status == 401 
-        onLogout()
+      if Offline.getOption('unauthorized') && xhr.status == 401
+        onUnauthorized()
       else
         onUp()
     else
@@ -181,7 +188,7 @@ Offline.checks.xhr = ->
   if xhr.timeout?
     xhr.timeout = Offline.getOption('checks.xhr.timeout')
 
-  checkXHR xhr, Offline.markUp, Offline.markDown, Offline.markLogout
+  checkXHR xhr, Offline.markUp, Offline.markDown, Offline.markUnauthorized
 
   try
     xhr.send()
@@ -207,7 +214,7 @@ Offline.check = ->
 
   Offline.checks[Offline.getOption('checks.active')]()
 
-Offline.confirmUp = Offline.confirmDown = Offline.confirmLogout = Offline.check
+Offline.confirmUp = Offline.confirmDown = Offline.confirmUnauthorized = Offline.check
 
 Offline.onXHR = (cb) ->
   monitorXHR = (req, flags) ->
@@ -255,7 +262,7 @@ init = ->
   if Offline.getOption 'interceptRequests'
     Offline.onXHR ({xhr}) ->
       unless xhr.offline is false
-        checkXHR xhr, Offline.markUp, Offline.confirmDown, Offline.confirmLogout
+        checkXHR xhr, Offline.markUp, Offline.confirmDown, Offline.confirmUnauthorized
 
   if Offline.getOption 'checkOnLoad'
     Offline.check()

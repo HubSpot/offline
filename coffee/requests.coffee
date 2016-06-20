@@ -66,7 +66,7 @@ setTimeout ->
     Offline.on 'down', ->
       waitingOnConfirm = false
 
-    Offline.on 'logout', ->
+    Offline.on 'unauthorized', ->
       waitingOnConfirm = false
 
     Offline.onXHR (request) ->

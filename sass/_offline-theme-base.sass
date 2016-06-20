@@ -8,7 +8,7 @@
     display: none
     position: fixed
     background: #fff
-    z-index: 2000
+    z-index: 2001
     margin: auto
     top: 0
     left: 0
@@ -17,7 +17,7 @@
     .offline-ui-content:before
         display: inline
 
-    .offline-ui-retry, .offline-ui-login
+    .offline-ui-retry, .offline-ui-sign-in
         +user-select(none)
         display: none
 
@@ -29,7 +29,7 @@
         &.offline-ui-up-5s
             display: block
 
-    &.offline-ui-down, &.offline-ui-logout
+    &.offline-ui-down
         display: block
 
         &.offline-ui-reconnect-failed-2s.offline-ui-waiting
@@ -39,3 +39,25 @@
     &.offline-ui-down.offline-ui-waiting .offline-ui-retry
         display: block
 
+    &.offline-ui-unauthorized
+        display: block
+        .offline-ui-sign-in
+            display: block
+
+.offline-modal
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    display: none
+    z-index: 2000
+    background-color: rgba(0, 0, 0, 0.25)
+
+    &.offline-ui-up
+        animation: offline-fadeout-and-hide forwards .5s 2s
+        display: none
+
+    &.offline-ui-down, &.offline-ui-unauthorized
+        animation: offline-fadein .5s
+        display: block

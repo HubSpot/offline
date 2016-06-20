@@ -3,6 +3,6 @@
   content: "Conectado";
 }
 /* line 10, ../sass/offline-language-portuguese-brazil-indicator.sass */
-.offline-ui.offline-ui-down .offline-ui-content:before, .offline-ui.offline-ui-logout .offline-ui-content:before {
+.offline-ui.offline-ui-down .offline-ui-content:before, .offline-ui.offline-ui-unauthorized .offline-ui-content:before {
   content: "Desconectado";
 }

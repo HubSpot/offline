@@ -22,7 +22,7 @@
   display: block;
 }
 /* line 19, ../sass/_offline-theme-base-indicator.sass */
-.offline-ui.offline-ui-down, .offline-ui.offline-ui-logout {
+.offline-ui.offline-ui-down, .offline-ui.offline-ui-unauthorized {
   display: block;
 }
 
@@ -43,7 +43,7 @@
   color: #468847;
 }
 /* line 23, ../sass/offline-theme-default-indicator.sass */
-.offline-ui.offline-ui-down, .offline-ui.offline-ui-logout {
+.offline-ui.offline-ui-down, .offline-ui.offline-ui-unauthorized {
   background: #ec8787;
   color: #551313;
 }

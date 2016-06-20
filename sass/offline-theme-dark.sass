@@ -45,7 +45,7 @@ $red: #e24949
             height: 1em
             width: 1em
 
-    .offline-ui-retry, .offline-ui-login
+    .offline-ui-retry, .offline-ui-sign-in
         position: absolute
         right: 3em
         top: 0
@@ -64,7 +64,7 @@ $red: #e24949
         .offline-ui-content:after
             background: $green
 
-    &.offline-ui-down, &.offline-ui-logout
+    &.offline-ui-down, &.offline-ui-unauthorized
         +offline-animation(offline-dropin .5s)
 
         .offline-ui-content:after

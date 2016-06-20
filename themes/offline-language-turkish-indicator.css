@@ -4,6 +4,6 @@
   content: "Çevrimiçi";
 }
 /* line 10, ../sass/offline-language-turkish-indicator.sass */
-.offline-ui.offline-ui-down .offline-ui-content:before, .offline-ui.offline-ui-logout .offline-ui-content:before {
+.offline-ui.offline-ui-down .offline-ui-content:before, .offline-ui.offline-ui-unauthorized .offline-ui-content:before {
   content: "Çevrimdışı";
 }

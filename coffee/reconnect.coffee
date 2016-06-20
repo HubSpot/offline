@@ -62,7 +62,7 @@ rc.tryNow = tryNow
 reset()
 
 Offline.on 'down', reconnect
-Offline.on 'logout', reconnect
+Offline.on 'unauthorized', reconnect
 Offline.on 'confirmed-down', nope
-Offline.on 'confirmed-logout', nope
+Offline.on 'confirmed-unauthorized', nope
 Offline.on 'up', up

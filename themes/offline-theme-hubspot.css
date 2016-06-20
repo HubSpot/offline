@@ -10,7 +10,7 @@
   display: none;
   position: fixed;
   background: #fff;
-  z-index: 2000;
+  z-index: 2001;
   margin: auto;
   top: 0;
   left: 0;
@@ -21,7 +21,7 @@
   display: inline;
 }
 /* line 20, ../sass/_offline-theme-base.sass */
-.offline-ui .offline-ui-retry, .offline-ui .offline-ui-login {
+.offline-ui .offline-ui-retry, .offline-ui .offline-ui-sign-in {
   -moz-user-select: -moz-none;
   -ms-user-select: none;
   -webkit-user-select: none;
@@ -29,7 +29,7 @@
   display: none;
 }
 /* line 24, ../sass/_offline-theme-base.sass */
-.offline-ui .offline-ui-retry:before, .offline-ui .offline-ui-login:before {
+.offline-ui .offline-ui-retry:before, .offline-ui .offline-ui-sign-in:before {
   display: inline;
 }
 /* line 29, ../sass/_offline-theme-base.sass */
@@ -37,15 +37,45 @@
   display: block;
 }
 /* line 32, ../sass/_offline-theme-base.sass */
-.offline-ui.offline-ui-down, .offline-ui.offline-ui-logout {
+.offline-ui.offline-ui-down {
   display: block;
 }
 /* line 36, ../sass/_offline-theme-base.sass */
-.offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s.offline-ui-waiting .offline-ui-retry, .offline-ui.offline-ui-logout.offline-ui-reconnect-failed-2s.offline-ui-waiting .offline-ui-retry {
+.offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s.offline-ui-waiting .offline-ui-retry {
   display: none;
 }
 /* line 39, ../sass/_offline-theme-base.sass */
 .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-retry {
+  display: block;
+}
+/* line 42, ../sass/_offline-theme-base.sass */
+.offline-ui.offline-ui-unauthorized {
+  display: block;
+}
+/* line 44, ../sass/_offline-theme-base.sass */
+.offline-ui.offline-ui-unauthorized .offline-ui-sign-in {
+  display: block;
+}
+
+/* line 47, ../sass/_offline-theme-base.sass */
+.offline-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  z-index: 2000;
+  background-color: rgba(0, 0, 0, 0.25);
+}
+/* line 57, ../sass/_offline-theme-base.sass */
+.offline-modal.offline-ui-up {
+  animation: offline-fadeout-and-hide forwards 0.5s 2s;
+  display: none;
+}
+/* line 61, ../sass/_offline-theme-base.sass */
+.offline-modal.offline-ui-down, .offline-modal.offline-ui-unauthorized {
+  animation: offline-fadein 0.5s;
   display: block;
 }
 
@@ -265,7 +295,7 @@
   line-height: 1.25em;
 }
 /* line 37, ../sass/offline-theme-default.sass */
-.offline-ui .offline-ui-retry, .offline-ui .offline-ui-login {
+.offline-ui .offline-ui-retry, .offline-ui .offline-ui-sign-in {
   position: absolute;
   right: 3em;
   top: 0;
@@ -290,7 +320,7 @@
   color: #468847;
 }
 /* line 55, ../sass/offline-theme-default.sass */
-.offline-ui.offline-ui-down, .offline-ui.offline-ui-logout {
+.offline-ui.offline-ui-down, .offline-ui.offline-ui-unauthorized {
   -webkit-animation: offline-fadein 0.5s;
   -moz-animation: offline-fadein 0.5s;
   -ms-animation: offline-fadein 0.5s;
@@ -301,13 +331,13 @@
   color: #551313;
 }
 /* line 60, ../sass/offline-theme-default.sass */
-.offline-ui.offline-ui-down.offline-ui-connecting, .offline-ui.offline-ui-down.offline-ui-waiting, .offline-ui.offline-ui-logout.offline-ui-connecting, .offline-ui.offline-ui-logout.offline-ui-waiting {
+.offline-ui.offline-ui-down.offline-ui-connecting, .offline-ui.offline-ui-down.offline-ui-waiting, .offline-ui.offline-ui-unauthorized.offline-ui-connecting, .offline-ui.offline-ui-unauthorized.offline-ui-waiting {
   background: #f8ecad;
   color: #7c6d1f;
   padding-right: 3em;
 }
 /* line 65, ../sass/offline-theme-default.sass */
-.offline-ui.offline-ui-down.offline-ui-connecting:after, .offline-ui.offline-ui-down.offline-ui-waiting:after, .offline-ui.offline-ui-logout.offline-ui-connecting:after, .offline-ui.offline-ui-logout.offline-ui-waiting:after {
+.offline-ui.offline-ui-down.offline-ui-connecting:after, .offline-ui.offline-ui-down.offline-ui-waiting:after, .offline-ui.offline-ui-unauthorized.offline-ui-connecting:after, .offline-ui.offline-ui-unauthorized.offline-ui-waiting:after {
   -webkit-animation: offline-rotation 0.7s linear infinite;
   -moz-animation: offline-rotation 0.7s linear infinite;
   -ms-animation: offline-rotation 0.7s linear infinite;
@@ -332,11 +362,11 @@
   opacity: 0.7;
 }
 /* line 82, ../sass/offline-theme-default.sass */
-.offline-ui.offline-ui-down.offline-ui-waiting, .offline-ui.offline-ui-logout.offline-ui-waiting {
+.offline-ui.offline-ui-down.offline-ui-waiting, .offline-ui.offline-ui-unauthorized.offline-ui-waiting {
   padding-right: 11em;
 }
 /* line 85, ../sass/offline-theme-default.sass */
-.offline-ui.offline-ui-down.offline-ui-waiting.offline-ui-reconnect-failed-2s, .offline-ui.offline-ui-logout.offline-ui-waiting.offline-ui-reconnect-failed-2s {
+.offline-ui.offline-ui-down.offline-ui-waiting.offline-ui-reconnect-failed-2s, .offline-ui.offline-ui-unauthorized.offline-ui-waiting.offline-ui-reconnect-failed-2s {
   padding-right: 0;
 }
 

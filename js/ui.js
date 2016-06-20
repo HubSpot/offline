@@ -1,5 +1,5 @@
 (function() {
-  var LOGIN_TEMPLATE, RETRY_TEMPLATE, TEMPLATE, _onreadystatechange, addClass, content, createFromHTML, el, flashClass, flashTimeouts, init, removeClass, render, roundTime;
+  var MODAL_TEMPLATE, RETRY_TEMPLATE, SIGN_IN_TEMPLATE, TEMPLATE, _onreadystatechange, addClass, content, createFromHTML, el, flashClass, flashTimeouts, init, modal, removeClass, render, roundTime;
 
   if (!window.Offline) {
     throw new Error("Offline UI brought in without offline.js");
@@ -9,7 +9,9 @@
 
   RETRY_TEMPLATE = '<a href class="offline-ui-retry"></a>';
 
-  LOGIN_TEMPLATE = '<a href class="offline-ui-login"></a>';
+  SIGN_IN_TEMPLATE = '<a href class="offline-ui-sign-in"></a>';
+
+  MODAL_TEMPLATE = '<div class="offline-modal">';
 
   createFromHTML = function(html) {
     var el;
@@ -18,15 +20,21 @@
     return el.children[0];
   };
 
-  el = content = null;
+  el = content = modal = null;
 
   addClass = function(name) {
     removeClass(name);
-    return el.className += " " + name;
+    el.className += " " + name;
+    if (modal) {
+      return modal.className += " " + name;
+    }
   };
 
   removeClass = function(name) {
-    return el.className = el.className.replace(new RegExp("(^| )" + (name.split(' ').join('|')) + "( |$)", 'gi'), ' ');
+    el.className = (el.className.replace(new RegExp("(^| )" + (name.split(' ').join('|')) + "( |$)", 'gi'), ' ')).split(/\s+/).join(' ');
+    if (modal) {
+      return modal.className = (modal.className.replace(new RegExp("(^| )" + (name.split(' ').join('|')) + "( |$)", 'gi'), ' ')).split(/\s+/).join(' ');
+    }
   };
 
   flashTimeouts = {};
@@ -77,18 +85,14 @@
         button.attachEvent('click', handler);
       }
     }
-    if (Offline.getOption('login')) {
-      el.appendChild(createFromHTML(LOGIN_TEMPLATE));
-      button = el.querySelector('.offline-ui-login');
-      handler = function(e) {
-        e.preventDefault();
-        return window.location.href = Offline.getOption('login');
-      };
-      if (button.addEventListener != null) {
-        button.addEventListener('click', handler, false);
-      } else {
-        button.attachEvent('click', handler);
-      }
+    if (Offline.getOption('signIn')) {
+      el.appendChild(createFromHTML(SIGN_IN_TEMPLATE));
+      button = el.querySelector('.offline-ui-sign-in');
+      button.href = Offline.getOption('signIn');
+    }
+    if (Offline.getOption('modal')) {
+      modal = createFromHTML(MODAL_TEMPLATE);
+      document.body.appendChild(modal);
     }
     addClass("offline-ui-" + Offline.state);
     return content = el.querySelector('.offline-ui-content');
@@ -98,24 +102,24 @@
     render();
     Offline.on('up', function() {
       removeClass('offline-ui-down');
-      removeClass('offline-ui-logout');
+      removeClass('offline-ui-unauthorized');
       addClass('offline-ui-up');
       flashClass('offline-ui-up-2s', 2);
       return flashClass('offline-ui-up-5s', 5);
     });
     Offline.on('down', function() {
       removeClass('offline-ui-up');
-      removeClass('offline-ui-logout');
+      removeClass('offline-ui-unauthorized');
       addClass('offline-ui-down');
       flashClass('offline-ui-down-2s', 2);
       return flashClass('offline-ui-down-5s', 5);
     });
-    Offline.on('logout', function() {
+    Offline.on('unauthorized', function() {
       removeClass('offline-ui-up');
       removeClass('offline-ui-down');
-      addClass('offline-ui-logout');
-      flashClass('offline-ui-logout-2s', 2);
-      return flashClass('offline-ui-logout-5s', 5);
+      addClass('offline-ui-unauthorized');
+      flashClass('offline-ui-unauthorized-2s', 2);
+      return flashClass('offline-ui-unauthorized-5s', 5);
     });
     Offline.on('reconnect:connecting', function() {
       addClass('offline-ui-connecting');

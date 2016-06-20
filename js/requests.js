@@ -90,7 +90,7 @@
       Offline.on('down', function() {
         return waitingOnConfirm = false;
       });
-      Offline.on('logout', function() {
+      Offline.on('unauthorized', function() {
         return waitingOnConfirm = false;
       });
       Offline.onXHR(function(request) {

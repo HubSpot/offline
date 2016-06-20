@@ -30,12 +30,14 @@
     checkOnLoad:!1,
     interceptRequests:!0,
     reconnect:!0,
-    deDupBody:!1
+    deDupBody:!1,
+    unauthorized:!1,
+    signIn:"/",
+    modal:!1
   }, grab = function(obj, key) {
-    var cur, i, j, len, part, parts;
-    for (cur = obj, parts = key.split("."), i = j = 0, len = parts.length; j < len && (part = parts[i], 
-    cur = cur[part], "object" == typeof cur); i = ++j) ;
-    return i === parts.length - 1 ? cur :void 0;
+    var cur, part, parts;
+    for (cur = obj, parts = key.split("."); null != cur && (part = parts.shift()); ) cur = cur[part];
+    return 0 === parts.length ? cur :void 0;
   }, Offline.getOption = function(key) {
     var ref, val;
     return val = null != (ref = grab(Offline.options, key)) ? ref :grab(defaultOptions, key), 
@@ -50,9 +52,9 @@
   }, Offline.markDown = function() {
     if (Offline.trigger("confirmed-down"), "down" !== Offline.state) return Offline.state = "down", 
     Offline.trigger("down");
-  }, Offline.markLogout = function() {
-    if (Offline.trigger("confirmed-logout"), "logout" !== Offline.state) return Offline.state = "logout", 
-    Offline.trigger("logout");
+  }, Offline.markUnauthorized = function() {
+    if (Offline.trigger("confirmed-unauthorized"), "unauthorized" !== Offline.state) return Offline.state = "unauthorized", 
+    Offline.trigger("unauthorized");
   }, handlers = {}, Offline.on = function(event, handler, ctx) {
     var e, events, j, len, results;
     if (events = event.split(" "), events.length > 1) {
@@ -77,10 +79,10 @@
       ctx = ref1[0], handler = ref1[1], results.push(handler.call(ctx));
       return results;
     }
-  }, checkXHR = function(xhr, onUp, onDown, onLogout) {
+  }, checkXHR = function(xhr, onUp, onDown, onUnauthorized) {
     var _onerror, _onload, _onreadystatechange, _ontimeout, checkStatus;
     return checkStatus = function() {
-      return xhr.status && xhr.status < 12e3 ? Offline.getOption("logout") && 401 === xhr.status ? onLogout() :onUp() :onDown();
+      return xhr.status && xhr.status < 12e3 ? Offline.getOption("unauthorized") && 401 === xhr.status ? onUnauthorized() :onUp() :onDown();
     }, null === xhr.onprogress ? (_onerror = xhr.onerror, xhr.onerror = function() {
       return onDown(), "function" == typeof _onerror ? _onerror.apply(null, arguments) :void 0;
     }, _ontimeout = xhr.ontimeout, xhr.ontimeout = function() {
@@ -94,7 +96,7 @@
     var e, xhr;
     xhr = new XMLHttpRequest(), xhr.offline = !1, xhr.open(Offline.getOption("checks.xhr.type"), Offline.getOption("checks.xhr.url"), !0), 
     null != xhr.timeout && (xhr.timeout = Offline.getOption("checks.xhr.timeout")), 
-    checkXHR(xhr, Offline.markUp, Offline.markDown, Offline.markLogout);
+    checkXHR(xhr, Offline.markUp, Offline.markDown, Offline.markUnauthorized);
     try {
       xhr.send();
     } catch (_error) {
@@ -107,7 +109,7 @@
     img.src = Offline.getOption("checks.image.url");
   }, Offline.checks.down = Offline.markDown, Offline.checks.up = Offline.markUp, Offline.check = function() {
     return Offline.trigger("checking"), Offline.checks[Offline.getOption("checks.active")]();
-  }, Offline.confirmUp = Offline.confirmDown = Offline.confirmLogout = Offline.check, 
+  }, Offline.confirmUp = Offline.confirmDown = Offline.confirmUnauthorized = Offline.check, 
   Offline.onXHR = function(cb) {
     var _XDomainRequest, _XMLHttpRequest, monitorXHR;
     if (monitorXHR = function(req, flags) {
@@ -139,7 +141,7 @@
   }, init = function() {
     if (Offline.getOption("interceptRequests") && Offline.onXHR(function(arg) {
       var xhr;
-      if (xhr = arg.xhr, xhr.offline !== !1) return checkXHR(xhr, Offline.markUp, Offline.confirmDown, Offline.confirmLogout);
+      if (xhr = arg.xhr, xhr.offline !== !1) return checkXHR(xhr, Offline.markUp, Offline.confirmDown, Offline.confirmUnauthorized);
     }), Offline.getOption("checkOnLoad")) return Offline.check();
   }, setTimeout(init, 0), window.Offline = Offline;
 }).call(this), function() {
@@ -167,8 +169,9 @@
   }, nope = function() {
     if (Offline.getOption("reconnect")) return "connecting" === rc.state ? (Offline.trigger("reconnect:failure"), 
     rc.state = "waiting", next()) :void 0;
-  }, rc.tryNow = tryNow, reset(), Offline.on("down", reconnect), Offline.on("logout", reconnect), 
-  Offline.on("confirmed-down", nope), Offline.on("confirmed-logout", nope), Offline.on("up", up);
+  }, rc.tryNow = tryNow, reset(), Offline.on("down", reconnect), Offline.on("unauthorized", reconnect), 
+  Offline.on("confirmed-down", nope), Offline.on("confirmed-unauthorized", nope), 
+  Offline.on("up", up);
 }.call(this), function() {
   var clear, flush, held, holdRequest, makeRequest, waitingOnConfirm;
   if (!window.Offline) throw new Error("Requests module brought in without offline.js");
@@ -201,7 +204,7 @@
       if (waitingOnConfirm) return waitingOnConfirm = !1, clear();
     }), Offline.on("up", flush), Offline.on("down", function() {
       return waitingOnConfirm = !1;
-    }), Offline.on("logout", function() {
+    }), Offline.on("unauthorized", function() {
       return waitingOnConfirm = !1;
     }), Offline.onXHR(function(request) {
       var _onreadystatechange, _send, async, hold, xhr;
@@ -234,17 +237,18 @@
   simulate && (null == Offline.options && (Offline.options = {}), null == (base = Offline.options).checks && (base.checks = {}), 
   Offline.options.checks.active = state);
 }.call(this), function() {
-  var LOGIN_TEMPLATE, RETRY_TEMPLATE, TEMPLATE, _onreadystatechange, addClass, content, createFromHTML, el, flashClass, flashTimeouts, init, removeClass, render, roundTime;
+  var MODAL_TEMPLATE, RETRY_TEMPLATE, SIGN_IN_TEMPLATE, TEMPLATE, _onreadystatechange, addClass, content, createFromHTML, el, flashClass, flashTimeouts, init, modal, removeClass, render, roundTime;
   if (!window.Offline) throw new Error("Offline UI brought in without offline.js");
   TEMPLATE = '<div class="offline-ui"><div class="offline-ui-content"></div></div>', 
-  RETRY_TEMPLATE = '<a href class="offline-ui-retry"></a>', LOGIN_TEMPLATE = '<a href class="offline-ui-login"></a>', 
-  createFromHTML = function(html) {
+  RETRY_TEMPLATE = '<a href class="offline-ui-retry"></a>', SIGN_IN_TEMPLATE = '<a href class="offline-ui-sign-in"></a>', 
+  MODAL_TEMPLATE = '<div class="offline-modal">', createFromHTML = function(html) {
     var el;
     return el = document.createElement("div"), el.innerHTML = html, el.children[0];
-  }, el = content = null, addClass = function(name) {
-    return removeClass(name), el.className += " " + name;
+  }, el = content = modal = null, addClass = function(name) {
+    if (removeClass(name), el.className += " " + name, modal) return modal.className += " " + name;
   }, removeClass = function(name) {
-    return el.className = el.className.replace(new RegExp("(^| )" + name.split(" ").join("|") + "( |$)", "gi"), " ");
+    if (el.className = el.className.replace(new RegExp("(^| )" + name.split(" ").join("|") + "( |$)", "gi"), " ").split(/\s+/).join(" "), 
+    modal) return modal.className = modal.className.replace(new RegExp("(^| )" + name.split(" ").join("|") + "( |$)", "gi"), " ").split(/\s+/).join(" ");
   }, flashTimeouts = {}, flashClass = function(name, time) {
     return addClass(name), null != flashTimeouts[name] && clearTimeout(flashTimeouts[name]), 
     flashTimeouts[name] = setTimeout(function() {
@@ -267,21 +271,20 @@
     button = el.querySelector(".offline-ui-retry"), handler = function(e) {
       return e.preventDefault(), Offline.reconnect.tryNow();
     }, null != button.addEventListener ? button.addEventListener("click", handler, !1) :button.attachEvent("click", handler)), 
-    Offline.getOption("login") && (el.appendChild(createFromHTML(LOGIN_TEMPLATE)), button = el.querySelector(".offline-ui-login"), 
-    handler = function(e) {
-      return e.preventDefault(), window.location.href = Offline.getOption("login");
-    }, null != button.addEventListener ? button.addEventListener("click", handler, !1) :button.attachEvent("click", handler)), 
+    Offline.getOption("signIn") && (el.appendChild(createFromHTML(SIGN_IN_TEMPLATE)), 
+    button = el.querySelector(".offline-ui-sign-in"), button.href = Offline.getOption("signIn")), 
+    Offline.getOption("modal") && (modal = createFromHTML(MODAL_TEMPLATE), document.body.appendChild(modal)), 
     addClass("offline-ui-" + Offline.state), content = el.querySelector(".offline-ui-content");
   }, init = function() {
     return render(), Offline.on("up", function() {
-      return removeClass("offline-ui-down"), removeClass("offline-ui-logout"), addClass("offline-ui-up"), 
+      return removeClass("offline-ui-down"), removeClass("offline-ui-unauthorized"), addClass("offline-ui-up"), 
       flashClass("offline-ui-up-2s", 2), flashClass("offline-ui-up-5s", 5);
     }), Offline.on("down", function() {
-      return removeClass("offline-ui-up"), removeClass("offline-ui-logout"), addClass("offline-ui-down"), 
+      return removeClass("offline-ui-up"), removeClass("offline-ui-unauthorized"), addClass("offline-ui-down"), 
       flashClass("offline-ui-down-2s", 2), flashClass("offline-ui-down-5s", 5);
-    }), Offline.on("logout", function() {
-      return removeClass("offline-ui-up"), removeClass("offline-ui-down"), addClass("offline-ui-logout"), 
-      flashClass("offline-ui-logout-2s", 2), flashClass("offline-ui-logout-5s", 5);
+    }), Offline.on("unauthorized", function() {
+      return removeClass("offline-ui-up"), removeClass("offline-ui-down"), addClass("offline-ui-unauthorized"), 
+      flashClass("offline-ui-unauthorized-2s", 2), flashClass("offline-ui-unauthorized-5s", 5);
     }), Offline.on("reconnect:connecting", function() {
       return addClass("offline-ui-connecting"), removeClass("offline-ui-waiting");
     }), Offline.on("reconnect:tick", function() {

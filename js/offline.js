@@ -42,21 +42,20 @@
     checkOnLoad: false,
     interceptRequests: true,
     reconnect: true,
-    deDupBody: false
+    deDupBody: false,
+    unauthorized: false,
+    signIn: '/',
+    modal: false
   };
 
   grab = function(obj, key) {
-    var cur, i, j, len, part, parts;
+    var cur, part, parts;
     cur = obj;
     parts = key.split('.');
-    for (i = j = 0, len = parts.length; j < len; i = ++j) {
-      part = parts[i];
+    while ((cur != null) && (part = parts.shift())) {
       cur = cur[part];
-      if (typeof cur !== 'object') {
-        break;
-      }
     }
-    if (i === parts.length - 1) {
+    if (parts.length === 0) {
       return cur;
     } else {
       return void 0;
@@ -105,13 +104,13 @@
     return Offline.trigger('down');
   };
 
-  Offline.markLogout = function() {
-    Offline.trigger('confirmed-logout');
-    if (Offline.state === 'logout') {
+  Offline.markUnauthorized = function() {
+    Offline.trigger('confirmed-unauthorized');
+    if (Offline.state === 'unauthorized') {
       return;
     }
-    Offline.state = 'logout';
-    return Offline.trigger('logout');
+    Offline.state = 'unauthorized';
+    return Offline.trigger('unauthorized');
   };
 
   handlers = {};
@@ -169,12 +168,12 @@
     }
   };
 
-  checkXHR = function(xhr, onUp, onDown, onLogout) {
+  checkXHR = function(xhr, onUp, onDown, onUnauthorized) {
     var _onerror, _onload, _onreadystatechange, _ontimeout, checkStatus;
     checkStatus = function() {
       if (xhr.status && xhr.status < 12000) {
-        if (Offline.getOption('logout') && xhr.status === 401) {
-          return onLogout();
+        if (Offline.getOption('unauthorized') && xhr.status === 401) {
+          return onUnauthorized();
         } else {
           return onUp();
         }
@@ -221,7 +220,7 @@
     if (xhr.timeout != null) {
       xhr.timeout = Offline.getOption('checks.xhr.timeout');
     }
-    checkXHR(xhr, Offline.markUp, Offline.markDown, Offline.markLogout);
+    checkXHR(xhr, Offline.markUp, Offline.markDown, Offline.markUnauthorized);
     try {
       xhr.send();
     } catch (_error) {
@@ -249,7 +248,7 @@
     return Offline.checks[Offline.getOption('checks.active')]();
   };
 
-  Offline.confirmUp = Offline.confirmDown = Offline.confirmLogout = Offline.check;
+  Offline.confirmUp = Offline.confirmDown = Offline.confirmUnauthorized = Offline.check;
 
   Offline.onXHR = function(cb) {
     var _XDomainRequest, _XMLHttpRequest, monitorXHR;
@@ -306,7 +305,7 @@
         var xhr;
         xhr = arg.xhr;
         if (xhr.offline !== false) {
-          return checkXHR(xhr, Offline.markUp, Offline.confirmDown, Offline.confirmLogout);
+          return checkXHR(xhr, Offline.markUp, Offline.confirmDown, Offline.confirmUnauthorized);
         }
       });
     }

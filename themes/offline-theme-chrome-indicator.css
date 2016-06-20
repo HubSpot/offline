@@ -22,7 +22,7 @@
   display: block;
 }
 /* line 19, ../sass/_offline-theme-base-indicator.sass */
-.offline-ui.offline-ui-down, .offline-ui.offline-ui-logout {
+.offline-ui.offline-ui-down, .offline-ui.offline-ui-unauthorized {
   display: block;
 }
 
@@ -66,6 +66,6 @@
   background: #80d580;
 }
 /* line 41, ../sass/offline-theme-chrome-indicator.sass */
-.offline-ui.offline-ui-down .offline-ui-content:after, .offline-ui.offline-ui-logout .offline-ui-content:after {
+.offline-ui.offline-ui-down .offline-ui-content:after, .offline-ui.offline-ui-unauthorized .offline-ui-content:after {
   background: #ec8787;
 }
