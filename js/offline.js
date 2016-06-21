@@ -95,6 +95,9 @@
     if (Offline.state === 'up') {
       return;
     }
+    if (Offline.state === 'unauthorized') {
+      location.reload();
+    }
     Offline.state = 'up';
     return Offline.trigger('up');
   };

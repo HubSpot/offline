@@ -48,8 +48,8 @@
   }, !1), "function" == typeof window.addEventListener && window.addEventListener("offline", function() {
     return Offline.confirmDown();
   }, !1), Offline.state = "up", Offline.markUp = function() {
-    if (Offline.trigger("confirmed-up"), "up" !== Offline.state) return Offline.state = "up", 
-    Offline.trigger("up");
+    if (Offline.trigger("confirmed-up"), "up" !== Offline.state) return "unauthorized" === Offline.state && location.reload(), 
+    Offline.state = "up", Offline.trigger("up");
   }, Offline.markDown = function() {
     if (Offline.trigger("confirmed-down"), "down" !== Offline.state) return Offline.state = "down", 
     Offline.trigger("down");
@@ -272,8 +272,10 @@
     button = el.querySelector(".offline-ui-retry"), handler = function(e) {
       return e.preventDefault(), Offline.reconnect.tryNow();
     }, null != button.addEventListener ? button.addEventListener("click", handler, !1) :button.attachEvent("click", handler)), 
-    Offline.getOption("signIn") && (el.appendChild(createFromHTML(SIGN_IN_TEMPLATE)), 
-    button = el.querySelector(".offline-ui-sign-in"), button.href = Offline.getOption("signIn")), 
+    Offline.getOption("unauthorized") && (el.appendChild(createFromHTML(SIGN_IN_TEMPLATE)), 
+    handler = function(e) {
+      return e.preventDefault(), location.reload();
+    }, null != button.addEventListener ? button.addEventListener("click", handler, !1) :button.attachEvent("click", handler)), 
     Offline.getOption("modal") && (modal = createFromHTML(MODAL_TEMPLATE), document.body.appendChild(modal)), 
     addClass("offline-ui-" + Offline.state), content = el.querySelector(".offline-ui-content");
   }, init = function() {

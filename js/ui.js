@@ -85,10 +85,17 @@
         button.attachEvent('click', handler);
       }
     }
-    if (Offline.getOption('signIn')) {
+    if (Offline.getOption('unauthorized')) {
       el.appendChild(createFromHTML(SIGN_IN_TEMPLATE));
-      button = el.querySelector('.offline-ui-sign-in');
-      button.href = Offline.getOption('signIn');
+      handler = function(e) {
+        e.preventDefault();
+        return location.reload();
+      };
+      if (button.addEventListener != null) {
+        button.addEventListener('click', handler, false);
+      } else {
+        button.attachEvent('click', handler);
+      }
     }
     if (Offline.getOption('modal')) {
       modal = createFromHTML(MODAL_TEMPLATE);

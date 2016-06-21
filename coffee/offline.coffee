@@ -84,6 +84,9 @@ Offline.markUp = ->
 
   return if Offline.state is 'up'
 
+  if Offline.state is 'unauthorized'
+    location.reload()
+    
   Offline.state = 'up'
   Offline.trigger 'up'
 

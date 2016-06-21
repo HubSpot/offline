@@ -66,11 +66,17 @@ render = ->
     else
       button.attachEvent 'click', handler
 
-  if Offline.getOption('signIn')
+  if Offline.getOption('unauthorized')
     el.appendChild createFromHTML SIGN_IN_TEMPLATE
 
-    button = el.querySelector('.offline-ui-sign-in')
-    button.href = Offline.getOption('signIn')
+    handler = (e) ->
+      e.preventDefault()
+      location.reload();
+
+    if button.addEventListener?
+      button.addEventListener 'click', handler, false
+    else
+      button.attachEvent 'click', handler
 
   if Offline.getOption('modal')
     modal = createFromHTML MODAL_TEMPLATE
