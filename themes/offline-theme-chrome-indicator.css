@@ -1,7 +1,7 @@
 /* line 3, ../sass/_offline-theme-base-indicator.sass */
 .offline-ui, .offline-ui *, .offline-ui:before, .offline-ui:after, .offline-ui *:before, .offline-ui *:after {
-  -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -9,7 +9,7 @@
 .offline-ui {
   display: none;
   position: fixed;
-  background: white;
+  background: #fff;
   z-index: 2000;
   display: inline-block;
 }
@@ -22,25 +22,23 @@
   display: block;
 }
 /* line 19, ../sass/_offline-theme-base-indicator.sass */
-.offline-ui.offline-ui-down {
+.offline-ui.offline-ui-down, .offline-ui.offline-ui-unauthorized {
   display: block;
 }
 
 /* line 8, ../sass/offline-theme-chrome-indicator.sass */
 .offline-ui {
-  -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
-  -webkit-border-radius: 4px 4px 0 0;
   -moz-border-radius: 4px 4px 0 0;
-  -ms-border-radius: 4px 4px 0 0;
-  -o-border-radius: 4px 4px 0 0;
+  -webkit-border-radius: 4px;
   border-radius: 4px 4px 0 0;
   font-family: "Lucida Grande", sans-serif;
   font-size: 12px;
   padding: 7px;
   background: #f6f6f6;
-  color: #888888;
+  color: #888;
   bottom: 0;
   left: 20px;
 }
@@ -50,10 +48,8 @@
 }
 /* line 22, ../sass/offline-theme-chrome-indicator.sass */
 .offline-ui .offline-ui-content:after {
-  -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
+  -webkit-border-radius: 50%;
   border-radius: 50%;
   content: " ";
   display: block;
@@ -70,6 +66,6 @@
   background: #80d580;
 }
 /* line 41, ../sass/offline-theme-chrome-indicator.sass */
-.offline-ui.offline-ui-down .offline-ui-content:after {
+.offline-ui.offline-ui-down .offline-ui-content:after, .offline-ui.offline-ui-unauthorized .offline-ui-content:after {
   background: #ec8787;
 }

@@ -4,106 +4,142 @@
   content: "Verbinden";
 }
 /* line 11, ../sass/_content.sass */
+.offline-ui .offline-ui-sign-in:before {
+  content: "Anmelden";
+}
+/* line 16, ../sass/_content.sass */
 .offline-ui.offline-ui-up .offline-ui-content:before {
   content: "Dein Computer ist mit dem Internet verbunden.";
 }
 @media (max-width: 1024px) {
-  /* line 11, ../sass/_content.sass */
+  /* line 16, ../sass/_content.sass */
   .offline-ui.offline-ui-up .offline-ui-content:before {
-    content: "Dein Gerät ist mit dem Internet verbunden.";
+    content: "Deing Gerät ist mit dem Internet verbunden.";
   }
 }
 @media (max-width: 568px) {
-  /* line 11, ../sass/_content.sass */
+  /* line 16, ../sass/_content.sass */
   .offline-ui.offline-ui-up .offline-ui-content:before {
     content: "Dein Gerät ist online.";
   }
 }
-/* line 22, ../sass/_content.sass */
+/* line 27, ../sass/_content.sass */
 .offline-ui.offline-ui-down .offline-ui-content:before {
   content: "Dein Computer wurde vom Internet getrennt.";
 }
 @media (max-width: 1024px) {
-  /* line 22, ../sass/_content.sass */
+  /* line 27, ../sass/_content.sass */
   .offline-ui.offline-ui-down .offline-ui-content:before {
     content: "Dein Gerät wurde vom Internet getrennt.";
   }
 }
 @media (max-width: 568px) {
-  /* line 22, ../sass/_content.sass */
+  /* line 27, ../sass/_content.sass */
   .offline-ui.offline-ui-down .offline-ui-content:before {
     content: "Keine Internetverbindung.";
   }
 }
-/* line 33, ../sass/_content.sass */
-.offline-ui.offline-ui-down.offline-ui-connecting .offline-ui-content:before, .offline-ui.offline-ui-down.offline-ui-connecting-2s .offline-ui-content:before {
+/* line 38, ../sass/_content.sass */
+.offline-ui.offline-ui-unauthorized .offline-ui-content:before {
+  content: "Deine Sitzung ist abgelaufen.";
+}
+/* line 45, ../sass/_content.sass */
+.offline-ui.offline-ui-down.offline-ui-connecting .offline-ui-content:before, .offline-ui.offline-ui-down.offline-ui-connecting-2s .offline-ui-content:before, .offline-ui.offline-ui-unauthorized.offline-ui-connecting .offline-ui-content:before, .offline-ui.offline-ui-unauthorized.offline-ui-connecting-2s .offline-ui-content:before {
   content: "Versuche Verbindung wiederherzustellen...";
 }
-/* line 42, ../sass/_content.sass */
-.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"]:before {
+/* line 54, ../sass/_content.sass */
+.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"]:before, .offline-ui.offline-ui-unauthorized.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"]:before {
   content: "Keine Verbindung. Verbinde nochmal in " attr(data-retry-in-value) " Sekunden...";
 }
 @media (max-width: 568px) {
-  /* line 42, ../sass/_content.sass */
-  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"]:before {
+  /* line 54, ../sass/_content.sass */
+  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"]:before, .offline-ui.offline-ui-unauthorized.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"]:before {
     content: "Verbinde in " attr(data-retry-in-value) "s...";
   }
 }
-/* line 50, ../sass/_content.sass */
-.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"][data-retry-in-value="1"]:before {
+/* line 62, ../sass/_content.sass */
+.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"][data-retry-in-value="1"]:before, .offline-ui.offline-ui-unauthorized.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"][data-retry-in-value="1"]:before {
   content: "Keine Verbindung. Verbinde nochmal in " attr(data-retry-in-value) " Sekunde...";
 }
 @media (max-width: 568px) {
-  /* line 50, ../sass/_content.sass */
-  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"][data-retry-in-value="1"]:before {
+  /* line 62, ../sass/_content.sass */
+  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"][data-retry-in-value="1"]:before, .offline-ui.offline-ui-unauthorized.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"][data-retry-in-value="1"]:before {
     content: "Verbinde in " attr(data-retry-in-value) "s...";
   }
 }
-/* line 58, ../sass/_content.sass */
-.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"]:before {
+/* line 70, ../sass/_content.sass */
+.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"]:before, .offline-ui.offline-ui-unauthorized.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"]:before {
   content: "Keine Verbindung. Verbinde nochmal in " attr(data-retry-in-value) " Minuten...";
 }
 @media (max-width: 568px) {
-  /* line 58, ../sass/_content.sass */
-  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"]:before {
+  /* line 70, ../sass/_content.sass */
+  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"]:before, .offline-ui.offline-ui-unauthorized.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"]:before {
     content: "Verbinde in " attr(data-retry-in-value) "m...";
   }
 }
-/* line 66, ../sass/_content.sass */
-.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"][data-retry-in-value="1"]:before {
+/* line 78, ../sass/_content.sass */
+.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"][data-retry-in-value="1"]:before, .offline-ui.offline-ui-unauthorized.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"][data-retry-in-value="1"]:before {
   content: "Keine Verbindung. Verbinde nochmal in " attr(data-retry-in-value) " Minute...";
 }
 @media (max-width: 568px) {
-  /* line 66, ../sass/_content.sass */
-  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"][data-retry-in-value="1"]:before {
+  /* line 78, ../sass/_content.sass */
+  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"][data-retry-in-value="1"]:before, .offline-ui.offline-ui-unauthorized.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"][data-retry-in-value="1"]:before {
     content: "Verbinde in " attr(data-retry-in-value) "m...";
   }
 }
-/* line 74, ../sass/_content.sass */
-.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"]:before {
+/* line 86, ../sass/_content.sass */
+.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"]:before, .offline-ui.offline-ui-unauthorized.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"]:before {
   content: "Keine Verbindung. Verbinde nochmal in " attr(data-retry-in-value) " Stunden...";
 }
 @media (max-width: 568px) {
-  /* line 74, ../sass/_content.sass */
-  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"]:before {
+  /* line 86, ../sass/_content.sass */
+  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"]:before, .offline-ui.offline-ui-unauthorized.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"]:before {
     content: "Verbinde in " attr(data-retry-in-value) "h...";
   }
 }
-/* line 82, ../sass/_content.sass */
-.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"][data-retry-in-value="1"]:before {
+/* line 94, ../sass/_content.sass */
+.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"][data-retry-in-value="1"]:before, .offline-ui.offline-ui-unauthorized.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"][data-retry-in-value="1"]:before {
   content: "Keine Verbindung. Verbinde nochmal in " attr(data-retry-in-value) " Stunde...";
 }
 @media (max-width: 568px) {
-  /* line 82, ../sass/_content.sass */
-  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"][data-retry-in-value="1"]:before {
+  /* line 94, ../sass/_content.sass */
+  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"][data-retry-in-value="1"]:before, .offline-ui.offline-ui-unauthorized.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"][data-retry-in-value="1"]:before {
     content: "Verbinde in " attr(data-retry-in-value) "h...";
   }
 }
-/* line 90, ../sass/_content.sass */
-.offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s.offline-ui-waiting .offline-ui-retry {
+/* line 103, ../sass/_content.sass */
+.offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s.offline-ui-waiting .offline-ui-retry, .offline-ui.offline-ui-unauthorized.offline-ui-reconnect-failed-2s.offline-ui-waiting .offline-ui-retry {
   display: none;
 }
-/* line 93, ../sass/_content.sass */
-.offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s .offline-ui-content:before {
+/* line 106, ../sass/_content.sass */
+.offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s .offline-ui-content:before, .offline-ui.offline-ui-unauthorized.offline-ui-reconnect-failed-2s .offline-ui-content:before {
   content: "Verbindung Fehlgeschlagen.";
+}
+/* line 114, ../sass/_content.sass */
+.offline-ui.offline-ui-unauthorized.offline-ui-connecting .offline-ui-content:before, .offline-ui.offline-ui-unauthorized.offline-ui-connecting-2s .offline-ui-content:before {
+  content: "Versuche Verbindung wiederherzustellen...";
+}
+/* line 123, ../sass/_content.sass */
+.offline-ui.offline-ui-unauthorized.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"]:before {
+  content: "Sitzung abgelaufen. Verbinde nochmal in " attr(data-retry-in-value) " Sekunden...";
+}
+/* line 128, ../sass/_content.sass */
+.offline-ui.offline-ui-unauthorized.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"][data-retry-in-value="1"]:before {
+  content: "Sitzung abgelaufen. Verbinde nochmal in " attr(data-retry-in-value) " Sekunde...";
+}
+/* line 133, ../sass/_content.sass */
+.offline-ui.offline-ui-unauthorized.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"]:before {
+  content: "Sitzung abgelaufen. Verbinde nochmal in " attr(data-retry-in-value) " Minuten...";
+}
+/* line 138, ../sass/_content.sass */
+.offline-ui.offline-ui-unauthorized.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"][data-retry-in-value="1"]:before {
+  content: "Sitzung abgelaufen. Verbinde nochmal in " attr(data-retry-in-value) " Minute...";
+}
+/* line 143, ../sass/_content.sass */
+.offline-ui.offline-ui-unauthorized.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"]:before {
+  content: "Sitzung abgelaufen. Verbinde nochmal in " attr(data-retry-in-value) " Stunden...";
+}
+/* line 147, ../sass/_content.sass */
+.offline-ui.offline-ui-unauthorized.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"][data-retry-in-value="1"]:before {
+  content: "Sitzung abgelaufen. Verbinde nochmal in " attr(data-retry-in-value) " Stunde...";
 }

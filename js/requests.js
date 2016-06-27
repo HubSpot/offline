@@ -90,6 +90,9 @@
       Offline.on('down', function() {
         return waitingOnConfirm = false;
       });
+      Offline.on('unauthorized', function() {
+        return waitingOnConfirm = false;
+      });
       Offline.onXHR(function(request) {
         var _onreadystatechange, _send, async, hold, xhr;
         xhr = request.xhr, async = request.async;

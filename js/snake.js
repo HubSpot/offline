@@ -85,6 +85,7 @@
   setTimeout(function() {
     if (Offline.getOption('game') && (document.addEventListener != null)) {
       Offline.on('down', show);
+      Offline.on('unauthorized', show);
       Offline.on('up', hide);
       return Offline.on('reconnect:failure', function() {
         fill = '#ec8787';

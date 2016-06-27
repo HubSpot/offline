@@ -38,6 +38,13 @@ defaultOptions =
 
   deDupBody: false
 
+  unauthorized: false
+
+  signIn: '/'
+
+  modal: false
+
+
 grab = (obj, key) ->
   cur = obj
   parts = key.split('.')
@@ -77,6 +84,9 @@ Offline.markUp = ->
 
   return if Offline.state is 'up'
 
+  if Offline.state is 'unauthorized'
+    location.reload()
+    
   Offline.state = 'up'
   Offline.trigger 'up'
 
@@ -87,6 +97,14 @@ Offline.markDown = ->
 
   Offline.state = 'down'
   Offline.trigger 'down'
+
+Offline.markUnauthorized = ->
+  Offline.trigger 'confirmed-unauthorized'
+
+  return if Offline.state is 'unauthorized'
+
+  Offline.state = 'unauthorized'
+  Offline.trigger 'unauthorized'
 
 handlers = {}
 
@@ -119,12 +137,18 @@ Offline.trigger = (event) ->
     for [ctx, handler] in handlers[event][..]
       handler.call(ctx)
 
-checkXHR = (xhr, onUp, onDown) ->
+checkXHR = (xhr, onUp, onDown, onUnauthorized) ->
   checkStatus = ->
     if xhr.status and xhr.status < 12000
-      onUp()
+      if Offline.getOption('unauthorized')?(xhr)
+        onUnauthorized()
+      else
+        onUp()
     else
-      onDown()
+      if xhr.statusText == 'abort'
+        Offline.check()
+      else
+        onDown()
 
   if xhr.onprogress is null
     # onprogress would be undefined on older browsers
@@ -170,7 +194,7 @@ Offline.checks.xhr = ->
   if xhr.timeout?
     xhr.timeout = Offline.getOption('checks.xhr.timeout')
 
-  checkXHR xhr, Offline.markUp, Offline.markDown
+  checkXHR xhr, Offline.markUp, Offline.markDown, Offline.markUnauthorized
 
   try
     xhr.send()
@@ -196,7 +220,7 @@ Offline.check = ->
 
   Offline.checks[Offline.getOption('checks.active')]()
 
-Offline.confirmUp = Offline.confirmDown = Offline.check
+Offline.confirmUp = Offline.confirmDown = Offline.confirmUnauthorized = Offline.check
 
 Offline.onXHR = (cb) ->
   monitorXHR = (req, flags) ->
@@ -244,7 +268,7 @@ init = ->
   if Offline.getOption 'interceptRequests'
     Offline.onXHR ({xhr}) ->
       unless xhr.offline is false
-        checkXHR xhr, Offline.markUp, Offline.confirmDown
+        checkXHR xhr, Offline.markUp, Offline.confirmDown, Offline.confirmUnauthorized
 
   if Offline.getOption 'checkOnLoad'
     Offline.check()
