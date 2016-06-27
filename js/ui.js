@@ -87,6 +87,7 @@
     }
     if (Offline.getOption('unauthorized')) {
       el.appendChild(createFromHTML(SIGN_IN_TEMPLATE));
+      button = el.querySelector('.offline-ui-sign-in');
       handler = function(e) {
         e.preventDefault();
         return location.reload();

@@ -140,12 +140,15 @@ Offline.trigger = (event) ->
 checkXHR = (xhr, onUp, onDown, onUnauthorized) ->
   checkStatus = ->
     if xhr.status and xhr.status < 12000
-      if Offline.getOption('unauthorized') && xhr.status == 401
+      if Offline.getOption('unauthorized')?(xhr)
         onUnauthorized()
       else
         onUp()
     else
-      onDown()
+      if xhr.statusText == 'abort'
+        Offline.check()
+      else
+        onDown()
 
   if xhr.onprogress is null
     # onprogress would be undefined on older browsers

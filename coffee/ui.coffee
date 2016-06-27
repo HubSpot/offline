@@ -69,6 +69,7 @@ render = ->
   if Offline.getOption('unauthorized')
     el.appendChild createFromHTML SIGN_IN_TEMPLATE
 
+    button = el.querySelector('.offline-ui-sign-in')
     handler = (e) ->
       e.preventDefault()
       location.reload();

@@ -276,10 +276,12 @@
   border-radius: 4px;
   font-family: "Helvetica Neue", sans-serif;
   padding: 1em;
-  top: 1em;
+  top: 10em;
   width: 38em;
   max-width: 100%;
   overflow: hidden;
+  font-size: 15px;
+  line-height: 2em;
 }
 @media (max-width: 38em) {
   /* line 21, ../sass/offline-theme-default.sass */
@@ -290,11 +292,11 @@
     top: 0;
   }
 }
-/* line 34, ../sass/offline-theme-default.sass */
+/* line 36, ../sass/offline-theme-default.sass */
 .offline-ui .offline-ui-content:before {
   line-height: 1.25em;
 }
-/* line 37, ../sass/offline-theme-default.sass */
+/* line 39, ../sass/offline-theme-default.sass */
 .offline-ui .offline-ui-retry, .offline-ui .offline-ui-sign-in {
   position: absolute;
   right: 3em;
@@ -303,12 +305,12 @@
   background: rgba(0, 0, 0, 0.1);
   text-decoration: none;
   color: inherit;
-  line-height: 3.5em;
-  height: 3.5em;
   margin: auto;
   padding: 0 1em;
+  line-height: 4em;
+  height: 4em;
 }
-/* line 50, ../sass/offline-theme-default.sass */
+/* line 52, ../sass/offline-theme-default.sass */
 .offline-ui.offline-ui-up {
   -webkit-animation: offline-fadeout-and-hide forwards 0.5s 2s;
   -moz-animation: offline-fadeout-and-hide forwards 0.5s 2s;
@@ -319,7 +321,7 @@
   background: #d6e9c6;
   color: #468847;
 }
-/* line 55, ../sass/offline-theme-default.sass */
+/* line 57, ../sass/offline-theme-default.sass */
 .offline-ui.offline-ui-down, .offline-ui.offline-ui-unauthorized {
   -webkit-animation: offline-fadein 0.5s;
   -moz-animation: offline-fadein 0.5s;
@@ -330,13 +332,13 @@
   background: #ec8787;
   color: #551313;
 }
-/* line 60, ../sass/offline-theme-default.sass */
+/* line 62, ../sass/offline-theme-default.sass */
 .offline-ui.offline-ui-down.offline-ui-connecting, .offline-ui.offline-ui-down.offline-ui-waiting, .offline-ui.offline-ui-unauthorized.offline-ui-connecting, .offline-ui.offline-ui-unauthorized.offline-ui-waiting {
   background: #f8ecad;
   color: #7c6d1f;
   padding-right: 3em;
 }
-/* line 65, ../sass/offline-theme-default.sass */
+/* line 67, ../sass/offline-theme-default.sass */
 .offline-ui.offline-ui-down.offline-ui-connecting:after, .offline-ui.offline-ui-down.offline-ui-waiting:after, .offline-ui.offline-ui-unauthorized.offline-ui-connecting:after, .offline-ui.offline-ui-unauthorized.offline-ui-waiting:after {
   -webkit-animation: offline-rotation 0.7s linear infinite;
   -moz-animation: offline-rotation 0.7s linear infinite;
@@ -361,11 +363,11 @@
   border-left-color: #7c6d1f;
   opacity: 0.7;
 }
-/* line 82, ../sass/offline-theme-default.sass */
+/* line 84, ../sass/offline-theme-default.sass */
 .offline-ui.offline-ui-down.offline-ui-waiting, .offline-ui.offline-ui-unauthorized.offline-ui-waiting {
   padding-right: 11em;
 }
-/* line 85, ../sass/offline-theme-default.sass */
+/* line 87, ../sass/offline-theme-default.sass */
 .offline-ui.offline-ui-down.offline-ui-waiting.offline-ui-reconnect-failed-2s, .offline-ui.offline-ui-unauthorized.offline-ui-waiting.offline-ui-reconnect-failed-2s {
   padding-right: 0;
 }

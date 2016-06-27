@@ -178,14 +178,19 @@
   checkXHR = function(xhr, onUp, onDown, onUnauthorized) {
     var _onerror, _onload, _onreadystatechange, _ontimeout, checkStatus;
     checkStatus = function() {
+      var base;
       if (xhr.status && xhr.status < 12000) {
-        if (Offline.getOption('unauthorized') && xhr.status === 401) {
+        if (typeof (base = Offline.getOption('unauthorized')) === "function" ? base(xhr) : void 0) {
           return onUnauthorized();
         } else {
           return onUp();
         }
       } else {
-        return onDown();
+        if (xhr.statusText === 'abort') {
+          return Offline.check();
+        } else {
+          return onDown();
+        }
       }
     };
     if (xhr.onprogress === null) {

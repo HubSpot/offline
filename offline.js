@@ -83,7 +83,8 @@
   }, checkXHR = function(xhr, onUp, onDown, onUnauthorized) {
     var _onerror, _onload, _onreadystatechange, _ontimeout, checkStatus;
     return checkStatus = function() {
-      return xhr.status && xhr.status < 12e3 ? Offline.getOption("unauthorized") && 401 === xhr.status ? onUnauthorized() :onUp() :onDown();
+      var base;
+      return xhr.status && xhr.status < 12e3 ? ("function" == typeof (base = Offline.getOption("unauthorized")) ? base(xhr) :void 0) ? onUnauthorized() :onUp() :"abort" === xhr.statusText ? Offline.check() :onDown();
     }, null === xhr.onprogress ? (_onerror = xhr.onerror, xhr.onerror = function() {
       return onDown(), "function" == typeof _onerror ? _onerror.apply(null, arguments) :void 0;
     }, _ontimeout = xhr.ontimeout, xhr.ontimeout = function() {
@@ -273,7 +274,7 @@
       return e.preventDefault(), Offline.reconnect.tryNow();
     }, null != button.addEventListener ? button.addEventListener("click", handler, !1) :button.attachEvent("click", handler)), 
     Offline.getOption("unauthorized") && (el.appendChild(createFromHTML(SIGN_IN_TEMPLATE)), 
-    handler = function(e) {
+    button = el.querySelector(".offline-ui-sign-in"), handler = function(e) {
       return e.preventDefault(), location.reload();
     }, null != button.addEventListener ? button.addEventListener("click", handler, !1) :button.attachEvent("click", handler)), 
     Offline.getOption("modal") && (modal = createFromHTML(MODAL_TEMPLATE), document.body.appendChild(modal)), 
