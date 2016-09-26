@@ -3,6 +3,7 @@ unless window.Offline
 
 TEMPLATE = '<div class="offline-ui"><div class="offline-ui-content"></div></div>'
 RETRY_TEMPLATE = '<a href class="offline-ui-retry"></a>'
+CANCEL_TEMPLATE = '<a href class="offline-ui-cancel"></a>'
 
 createFromHTML = (html) ->
   el = document.createElement('div')
@@ -49,7 +50,21 @@ render = ->
   document.body.appendChild el
 
   if Offline.reconnect? and Offline.getOption('reconnect')
-    el.appendChild createFromHTML RETRY_TEMPLATE
+    if Offline.getOption('reconnect.cancel')
+      el.appendChild createFromHTML CANCEL_TEMPLATE
+
+      cancel_button = el.querySelector('.offline-ui-cancel')
+      cancel_handler = (e) ->
+        e.preventDefault()
+
+        Offline.reconnect.cancel()
+
+      if cancel_button.addEventListener?
+        cancel_button.addEventListener 'click', cancel_handler, false
+      else
+        cancel_button.attachEvent 'click', cancel_handler
+
+      el.appendChild createFromHTML RETRY_TEMPLATE
 
     button = el.querySelector('.offline-ui-retry')
     handler = (e) ->
@@ -83,6 +98,9 @@ init = ->
     flashClass 'offline-ui-down-2s', 2
     flashClass 'offline-ui-down-5s', 5
 
+  Offline.on 'reconnect:started', ->
+    removeClass 'offline-ui-reconnect-canceled'
+
   Offline.on 'reconnect:connecting', ->
     addClass 'offline-ui-connecting'
     removeClass 'offline-ui-waiting'
@@ -101,6 +119,9 @@ init = ->
 
     content.setAttribute 'data-retry-in-value', null
     content.setAttribute 'data-retry-in-unit', null
+
+  Offline.on 'reconnect:canceled', ->
+    addClass 'offline-ui-reconnect-canceled'
 
   Offline.on 'reconnect:failure', ->
     flashClass 'offline-ui-reconnect-failed-2s', 2

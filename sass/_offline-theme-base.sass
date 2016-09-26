@@ -2,42 +2,72 @@
 @import compass/css3/user-interface
 
 .offline-ui, .offline-ui *, .offline-ui:before, .offline-ui:after, .offline-ui *:before, .offline-ui *:after
-    +box-sizing(border-box)
+  +box-sizing(border-box)
 
 .offline-ui
+  display: none
+  position: fixed
+  background: #fff
+  z-index: 2000
+  margin: auto
+  top: 0
+  left: 0
+  right: 0
+
+  .offline-ui-content:before
+    display: inline
+
+  .offline-ui-cancel
+    position: relative
+    display: inline-block
+    width: 50px
+    height: 50px
+    overflow: hidden
+
+    &::before, &::after
+      content: ""
+      position: absolute
+      height: 2px
+      width: 14px
+      top: 50%
+      left: 50%
+      background: #7c6d1f
+      margin-left: -7px
+      border-radius: 2px
+
+    &::before
+      @include transform(rotate(45deg))
+
+    &::after
+      @include transform(rotate(-45deg))
+
+  .offline-ui-retry, .offline-ui-cancel
+    +user-select(none)
     display: none
-    position: fixed
-    background: #fff
-    z-index: 2000
-    margin: auto
-    top: 0
-    left: 0
-    right: 0
 
-    .offline-ui-content:before
-        display: inline
+    &:before
+      display: inline
 
-    .offline-ui-retry
-        +user-select(none)
-        display: none
+  &.offline-ui-up
 
-        &:before
-            display: inline
+    &.offline-ui-up-5s
+      display: block
 
-    &.offline-ui-up
+  &.offline-ui-down
+    display: block
 
-        &.offline-ui-up-5s
-            display: block
+    &.offline-ui-waiting
 
-    &.offline-ui-down
+      .offline-ui-retry, .offline-ui-cancel
         display: block
 
-        &.offline-ui-waiting
+    &.offline-ui-reconnect-canceled
 
-            .offline-ui-retry
-                display: block
+      .offline-ui-retry
+        display: block
+        right: 0
 
-        &.offline-ui-reconnect-failed-2s
+    &.offline-ui-reconnect-failed-2s
 
-            &.offline-ui-waiting .offline-ui-retry
-                display: none
+      &.offline-ui-waiting .offline-ui-retry, &.offline-ui-waiting .offline-ui-cancel
+        display: none

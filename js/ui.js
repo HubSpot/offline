@@ -1,5 +1,5 @@
 (function() {
-  var RETRY_TEMPLATE, TEMPLATE, _onreadystatechange, addClass, content, createFromHTML, el, flashClass, flashTimeouts, init, removeClass, render, roundTime;
+  var CANCEL_TEMPLATE, RETRY_TEMPLATE, TEMPLATE, _onreadystatechange, addClass, content, createFromHTML, el, flashClass, flashTimeouts, init, removeClass, render, roundTime;
 
   if (!window.Offline) {
     throw new Error("Offline UI brought in without offline.js");
@@ -8,6 +8,8 @@
   TEMPLATE = '<div class="offline-ui"><div class="offline-ui-content"></div></div>';
 
   RETRY_TEMPLATE = '<a href class="offline-ui-retry"></a>';
+
+  CANCEL_TEMPLATE = '<a href class="offline-ui-cancel"></a>';
 
   createFromHTML = function(html) {
     var el;
@@ -59,11 +61,24 @@
   };
 
   render = function() {
-    var button, handler;
+    var button, cancel_button, cancel_handler, handler;
     el = createFromHTML(TEMPLATE);
     document.body.appendChild(el);
     if ((Offline.reconnect != null) && Offline.getOption('reconnect')) {
-      el.appendChild(createFromHTML(RETRY_TEMPLATE));
+      if (Offline.getOption('reconnect.cancel')) {
+        el.appendChild(createFromHTML(CANCEL_TEMPLATE));
+        cancel_button = el.querySelector('.offline-ui-cancel');
+        cancel_handler = function(e) {
+          e.preventDefault();
+          return Offline.reconnect.cancel();
+        };
+        if (cancel_button.addEventListener != null) {
+          cancel_button.addEventListener('click', cancel_handler, false);
+        } else {
+          cancel_button.attachEvent('click', cancel_handler);
+        }
+        el.appendChild(createFromHTML(RETRY_TEMPLATE));
+      }
       button = el.querySelector('.offline-ui-retry');
       handler = function(e) {
         e.preventDefault();
@@ -93,6 +108,9 @@
       flashClass('offline-ui-down-2s', 2);
       return flashClass('offline-ui-down-5s', 5);
     });
+    Offline.on('reconnect:started', function() {
+      return removeClass('offline-ui-reconnect-canceled');
+    });
     Offline.on('reconnect:connecting', function() {
       addClass('offline-ui-connecting');
       return removeClass('offline-ui-waiting');
@@ -109,6 +127,9 @@
       removeClass('offline-ui-connecting offline-ui-waiting');
       content.setAttribute('data-retry-in-value', null);
       return content.setAttribute('data-retry-in-unit', null);
+    });
+    Offline.on('reconnect:canceled', function() {
+      return addClass('offline-ui-reconnect-canceled');
     });
     Offline.on('reconnect:failure', function() {
       flashClass('offline-ui-reconnect-failed-2s', 2);

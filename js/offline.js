@@ -75,7 +75,8 @@
 
   if (typeof window.addEventListener === "function") {
     window.addEventListener('online', function() {
-      return setTimeout(Offline.confirmUp, 100);
+      var base;
+      return typeof (base = Offline.reconnect.state !== 'canceled') === "function" ? base(setTimeout(Offline.confirmUp, 100)) : void 0;
     }, false);
   }
 
