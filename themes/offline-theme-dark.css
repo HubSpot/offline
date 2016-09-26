@@ -32,29 +32,28 @@
 .offline-ui .offline-ui-cancel::before, .offline-ui .offline-ui-cancel::after {
   content: "";
   position: absolute;
-  height: 2px;
+  height: 1px;
   width: 14px;
   top: 50%;
   left: 50%;
-  background: #7c6d1f;
   margin-left: -7px;
   border-radius: 2px;
 }
-/* line 38, ../sass/_offline-theme-base.sass */
+/* line 37, ../sass/_offline-theme-base.sass */
 .offline-ui .offline-ui-cancel::before {
   -moz-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
 }
-/* line 41, ../sass/_offline-theme-base.sass */
+/* line 40, ../sass/_offline-theme-base.sass */
 .offline-ui .offline-ui-cancel::after {
   -moz-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
   -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
 }
-/* line 44, ../sass/_offline-theme-base.sass */
+/* line 43, ../sass/_offline-theme-base.sass */
 .offline-ui .offline-ui-retry, .offline-ui .offline-ui-cancel {
   -moz-user-select: -moz-none;
   -ms-user-select: none;
@@ -62,28 +61,28 @@
   user-select: none;
   display: none;
 }
-/* line 48, ../sass/_offline-theme-base.sass */
+/* line 47, ../sass/_offline-theme-base.sass */
 .offline-ui .offline-ui-retry:before, .offline-ui .offline-ui-cancel:before {
   display: inline;
 }
-/* line 53, ../sass/_offline-theme-base.sass */
+/* line 52, ../sass/_offline-theme-base.sass */
 .offline-ui.offline-ui-up.offline-ui-up-5s {
   display: block;
 }
-/* line 56, ../sass/_offline-theme-base.sass */
+/* line 55, ../sass/_offline-theme-base.sass */
 .offline-ui.offline-ui-down {
   display: block;
 }
-/* line 61, ../sass/_offline-theme-base.sass */
+/* line 60, ../sass/_offline-theme-base.sass */
 .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-retry, .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-cancel {
   display: block;
 }
-/* line 66, ../sass/_offline-theme-base.sass */
+/* line 65, ../sass/_offline-theme-base.sass */
 .offline-ui.offline-ui-down.offline-ui-reconnect-canceled .offline-ui-retry {
   display: block;
-  right: 0;
+  right: 1em;
 }
-/* line 72, ../sass/_offline-theme-base.sass */
+/* line 71, ../sass/_offline-theme-base.sass */
 .offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s.offline-ui-waiting .offline-ui-retry, .offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s.offline-ui-waiting .offline-ui-cancel {
   display: none;
 }
@@ -426,7 +425,7 @@
   font-family: "Helvetica Neue", sans-serif;
   font-weight: 300;
   padding: 1em;
-  width: 38em;
+  width: 42em;
   max-width: 100%;
   background: #000;
   color: #ccc;
@@ -464,9 +463,8 @@
   width: 1em;
 }
 /* line 48, ../sass/offline-theme-dark.sass */
-.offline-ui .offline-ui-retry {
+.offline-ui .offline-ui-retry, .offline-ui .offline-ui-cancel {
   position: absolute;
-  right: 3em;
   top: 0;
   bottom: 0;
   background: rgba(255, 255, 255, 0.2);
@@ -477,7 +475,19 @@
   margin: auto;
   padding: 0 1em;
 }
-/* line 61, ../sass/offline-theme-dark.sass */
+/* line 60, ../sass/offline-theme-dark.sass */
+.offline-ui .offline-ui-cancel {
+  right: 3em;
+}
+/* line 62, ../sass/offline-theme-dark.sass */
+.offline-ui .offline-ui-cancel::before, .offline-ui .offline-ui-cancel::after {
+  background: #ccc;
+}
+/* line 65, ../sass/offline-theme-dark.sass */
+.offline-ui .offline-ui-retry {
+  right: 7em;
+}
+/* line 68, ../sass/offline-theme-dark.sass */
 .offline-ui.offline-ui-up {
   -webkit-animation: offline-dropout forwards 0.5s 2s;
   -moz-animation: offline-dropout forwards 0.5s 2s;
@@ -486,11 +496,11 @@
   animation: offline-dropout forwards 0.5s 2s;
   -webkit-backface-visibility: hidden;
 }
-/* line 64, ../sass/offline-theme-dark.sass */
+/* line 71, ../sass/offline-theme-dark.sass */
 .offline-ui.offline-ui-up .offline-ui-content:after {
   background: #80d580;
 }
-/* line 67, ../sass/offline-theme-dark.sass */
+/* line 74, ../sass/offline-theme-dark.sass */
 .offline-ui.offline-ui-down {
   -webkit-animation: offline-dropin 0.5s;
   -moz-animation: offline-dropin 0.5s;
@@ -499,19 +509,19 @@
   animation: offline-dropin 0.5s;
   -webkit-backface-visibility: hidden;
 }
-/* line 70, ../sass/offline-theme-dark.sass */
+/* line 77, ../sass/offline-theme-dark.sass */
 .offline-ui.offline-ui-down .offline-ui-content:after {
   background: #e24949;
 }
-/* line 73, ../sass/offline-theme-dark.sass */
+/* line 80, ../sass/offline-theme-dark.sass */
 .offline-ui.offline-ui-down.offline-ui-connecting, .offline-ui.offline-ui-down.offline-ui-waiting {
   padding-right: 3em;
 }
-/* line 76, ../sass/offline-theme-dark.sass */
+/* line 83, ../sass/offline-theme-dark.sass */
 .offline-ui.offline-ui-down.offline-ui-connecting .offline-ui-content:after, .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content:after {
   background: #e24949;
 }
-/* line 79, ../sass/offline-theme-dark.sass */
+/* line 86, ../sass/offline-theme-dark.sass */
 .offline-ui.offline-ui-down.offline-ui-connecting:after, .offline-ui.offline-ui-down.offline-ui-waiting:after {
   -webkit-animation: offline-rotation 0.7s linear infinite;
   -moz-animation: offline-rotation 0.7s linear infinite;
@@ -536,11 +546,19 @@
   border-left-color: rgba(255, 255, 255, 0.5);
   opacity: 0.7;
 }
-/* line 96, ../sass/offline-theme-dark.sass */
+/* line 103, ../sass/offline-theme-dark.sass */
 .offline-ui.offline-ui-down.offline-ui-waiting {
-  padding-right: 11em;
+  padding-right: 15em;
 }
-/* line 99, ../sass/offline-theme-dark.sass */
+/* line 106, ../sass/offline-theme-dark.sass */
 .offline-ui.offline-ui-down.offline-ui-waiting.offline-ui-reconnect-failed-2s {
   padding-right: 0;
+}
+/* line 109, ../sass/offline-theme-dark.sass */
+.offline-ui.offline-ui-down.offline-ui-reconnect-canceled {
+  padding-right: 10em;
+}
+/* line 111, ../sass/offline-theme-dark.sass */
+.offline-ui.offline-ui-down.offline-ui-reconnect-canceled .offline-ui-retry {
+  right: 0;
 }

@@ -14,87 +14,99 @@ $red: #e24949
 +keyframes-offline-rotation
 
 .offline-ui
-    +border-radius(0 0 4px 4px)
-    font-family: "Helvetica Neue", sans-serif
-    font-weight: 300
-    padding: 1em
-    width: 38em
-    max-width: 100%
-    background: #000
-    color: #ccc
-    overflow: hidden
+  +border-radius(0 0 4px 4px)
+  font-family: "Helvetica Neue", sans-serif
+  font-weight: 300
+  padding: 1em
+  width: 42em
+  max-width: 100%
+  background: #000
+  color: #ccc
+  overflow: hidden
 
-    @media (max-width: 38em)
-        +border-radius(0)
+  @media (max-width: 38em)
+    +border-radius(0)
 
-    .offline-ui-content
-        padding-left: 2em
+  .offline-ui-content
+    padding-left: 2em
 
-        &:before
-            line-height: 1.25em
+    &:before
+      line-height: 1.25em
 
-        &:after
-            +border-radius(50%)
-            content: " "
-            display: block
-            position: absolute
-            top: 0
-            bottom: 0
-            left: 1em
-            margin: auto
-            height: 1em
-            width: 1em
+    &:after
+      +border-radius(50%)
+      content: " "
+      display: block
+      position: absolute
+      top: 0
+      bottom: 0
+      left: 1em
+      margin: auto
+      height: 1em
+      width: 1em
 
-    .offline-ui-retry
+  .offline-ui-retry, .offline-ui-cancel
+    position: absolute
+    top: 0
+    bottom: 0
+    background: rgba(255, 255, 255, .2)
+    text-decoration: none
+    color: inherit
+    line-height: 3.5em
+    height: 3.5em
+    margin: auto
+    padding: 0 1em
+
+  .offline-ui-cancel
+    right: 3em
+    &::before, &::after
+      background: #ccc
+
+  .offline-ui-retry
+    right: 7em
+
+  &.offline-ui-up
+    +offline-animation(offline-dropout forwards .5s 2s)
+
+    .offline-ui-content:after
+      background: $green
+
+  &.offline-ui-down
+    +offline-animation(offline-dropin .5s)
+
+    .offline-ui-content:after
+      background: $red
+
+    &.offline-ui-connecting, &.offline-ui-waiting
+      padding-right: 3em
+
+      .offline-ui-content:after
+        background: $red
+
+      &:after
+        +offline-animation(offline-rotation .7s linear infinite)
+        +border-radius(50%)
+        content: " "
+        display: block
         position: absolute
-        right: 3em
+        right: 1em
         top: 0
         bottom: 0
-        background: rgba(255, 255, 255, .2)
-        text-decoration: none
-        color: inherit
-        line-height: 3.5em
-        height: 3.5em
         margin: auto
-        padding: 0 1em
+        height: 1em
+        width: 1em
+        border: 2px solid transparent
+        border-top-color: rgba(255, 255, 255, .5)
+        border-left-color: rgba(255, 255, 255, .5)
+        opacity: 0.7
 
-    &.offline-ui-up
-        +offline-animation(offline-dropout forwards .5s 2s)
+    &.offline-ui-waiting
+      padding-right: 15em
 
-        .offline-ui-content:after
-            background: $green
+      &.offline-ui-reconnect-failed-2s
+        padding-right: 0
 
-    &.offline-ui-down
-        +offline-animation(offline-dropin .5s)
-
-        .offline-ui-content:after
-            background: $red
-
-        &.offline-ui-connecting, &.offline-ui-waiting
-            padding-right: 3em
-
-            .offline-ui-content:after
-                background: $red
-
-            &:after
-                +offline-animation(offline-rotation .7s linear infinite)
-                +border-radius(50%)
-                content: " "
-                display: block
-                position: absolute
-                right: 1em
-                top: 0
-                bottom: 0
-                margin: auto
-                height: 1em
-                width: 1em
-                border: 2px solid transparent
-                border-top-color: rgba(255, 255, 255, .5)
-                border-left-color: rgba(255, 255, 255, .5)
-                opacity: 0.7
-
-        &.offline-ui-waiting
-            padding-right: 11em
-
-            &.offline-ui-reconnect-failed-2s
-                padding-right: 0
+    &.offline-ui-reconnect-canceled
+      padding-right: 10em
+      .offline-ui-retry
+        right: 0

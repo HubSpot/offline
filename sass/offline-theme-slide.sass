@@ -43,6 +43,8 @@ $darkYellow: #7c6d1f
 
   .offline-ui-cancel
     right: 3em
+    &::before, &::after
+      background: #7c6d1f
 
   .offline-ui-retry
     right: 7em
@@ -85,5 +87,7 @@ $darkYellow: #7c6d1f
       &.offline-ui-reconnect-failed-2s
         padding-right: 0
 
-    &.offline-ui-canceled
+    &.offline-ui-reconnect-canceled
       padding-right: 10em
+      .offline-ui-retry
+        right: 0

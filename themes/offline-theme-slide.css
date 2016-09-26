@@ -32,29 +32,28 @@
 .offline-ui .offline-ui-cancel::before, .offline-ui .offline-ui-cancel::after {
   content: "";
   position: absolute;
-  height: 2px;
+  height: 1px;
   width: 14px;
   top: 50%;
   left: 50%;
-  background: #7c6d1f;
   margin-left: -7px;
   border-radius: 2px;
 }
-/* line 38, ../sass/_offline-theme-base.sass */
+/* line 37, ../sass/_offline-theme-base.sass */
 .offline-ui .offline-ui-cancel::before {
   -moz-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
 }
-/* line 41, ../sass/_offline-theme-base.sass */
+/* line 40, ../sass/_offline-theme-base.sass */
 .offline-ui .offline-ui-cancel::after {
   -moz-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
   -webkit-transform: rotate(-45deg);
   transform: rotate(-45deg);
 }
-/* line 44, ../sass/_offline-theme-base.sass */
+/* line 43, ../sass/_offline-theme-base.sass */
 .offline-ui .offline-ui-retry, .offline-ui .offline-ui-cancel {
   -moz-user-select: -moz-none;
   -ms-user-select: none;
@@ -62,28 +61,28 @@
   user-select: none;
   display: none;
 }
-/* line 48, ../sass/_offline-theme-base.sass */
+/* line 47, ../sass/_offline-theme-base.sass */
 .offline-ui .offline-ui-retry:before, .offline-ui .offline-ui-cancel:before {
   display: inline;
 }
-/* line 53, ../sass/_offline-theme-base.sass */
+/* line 52, ../sass/_offline-theme-base.sass */
 .offline-ui.offline-ui-up.offline-ui-up-5s {
   display: block;
 }
-/* line 56, ../sass/_offline-theme-base.sass */
+/* line 55, ../sass/_offline-theme-base.sass */
 .offline-ui.offline-ui-down {
   display: block;
 }
-/* line 61, ../sass/_offline-theme-base.sass */
+/* line 60, ../sass/_offline-theme-base.sass */
 .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-retry, .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-cancel {
   display: block;
 }
-/* line 66, ../sass/_offline-theme-base.sass */
+/* line 65, ../sass/_offline-theme-base.sass */
 .offline-ui.offline-ui-down.offline-ui-reconnect-canceled .offline-ui-retry {
   display: block;
-  right: 0;
+  right: 1em;
 }
-/* line 72, ../sass/_offline-theme-base.sass */
+/* line 71, ../sass/_offline-theme-base.sass */
 .offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s.offline-ui-waiting .offline-ui-retry, .offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s.offline-ui-waiting .offline-ui-cancel {
   display: none;
 }
@@ -454,11 +453,15 @@
 .offline-ui .offline-ui-cancel {
   right: 3em;
 }
-/* line 47, ../sass/offline-theme-slide.sass */
+/* line 46, ../sass/offline-theme-slide.sass */
+.offline-ui .offline-ui-cancel::before, .offline-ui .offline-ui-cancel::after {
+  background: #7c6d1f;
+}
+/* line 49, ../sass/offline-theme-slide.sass */
 .offline-ui .offline-ui-retry {
   right: 7em;
 }
-/* line 50, ../sass/offline-theme-slide.sass */
+/* line 52, ../sass/offline-theme-slide.sass */
 .offline-ui.offline-ui-up {
   -webkit-animation: offline-dropout forwards 0.5s 2s;
   -moz-animation: offline-dropout forwards 0.5s 2s;
@@ -469,7 +472,7 @@
   background: #d6e9c6;
   color: #468847;
 }
-/* line 55, ../sass/offline-theme-slide.sass */
+/* line 57, ../sass/offline-theme-slide.sass */
 .offline-ui.offline-ui-down {
   -webkit-animation: offline-dropin 0.5s;
   -moz-animation: offline-dropin 0.5s;
@@ -480,13 +483,13 @@
   background: #ec8787;
   color: #551313;
 }
-/* line 60, ../sass/offline-theme-slide.sass */
+/* line 62, ../sass/offline-theme-slide.sass */
 .offline-ui.offline-ui-down.offline-ui-connecting, .offline-ui.offline-ui-down.offline-ui-waiting {
   background: #f8ecad;
   color: #7c6d1f;
   padding-right: 3em;
 }
-/* line 65, ../sass/offline-theme-slide.sass */
+/* line 67, ../sass/offline-theme-slide.sass */
 .offline-ui.offline-ui-down.offline-ui-connecting:after, .offline-ui.offline-ui-down.offline-ui-waiting:after {
   -webkit-animation: offline-rotation 0.7s linear infinite;
   -moz-animation: offline-rotation 0.7s linear infinite;
@@ -511,15 +514,19 @@
   border-left-color: #7c6d1f;
   opacity: 0.7;
 }
-/* line 82, ../sass/offline-theme-slide.sass */
+/* line 84, ../sass/offline-theme-slide.sass */
 .offline-ui.offline-ui-down.offline-ui-waiting {
   padding-right: 15em;
 }
-/* line 85, ../sass/offline-theme-slide.sass */
+/* line 87, ../sass/offline-theme-slide.sass */
 .offline-ui.offline-ui-down.offline-ui-waiting.offline-ui-reconnect-failed-2s {
   padding-right: 0;
 }
-/* line 88, ../sass/offline-theme-slide.sass */
-.offline-ui.offline-ui-down.offline-ui-canceled {
+/* line 90, ../sass/offline-theme-slide.sass */
+.offline-ui.offline-ui-down.offline-ui-reconnect-canceled {
   padding-right: 10em;
+}
+/* line 92, ../sass/offline-theme-slide.sass */
+.offline-ui.offline-ui-down.offline-ui-reconnect-canceled .offline-ui-retry {
+  right: 0;
 }
