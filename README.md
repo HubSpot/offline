@@ -55,7 +55,10 @@ Options (any can be provided as a function), with their defaults:
     initialDelay: 3,
 
     // How long should we wait between retries.
-    delay: (1.5 * last delay, capped at 1 hour)
+    delay: (1.5 * last delay, capped at 1 hour),
+    
+    // Should we display cancel button so the user can stop the automatically reconnect proccess 
+    cancel: false
   },
 
   // Should we store and attempt to remake requests which fail while the connection is down.
