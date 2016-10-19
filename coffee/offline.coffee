@@ -115,7 +115,7 @@ Offline.off = (event, handler) ->
 
 Offline.trigger = (event) ->
   if handlers[event]?
-    # we have to make a copy of the handlers since its possible that the called functions will modify the handlers array by calling off/on 
+    # we have to make a copy of the handlers since its possible that the called functions will modify the handlers array by calling off/on
     for [ctx, handler] in handlers[event][..]
       handler.call(ctx)
 
@@ -183,8 +183,13 @@ Offline.checks.xhr = ->
 Offline.checks.image = ->
   img = document.createElement 'img'
   img.onerror = Offline.markDown
-  img.onload = Offline.markUp
+  img.onload = -> clearTimeout(imgTimer);Offline.markUp()
   img.src = Offline.getOption('checks.image.url')
+  imageTimeout = Offline.getOption('checks.image.timeout')
+  if imageTimeout
+    imgTimer = setTimeout ->
+      Offline.markDown()
+    , imageTimeout
 
   undefined
 
