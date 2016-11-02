@@ -26,13 +26,13 @@
 @media (max-width: 1024px) {
   /* line 22, ../sass/_content.sass */
   .offline-ui.offline-ui-down .offline-ui-content:before {
-    content: "Twóje urządzenie straciło połączenie z internetem.";
+    content: "Twoje urządzenie straciło połączenie z internetem.";
   }
 }
 @media (max-width: 568px) {
   /* line 22, ../sass/_content.sass */
   .offline-ui.offline-ui-down .offline-ui-content:before {
-    content: "Twóje urządzenie nie jest podłączone.";
+    content: "Twoje urządzenie nie jest podłączone.";
   }
 }
 /* line 33, ../sass/_content.sass */
