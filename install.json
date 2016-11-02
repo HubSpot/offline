@@ -47,7 +47,8 @@
           "portuguese-brazil",
           "spanish",
           "italian",
-          "turkish"
+          "turkish",
+          "polish"
         ],
         "enumNames": {
           "dutch": "Dutch",
@@ -57,7 +58,8 @@
           "portuguese-brazil": "Brazilian Portuguese",
           "spanish": "Spanish",
           "italian": "Italian",
-          "turkish": "Turkish"
+          "turkish": "Turkish",
+          "polish": "Polish"
         },
         "default": "english"
       },
