@@ -20,35 +20,35 @@
 .offline-ui.offline-ui-down.offline-ui-connecting .offline-ui-content:before, .offline-ui.offline-ui-down.offline-ui-connecting-2s .offline-ui-content:before {
   content: "Zkouším se znovu připojit..."; }
 .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"]:before {
-  content: "Připojení ztraceno. Znovu připojím za " attr(data-retry-in-value) " sekund..."; }
+  content: "Připojení ztraceno. Znovu zkusím za " attr(data-retry-in-value) " sekund..."; }
   @media (max-width: 568px) {
     .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"]:before {
-      content: "Znovu připojím za " attr(data-retry-in-value) "s..."; } }
+      content: "Znovu zkusím za " attr(data-retry-in-value) "s..."; } }
 .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"][data-retry-in-value="1"]:before {
-  content: "Připojení ztraceno. Znovu připojím za " attr(data-retry-in-value) " sekundu..."; }
+  content: "Připojení ztraceno. Znovu zkusím za " attr(data-retry-in-value) " sekundu..."; }
   @media (max-width: 568px) {
     .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"][data-retry-in-value="1"]:before {
-      content: "Znovu připojím za " attr(data-retry-in-value) "s..."; } }
+      content: "Znovu zkusím za " attr(data-retry-in-value) "s..."; } }
 .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"]:before {
-  content: "Připojení ztraceno. Znovu připojím za " attr(data-retry-in-value) " minut..."; }
+  content: "Připojení ztraceno. Znovu zkusím za " attr(data-retry-in-value) " minut..."; }
   @media (max-width: 568px) {
     .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"]:before {
-      content: "Znovu připojím za " attr(data-retry-in-value) "m..."; } }
+      content: "Znovu zkusím za " attr(data-retry-in-value) "m..."; } }
 .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"][data-retry-in-value="1"]:before {
-  content: "Připojení ztraceno. Znovu připojím za " attr(data-retry-in-value) " minutu..."; }
+  content: "Připojení ztraceno. Znovu zkusím za " attr(data-retry-in-value) " minutu..."; }
   @media (max-width: 568px) {
     .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"][data-retry-in-value="1"]:before {
-      content: "Znovu připojím za " attr(data-retry-in-value) "m..."; } }
+      content: "Znovu zkusím za " attr(data-retry-in-value) "m..."; } }
 .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"]:before {
-  content: "Připojení ztraceno. Znovu připojím za " attr(data-retry-in-value) " hodin..."; }
+  content: "Připojení ztraceno. Znovu zkusím za " attr(data-retry-in-value) " hodin..."; }
   @media (max-width: 568px) {
     .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"]:before {
-      content: "Znovu připojím za " attr(data-retry-in-value) "h..."; } }
+      content: "Znovu zkusím za " attr(data-retry-in-value) "h..."; } }
 .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"][data-retry-in-value="1"]:before {
-  content: "Připojení ztraceno. Znovu připojím za " attr(data-retry-in-value) " hodinu..."; }
+  content: "Připojení ztraceno. Znovu zkusím za " attr(data-retry-in-value) " hodinu..."; }
   @media (max-width: 568px) {
     .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"][data-retry-in-value="1"]:before {
-      content: "Znovu připojím za " attr(data-retry-in-value) "h..."; } }
+      content: "Znovu zkusím za " attr(data-retry-in-value) "h..."; } }
 .offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s.offline-ui-waiting .offline-ui-retry {
   display: none; }
 .offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s .offline-ui-content:before {
