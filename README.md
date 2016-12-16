@@ -12,18 +12,7 @@ Improve the experience of your app when your users lose connection.
 - Simple UI with beautiful themes
 - 3kb minified and compressed
 
-Install with Eager
-------------------
-
-The easiest way to add Offline to your site is with [Eager](http://eager.io).
-Click Install to see a live preview of Offline on your website.
-
-<a href="https://eager.io/app/NnkeiqegQ2K4/install?source=button">
-  <img src="https://install.eager.io/install-button.png" border="0" width="126">
-</a>
-
-
-Manual Installation
+Installation
 -------------------
 
 Include [the javascript](https://raw.github.com/HubSpot/offline/v0.7.14/offline.min.js), one of [the themes](http://github.hubspot.com/offline/docs/welcome/), and one of [the
