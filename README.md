@@ -137,3 +137,5 @@ Browser Support
 ---------------
 
 Modern Chrome, Firefox, Safari and IE8+
+
+Note that not all browsers (including Safari and old IE) support the offline events, forcing Offline to use less accurate methods of detection.
