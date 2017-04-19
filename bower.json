@@ -12,7 +12,7 @@
   "description": "Automatically detect when a browser is offline",
   "main": [
     "offline.js",
-    "themes/offline-theme-default.css",
+    "themes/offline-theme-dark.css",
     "themes/offline-language-english.css"
   ],
   "license": "MIT",
