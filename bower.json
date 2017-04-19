@@ -10,7 +10,11 @@
     "url": "git://github.com/HubSpot/offline.git"
   },
   "description": "Automatically detect when a browser is offline",
-  "main": "offline.js",
+  "main": [
+    "offline.js",
+    "themes/offline-theme-default.css",
+    "themes/offline-language-english.css"
+  ],
   "license": "MIT",
   "keywords": [
     "offline",
