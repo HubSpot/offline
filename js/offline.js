@@ -219,11 +219,20 @@
   };
 
   Offline.checks.image = function() {
-    var img;
+    var imageTimeout, img, imgTimer;
     img = document.createElement('img');
     img.onerror = Offline.markDown;
-    img.onload = Offline.markUp;
+    img.onload = function() {
+      clearTimeout(imgTimer);
+      return Offline.markUp();
+    };
     img.src = Offline.getOption('checks.image.url');
+    imageTimeout = Offline.getOption('checks.image.timeout');
+    if (imageTimeout) {
+      imgTimer = setTimeout(function() {
+        return Offline.markDown();
+      }, imageTimeout);
+    }
     return void 0;
   };
 
