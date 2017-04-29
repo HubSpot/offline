@@ -26,12 +26,30 @@ tick = ->
     tryNow()
 
 tryNow = ->
-  return if rc.state isnt 'waiting'
+  return if rc.state isnt 'waiting' and rc.state isnt 'canceled'
 
-  Offline.trigger 'reconnect:connecting'
-  rc.state = 'connecting'
+  if (rc.state is 'canceled')
+    reset()
 
-  Offline.check()
+    rc.state = 'waiting'
+
+    Offline.trigger 'reconnect:started'
+    retryIntv = setInterval tick, 1000
+  else
+    Offline.trigger 'reconnect:connecting'
+    rc.state = 'connecting'
+
+    Offline.check()
+
+cancel = ->
+
+  if retryIntv?
+    clearInterval retryIntv
+
+  reset()
+
+  rc.state = 'canceled'
+  Offline.trigger 'reconnect:canceled'
 
 down = ->
   return unless Offline.getOption('reconnect')
@@ -39,7 +57,7 @@ down = ->
   reset()
 
   rc.state = 'waiting'
-  
+
   Offline.trigger 'reconnect:started'
   retryIntv = setInterval tick, 1000
 
@@ -58,6 +76,7 @@ nope = ->
     next()
 
 rc.tryNow = tryNow
+rc.cancel = cancel
 
 reset()
 

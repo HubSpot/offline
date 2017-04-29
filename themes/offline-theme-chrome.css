@@ -1,7 +1,7 @@
 /* line 4, ../sass/_offline-theme-base.sass */
 .offline-ui, .offline-ui *, .offline-ui:before, .offline-ui:after, .offline-ui *:before, .offline-ui *:after {
-  -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -9,7 +9,7 @@
 .offline-ui {
   display: none;
   position: fixed;
-  background: white;
+  background: #fff;
   z-index: 2000;
   margin: auto;
   top: 0;
@@ -21,35 +21,73 @@
   display: inline;
 }
 /* line 20, ../sass/_offline-theme-base.sass */
-.offline-ui .offline-ui-retry {
+.offline-ui .offline-ui-cancel {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+}
+/* line 27, ../sass/_offline-theme-base.sass */
+.offline-ui .offline-ui-cancel::before, .offline-ui .offline-ui-cancel::after {
+  content: "";
+  position: absolute;
+  height: 1px;
+  width: 14px;
+  top: 50%;
+  left: 50%;
+  margin-left: -7px;
+  border-radius: 2px;
+}
+/* line 37, ../sass/_offline-theme-base.sass */
+.offline-ui .offline-ui-cancel::before {
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+/* line 40, ../sass/_offline-theme-base.sass */
+.offline-ui .offline-ui-cancel::after {
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+/* line 43, ../sass/_offline-theme-base.sass */
+.offline-ui .offline-ui-retry, .offline-ui .offline-ui-cancel {
+  -moz-user-select: -moz-none;
+  -ms-user-select: none;
   -webkit-user-select: none;
-  -moz-user-select: none;
   user-select: none;
   display: none;
 }
-/* line 24, ../sass/_offline-theme-base.sass */
-.offline-ui .offline-ui-retry:before {
+/* line 47, ../sass/_offline-theme-base.sass */
+.offline-ui .offline-ui-retry:before, .offline-ui .offline-ui-cancel:before {
   display: inline;
 }
-/* line 29, ../sass/_offline-theme-base.sass */
+/* line 52, ../sass/_offline-theme-base.sass */
 .offline-ui.offline-ui-up.offline-ui-up-5s {
   display: block;
 }
-/* line 32, ../sass/_offline-theme-base.sass */
+/* line 55, ../sass/_offline-theme-base.sass */
 .offline-ui.offline-ui-down {
   display: block;
 }
-/* line 37, ../sass/_offline-theme-base.sass */
-.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-retry {
+/* line 60, ../sass/_offline-theme-base.sass */
+.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-retry, .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-cancel {
   display: block;
 }
-/* line 42, ../sass/_offline-theme-base.sass */
-.offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s.offline-ui-waiting .offline-ui-retry {
+/* line 65, ../sass/_offline-theme-base.sass */
+.offline-ui.offline-ui-down.offline-ui-reconnect-canceled .offline-ui-retry {
+  display: block;
+  right: 1em;
+}
+/* line 71, ../sass/_offline-theme-base.sass */
+.offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s.offline-ui-waiting .offline-ui-retry, .offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s.offline-ui-waiting .offline-ui-cancel {
   display: none;
 }
 
 @-webkit-keyframes offline-dropin {
-  /* line 40, ../sass/_keyframes.sass */
   0% {
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -58,8 +96,6 @@
     -o-transform: translateY(0);
     opacity: 0;
   }
-
-  /* line 43, ../sass/_keyframes.sass */
   1% {
     transform: translateY(-800px);
     -webkit-transform: translateY(-800px);
@@ -68,8 +104,6 @@
     -o-transform: translateY(-800px);
     opacity: 0;
   }
-
-  /* line 48, ../sass/_keyframes.sass */
   2% {
     transform: translateY(-800px);
     -webkit-transform: translateY(-800px);
@@ -78,8 +112,6 @@
     -o-transform: translateY(-800px);
     opacity: 1;
   }
-
-  /* line 51, ../sass/_keyframes.sass */
   100% {
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -89,9 +121,7 @@
     opacity: 1;
   }
 }
-
 @-moz-keyframes offline-dropin {
-  /* line 40, ../sass/_keyframes.sass */
   0% {
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -100,8 +130,6 @@
     -o-transform: translateY(0);
     opacity: 0;
   }
-
-  /* line 43, ../sass/_keyframes.sass */
   1% {
     transform: translateY(-800px);
     -webkit-transform: translateY(-800px);
@@ -110,8 +138,6 @@
     -o-transform: translateY(-800px);
     opacity: 0;
   }
-
-  /* line 48, ../sass/_keyframes.sass */
   2% {
     transform: translateY(-800px);
     -webkit-transform: translateY(-800px);
@@ -120,8 +146,6 @@
     -o-transform: translateY(-800px);
     opacity: 1;
   }
-
-  /* line 51, ../sass/_keyframes.sass */
   100% {
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -131,9 +155,7 @@
     opacity: 1;
   }
 }
-
 @-ms-keyframes offline-dropin {
-  /* line 40, ../sass/_keyframes.sass */
   0% {
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -142,8 +164,6 @@
     -o-transform: translateY(0);
     opacity: 0;
   }
-
-  /* line 43, ../sass/_keyframes.sass */
   1% {
     transform: translateY(-800px);
     -webkit-transform: translateY(-800px);
@@ -152,8 +172,6 @@
     -o-transform: translateY(-800px);
     opacity: 0;
   }
-
-  /* line 48, ../sass/_keyframes.sass */
   2% {
     transform: translateY(-800px);
     -webkit-transform: translateY(-800px);
@@ -162,8 +180,6 @@
     -o-transform: translateY(-800px);
     opacity: 1;
   }
-
-  /* line 51, ../sass/_keyframes.sass */
   100% {
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -173,9 +189,7 @@
     opacity: 1;
   }
 }
-
 @-o-keyframes offline-dropin {
-  /* line 40, ../sass/_keyframes.sass */
   0% {
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -184,8 +198,6 @@
     -o-transform: translateY(0);
     opacity: 0;
   }
-
-  /* line 43, ../sass/_keyframes.sass */
   1% {
     transform: translateY(-800px);
     -webkit-transform: translateY(-800px);
@@ -194,8 +206,6 @@
     -o-transform: translateY(-800px);
     opacity: 0;
   }
-
-  /* line 48, ../sass/_keyframes.sass */
   2% {
     transform: translateY(-800px);
     -webkit-transform: translateY(-800px);
@@ -204,8 +214,6 @@
     -o-transform: translateY(-800px);
     opacity: 1;
   }
-
-  /* line 51, ../sass/_keyframes.sass */
   100% {
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -215,9 +223,7 @@
     opacity: 1;
   }
 }
-
 @keyframes offline-dropin {
-  /* line 40, ../sass/_keyframes.sass */
   0% {
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -226,8 +232,6 @@
     -o-transform: translateY(0);
     opacity: 0;
   }
-
-  /* line 43, ../sass/_keyframes.sass */
   1% {
     transform: translateY(-800px);
     -webkit-transform: translateY(-800px);
@@ -236,8 +240,6 @@
     -o-transform: translateY(-800px);
     opacity: 0;
   }
-
-  /* line 48, ../sass/_keyframes.sass */
   2% {
     transform: translateY(-800px);
     -webkit-transform: translateY(-800px);
@@ -246,8 +248,6 @@
     -o-transform: translateY(-800px);
     opacity: 1;
   }
-
-  /* line 51, ../sass/_keyframes.sass */
   100% {
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -257,9 +257,7 @@
     opacity: 1;
   }
 }
-
 @-webkit-keyframes offline-dropout {
-  /* line 57, ../sass/_keyframes.sass */
   0% {
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -267,8 +265,6 @@
     -ms-transform: translateY(0);
     -o-transform: translateY(0);
   }
-
-  /* line 59, ../sass/_keyframes.sass */
   100% {
     transform: translateY(-800px);
     -webkit-transform: translateY(-800px);
@@ -277,9 +273,7 @@
     -o-transform: translateY(-800px);
   }
 }
-
 @-moz-keyframes offline-dropout {
-  /* line 57, ../sass/_keyframes.sass */
   0% {
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -287,8 +281,6 @@
     -ms-transform: translateY(0);
     -o-transform: translateY(0);
   }
-
-  /* line 59, ../sass/_keyframes.sass */
   100% {
     transform: translateY(-800px);
     -webkit-transform: translateY(-800px);
@@ -297,9 +289,7 @@
     -o-transform: translateY(-800px);
   }
 }
-
 @-ms-keyframes offline-dropout {
-  /* line 57, ../sass/_keyframes.sass */
   0% {
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -307,8 +297,6 @@
     -ms-transform: translateY(0);
     -o-transform: translateY(0);
   }
-
-  /* line 59, ../sass/_keyframes.sass */
   100% {
     transform: translateY(-800px);
     -webkit-transform: translateY(-800px);
@@ -317,9 +305,7 @@
     -o-transform: translateY(-800px);
   }
 }
-
 @-o-keyframes offline-dropout {
-  /* line 57, ../sass/_keyframes.sass */
   0% {
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -327,8 +313,6 @@
     -ms-transform: translateY(0);
     -o-transform: translateY(0);
   }
-
-  /* line 59, ../sass/_keyframes.sass */
   100% {
     transform: translateY(-800px);
     -webkit-transform: translateY(-800px);
@@ -337,9 +321,7 @@
     -o-transform: translateY(-800px);
   }
 }
-
 @keyframes offline-dropout {
-  /* line 57, ../sass/_keyframes.sass */
   0% {
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -347,8 +329,6 @@
     -ms-transform: translateY(0);
     -o-transform: translateY(0);
   }
-
-  /* line 59, ../sass/_keyframes.sass */
   100% {
     transform: translateY(-800px);
     -webkit-transform: translateY(-800px);
@@ -357,9 +337,7 @@
     -o-transform: translateY(-800px);
   }
 }
-
 @-webkit-keyframes offline-rotation {
-  /* line 64, ../sass/_keyframes.sass */
   0% {
     transform: rotate(0deg);
     -webkit-transform: rotate(0deg);
@@ -367,8 +345,6 @@
     -ms-transform: rotate(0deg);
     -o-transform: rotate(0deg);
   }
-
-  /* line 66, ../sass/_keyframes.sass */
   100% {
     transform: rotate(359deg);
     -webkit-transform: rotate(359deg);
@@ -377,9 +353,7 @@
     -o-transform: rotate(359deg);
   }
 }
-
 @-moz-keyframes offline-rotation {
-  /* line 64, ../sass/_keyframes.sass */
   0% {
     transform: rotate(0deg);
     -webkit-transform: rotate(0deg);
@@ -387,8 +361,6 @@
     -ms-transform: rotate(0deg);
     -o-transform: rotate(0deg);
   }
-
-  /* line 66, ../sass/_keyframes.sass */
   100% {
     transform: rotate(359deg);
     -webkit-transform: rotate(359deg);
@@ -397,9 +369,7 @@
     -o-transform: rotate(359deg);
   }
 }
-
 @-ms-keyframes offline-rotation {
-  /* line 64, ../sass/_keyframes.sass */
   0% {
     transform: rotate(0deg);
     -webkit-transform: rotate(0deg);
@@ -407,8 +377,6 @@
     -ms-transform: rotate(0deg);
     -o-transform: rotate(0deg);
   }
-
-  /* line 66, ../sass/_keyframes.sass */
   100% {
     transform: rotate(359deg);
     -webkit-transform: rotate(359deg);
@@ -417,9 +385,7 @@
     -o-transform: rotate(359deg);
   }
 }
-
 @-o-keyframes offline-rotation {
-  /* line 64, ../sass/_keyframes.sass */
   0% {
     transform: rotate(0deg);
     -webkit-transform: rotate(0deg);
@@ -427,8 +393,6 @@
     -ms-transform: rotate(0deg);
     -o-transform: rotate(0deg);
   }
-
-  /* line 66, ../sass/_keyframes.sass */
   100% {
     transform: rotate(359deg);
     -webkit-transform: rotate(359deg);
@@ -437,9 +401,7 @@
     -o-transform: rotate(359deg);
   }
 }
-
 @keyframes offline-rotation {
-  /* line 64, ../sass/_keyframes.sass */
   0% {
     transform: rotate(0deg);
     -webkit-transform: rotate(0deg);
@@ -447,8 +409,6 @@
     -ms-transform: rotate(0deg);
     -o-transform: rotate(0deg);
   }
-
-  /* line 66, ../sass/_keyframes.sass */
   100% {
     transform: rotate(359deg);
     -webkit-transform: rotate(359deg);
@@ -457,19 +417,18 @@
     -o-transform: rotate(359deg);
   }
 }
-
 /* line 16, ../sass/offline-theme-chrome.sass */
 .offline-ui {
-  -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15), 0 0 1em rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15), 0 0 1em rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15), 0 0 1em rgba(0, 0, 0, 0.3);
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15), 0 0 1em rgba(0, 0, 0, 0.3);
   font-family: "Lucida Grande", sans-serif;
   font-size: 14px;
   padding: 1em;
-  width: 38em;
+  width: 42em;
   max-width: 100%;
   background: #f6f6f6;
-  color: #444444;
+  color: #444;
   overflow: hidden;
 }
 /* line 27, ../sass/offline-theme-chrome.sass */
@@ -482,10 +441,8 @@
 }
 /* line 33, ../sass/offline-theme-chrome.sass */
 .offline-ui .offline-ui-content:after {
-  -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
+  -webkit-border-radius: 50%;
   border-radius: 50%;
   content: " ";
   display: block;
@@ -498,22 +455,20 @@
   width: 1em;
 }
 /* line 45, ../sass/offline-theme-chrome.sass */
-.offline-ui .offline-ui-retry {
-  -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08), inset 0 1px 2px rgba(255, 255, 255, 0.75);
+.offline-ui .offline-ui-retry, .offline-ui .offline-ui-cancel {
   -moz-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08), inset 0 1px 2px rgba(255, 255, 255, 0.75);
+  -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08), inset 0 1px 2px rgba(255, 255, 255, 0.75);
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08), inset 0 1px 2px rgba(255, 255, 255, 0.75);
-  -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
-  -ms-border-radius: 2px;
-  -o-border-radius: 2px;
+  -webkit-border-radius: 2px;
   border-radius: 2px;
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjAuMCIgeDI9IjAuNSIgeTI9IjEuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2VkZWRlZCIvPjxzdG9wIG9mZnNldD0iMzglIiBzdG9wLWNvbG9yPSIjZWRlZGVkIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZGVkZWRlIi8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNncmFkKSIgLz48L3N2Zz4g');
+  background-size: 100%;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ededed), color-stop(38%, #ededed), color-stop(100%, #dedede));
-  background-image: -webkit-linear-gradient(#ededed, #ededed 38%, #dedede);
   background-image: -moz-linear-gradient(#ededed, #ededed 38%, #dedede);
-  background-image: -o-linear-gradient(#ededed, #ededed 38%, #dedede);
+  background-image: -webkit-linear-gradient(#ededed, #ededed 38%, #dedede);
   background-image: linear-gradient(#ededed, #ededed 38%, #dedede);
   position: absolute;
-  right: 4em;
   top: 1em;
   bottom: 1em;
   border: 1px solid rgba(0, 0, 0, 0.25);
@@ -526,7 +481,20 @@
   text-decoration: none;
   color: inherit;
 }
-/* line 63, ../sass/offline-theme-chrome.sass */
+/* line 62, ../sass/offline-theme-chrome.sass */
+.offline-ui .offline-ui-cancel {
+  right: 3em;
+  padding: 0;
+}
+/* line 65, ../sass/offline-theme-chrome.sass */
+.offline-ui .offline-ui-cancel::before, .offline-ui .offline-ui-cancel::after {
+  background: #444;
+}
+/* line 68, ../sass/offline-theme-chrome.sass */
+.offline-ui .offline-ui-retry {
+  right: 8em;
+}
+/* line 71, ../sass/offline-theme-chrome.sass */
 .offline-ui.offline-ui-up {
   -webkit-animation: offline-dropout forwards 0.5s 2s;
   -moz-animation: offline-dropout forwards 0.5s 2s;
@@ -535,11 +503,11 @@
   animation: offline-dropout forwards 0.5s 2s;
   -webkit-backface-visibility: hidden;
 }
-/* line 66, ../sass/offline-theme-chrome.sass */
+/* line 74, ../sass/offline-theme-chrome.sass */
 .offline-ui.offline-ui-up .offline-ui-content:after {
   background: #80d580;
 }
-/* line 69, ../sass/offline-theme-chrome.sass */
+/* line 77, ../sass/offline-theme-chrome.sass */
 .offline-ui.offline-ui-down {
   -webkit-animation: offline-dropin 0.5s;
   -moz-animation: offline-dropin 0.5s;
@@ -548,19 +516,19 @@
   animation: offline-dropin 0.5s;
   -webkit-backface-visibility: hidden;
 }
-/* line 72, ../sass/offline-theme-chrome.sass */
+/* line 80, ../sass/offline-theme-chrome.sass */
 .offline-ui.offline-ui-down .offline-ui-content:after {
   background: #ec8787;
 }
-/* line 75, ../sass/offline-theme-chrome.sass */
+/* line 83, ../sass/offline-theme-chrome.sass */
 .offline-ui.offline-ui-down.offline-ui-connecting, .offline-ui.offline-ui-down.offline-ui-waiting {
   padding-right: 3em;
 }
-/* line 78, ../sass/offline-theme-chrome.sass */
+/* line 86, ../sass/offline-theme-chrome.sass */
 .offline-ui.offline-ui-down.offline-ui-connecting .offline-ui-content:after, .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content:after {
   background: #ec8787;
 }
-/* line 81, ../sass/offline-theme-chrome.sass */
+/* line 89, ../sass/offline-theme-chrome.sass */
 .offline-ui.offline-ui-down.offline-ui-connecting:after, .offline-ui.offline-ui-down.offline-ui-waiting:after {
   -webkit-animation: offline-rotation 0.7s linear infinite;
   -moz-animation: offline-rotation 0.7s linear infinite;
@@ -568,10 +536,8 @@
   -o-animation: offline-rotation 0.7s linear infinite;
   animation: offline-rotation 0.7s linear infinite;
   -webkit-backface-visibility: hidden;
-  -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
+  -webkit-border-radius: 50%;
   border-radius: 50%;
   content: " ";
   display: block;
@@ -582,16 +548,20 @@
   margin: auto;
   height: 1em;
   width: 1em;
-  border: 2px solid rgba(0, 0, 0, 0);
+  border: 2px solid transparent;
   border-top-color: rgba(0, 0, 0, 0.5);
   border-left-color: rgba(0, 0, 0, 0.5);
   opacity: 0.7;
 }
-/* line 98, ../sass/offline-theme-chrome.sass */
+/* line 106, ../sass/offline-theme-chrome.sass */
 .offline-ui.offline-ui-down.offline-ui-waiting {
-  padding-right: 11em;
+  padding-right: 15em;
 }
-/* line 101, ../sass/offline-theme-chrome.sass */
+/* line 109, ../sass/offline-theme-chrome.sass */
 .offline-ui.offline-ui-down.offline-ui-waiting.offline-ui-reconnect-failed-2s {
   padding-right: 0;
+}
+/* line 112, ../sass/offline-theme-chrome.sass */
+.offline-ui.offline-ui-down.offline-ui-reconnect-canceled {
+  padding-right: 11em;
 }

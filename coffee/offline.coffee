@@ -63,7 +63,7 @@ Offline.getOption = (key) ->
 # In Chrome they mean that the internet connection was lost or restored
 window.addEventListener? 'online', ->
   # The event fires slightly before the browser is ready to make a request
-  setTimeout Offline.confirmUp, 100
+  (Offline.reconnect.state isnt 'canceled')? setTimeout Offline.confirmUp, 100
 , false
 
 window.addEventListener? 'offline', ->
@@ -115,7 +115,7 @@ Offline.off = (event, handler) ->
 
 Offline.trigger = (event) ->
   if handlers[event]?
-    # we have to make a copy of the handlers since its possible that the called functions will modify the handlers array by calling off/on 
+    # we have to make a copy of the handlers since its possible that the called functions will modify the handlers array by calling off/on
     for [ctx, handler] in handlers[event][..]
       handler.call(ctx)
 

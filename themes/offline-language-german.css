@@ -10,7 +10,7 @@
 @media (max-width: 1024px) {
   /* line 11, ../sass/_content.sass */
   .offline-ui.offline-ui-up .offline-ui-content:before {
-    content: "Dein Gerät ist mit dem Internet verbunden.";
+    content: "Deing Gerät ist mit dem Internet verbunden.";
   }
 }
 @media (max-width: 568px) {
