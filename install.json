@@ -43,7 +43,6 @@
           "arabic",
           "chinese-simplified",
           "chinese-traditional",
-          "czech"
           "dutch",
           "english",
           "french",
@@ -53,7 +52,7 @@
           "polish",
           "portuguese-brazil",
           "spanish",
-          "turkish",
+          "turkish"
         ],
         "enumNames": {
           "arabic": "Arabic",
@@ -66,10 +65,10 @@
           "german": "German",
           "italian": "Italian",
           "pashto": "Pashto",
+          "polish": "Polish",
           "portuguese-brazil": "Brazilian Portuguese",
           "spanish": "Spanish",
-          "turkish": "Turkish",
-          "polish": "Polish"
+          "turkish": "Turkish"
         },
         "default": "english"
       },
