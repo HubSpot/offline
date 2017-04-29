@@ -40,6 +40,8 @@
         "description": "The language of the message displayed to the user when connectivity is lost or regained.",
         "type": "string",
         "enum": [
+          "chinese-simplified",
+          "chinese-traditional",
           "dutch",
           "english",
           "french",
@@ -50,6 +52,8 @@
           "turkish"
         ],
         "enumNames": {
+          "chinese-simplified": "Simplified Chinese",
+          "chinese-traditional": "Traditional Chinese",
           "dutch": "Dutch",
           "english": "English",
           "french": "French",
