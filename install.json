@@ -50,7 +50,8 @@
           "simplified-chinese",
           "spanish",
           "italian",
-          "turkish"
+          "turkish",
+          "polish"
         ],
         "enumNames": {
           "chinese-simplified": "Simplified Chinese",
@@ -63,7 +64,8 @@
           "simplified-chinese": "Simplified Chinese",
           "spanish": "Spanish",
           "italian": "Italian",
-          "turkish": "Turkish"
+          "turkish": "Turkish",
+          "polish": "Polish"
         },
         "default": "english"
       },
