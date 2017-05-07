@@ -12,6 +12,7 @@
   },
   "main": "offline.js",
   "license": "MIT",
+  "main": "offline.min.js",
   "devDependencies": {
     "coffee-script": "^1.9.3",
     "color": "^0.9.0",
