@@ -41,7 +41,7 @@
 }
 /* line 42, ../sass/_content.sass */
 .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"]:before {
-  content: "Conexão perdida. reconectando em " attr(data-retry-in-value) " segundos...";
+  content: "Conexão perdida. Reconectando em " attr(data-retry-in-value) " segundos...";
 }
 @media (max-width: 568px) {
   /* line 42, ../sass/_content.sass */
@@ -51,7 +51,7 @@
 }
 /* line 50, ../sass/_content.sass */
 .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"][data-retry-in-value="1"]:before {
-  content: "Conexão perdida. reconectando em " attr(data-retry-in-value) " segundo...";
+  content: "Conexão perdida. Reconectando em " attr(data-retry-in-value) " segundo...";
 }
 @media (max-width: 568px) {
   /* line 50, ../sass/_content.sass */
@@ -61,7 +61,7 @@
 }
 /* line 58, ../sass/_content.sass */
 .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"]:before {
-  content: "Conexão perdida. reconectando em " attr(data-retry-in-value) " minutos...";
+  content: "Conexão perdida. Reconectando em " attr(data-retry-in-value) " minutos...";
 }
 @media (max-width: 568px) {
   /* line 58, ../sass/_content.sass */
@@ -71,7 +71,7 @@
 }
 /* line 66, ../sass/_content.sass */
 .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"][data-retry-in-value="1"]:before {
-  content: "Conexão perdida. reconectando em " attr(data-retry-in-value) " minuto...";
+  content: "Conexão perdida. Reconectando em " attr(data-retry-in-value) " minuto...";
 }
 @media (max-width: 568px) {
   /* line 66, ../sass/_content.sass */
@@ -81,7 +81,7 @@
 }
 /* line 74, ../sass/_content.sass */
 .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"]:before {
-  content: "Conexão perdida. reconectando em " attr(data-retry-in-value) " horas...";
+  content: "Conexão perdida. Reconectando em " attr(data-retry-in-value) " horas...";
 }
 @media (max-width: 568px) {
   /* line 74, ../sass/_content.sass */
@@ -91,7 +91,7 @@
 }
 /* line 82, ../sass/_content.sass */
 .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"][data-retry-in-value="1"]:before {
-  content: "Conexão perdida. reconectando em " attr(data-retry-in-value) " hora...";
+  content: "Conexão perdida. Reconectando em " attr(data-retry-in-value) " hora...";
 }
 @media (max-width: 568px) {
   /* line 82, ../sass/_content.sass */
