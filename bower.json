@@ -28,7 +28,6 @@
     "bower_components",
     "coffee",
     "docs",
-    "js",
     "test",
     "bower.json",
     "package.json"
