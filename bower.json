@@ -28,7 +28,8 @@
     "bower_components",
     "coffee",
     "docs",
-    "js",
+    "js/*",
+    "!js/snake.js",
     "test",
     "bower.json",
     "package.json"
