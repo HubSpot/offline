@@ -1,4 +1,4 @@
-/*! offline-js 0.7.18 */
+/*! offline-js 0.7.19 */
 (function() {
   var Offline, checkXHR, defaultOptions, extendNative, grab, handlers, init;
   extendNative = function(to, from) {
