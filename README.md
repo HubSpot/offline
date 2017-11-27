@@ -2,9 +2,12 @@ ___
 
 **This project isn't actively maintained.**
 ___
-
 Offline
 ======
+
+|Issues|Forks|Stars|Licence|Releases|Latest Commit|
+|:----:|:---:|:---:|:-----:|:------:|:-----------:|
+|[![GitHub issues](https://img.shields.io/github/issues/HubSpot/offline.svg)](https://github.com/HubSpot/offline/issues)|[![GitHub forks](https://img.shields.io/github/forks/HubSpot/offline.svg)](https://github.com/HubSpot/offline/network)|[![GitHub stars](https://img.shields.io/github/stars/HubSpot/offline.svg)](https://github.com/HubSpot/offline/stargazers)|[![GitHub license](https://img.shields.io/github/license/HubSpot/offline.svg)](https://github.com/HubSpot/offline/blob/master/LICENSE)|[![GitHub release](https://img.shields.io/github/release/HubSpot/offline.svg)](https://github.com/HubSpot/offline/releases)|[![GitHub last commit](https://img.shields.io/github/last-commit/HubSpot/offline.svg)](https://github.com/HubSpot/offline/releases/commits/master)|
 
 **Note to users pre-0.6.0:  Offline previously used a cloudfront hosted file as one of it's methods of detecting the connection status.  This method is now deprecated and the image has been removed.  Please upgrade to Offline 0.7.0+.**
 
