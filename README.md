@@ -1,6 +1,6 @@
 ___
 
-**This project isn't actively maintained.**
+**This project isn't actively maintained by us but we're open to someone picking it up.**
 ___
 
 Offline
