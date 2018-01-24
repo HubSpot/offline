@@ -105,5 +105,6 @@
 }
 /* line 93, ../sass/_content.sass */
 .offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s .offline-ui-content:before {
-  content: "Yhteyden muodostaminen epäonnistui.";
+  content: "Yhteyden muodostaminen ei onnistunut.";
 }
+
