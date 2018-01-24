@@ -1,14 +1,15 @@
 {
-  "name": "offline-js",
-  "version": "0.7.19",
+  "name": "offline2",
+  "version": "2.0.2",
   "description": "Automatically detect when a browser is offline",
   "authors": [
     "Adam Schwartz <adam.flynn.schwartz@gmail.com>",
-    "Zack Bloom <zackbloom@gmail.com>"
+    "Zack Bloom <zackbloom@gmail.com>",
+    "Stepan Suvorov <stepan@studytube.nl>"
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/HubSpot/offline.git"
+    "url": "git://github.com/StudyTube/offline2"
   },
   "main": "offline.js",
   "license": "MIT",
