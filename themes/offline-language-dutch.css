@@ -9,29 +9,29 @@
 @media (max-width: 1024px) {
   /* line 11, ../sass/_content.sass */
   .offline-ui.offline-ui-up .offline-ui-content:before {
-    content: "Apparaat verbonden met internet.";
+    content: "Apparaat verbonden met het internet.";
   }
 }
 @media (max-width: 568px) {
   /* line 11, ../sass/_content.sass */
   .offline-ui.offline-ui-up .offline-ui-content:before {
-    content: "Apparaat verbonden met internet.";
+    content: "Apparaat verbonden met het internet.";
   }
 }
 /* line 22, ../sass/_content.sass */
 .offline-ui.offline-ui-down .offline-ui-content:before {
-  content: "Computer niet verbonden met internet.";
+  content: "Computer niet verbonden met het internet.";
 }
 @media (max-width: 1024px) {
   /* line 22, ../sass/_content.sass */
   .offline-ui.offline-ui-down .offline-ui-content:before {
-    content: "Apparaat niet verbonden met internet.";
+    content: "Apparaat niet verbonden met het internet.";
   }
 }
 @media (max-width: 568px) {
   /* line 22, ../sass/_content.sass */
   .offline-ui.offline-ui-down .offline-ui-content:before {
-    content: "Apparaat niet verbonden met internet.";
+    content: "Apparaat niet verbonden met het internet.";
   }
 }
 /* line 33, ../sass/_content.sass */
