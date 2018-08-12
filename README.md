@@ -21,7 +21,11 @@ Installation
 -------------------
 
 Include [the javascript](https://raw.github.com/HubSpot/offline/v0.7.14/offline.min.js), one of [the themes](http://github.hubspot.com/offline/docs/welcome/), and one of [the
-languages](https://github.com/HubSpot/offline/tree/master/themes) on your site.  You're done!
+languages](https://github.com/HubSpot/offline/tree/master/themes) on your site:
+```<link rel="stylesheet" type="text/css" href="offline-language-x.css">
+<link rel="stylesheet" type="text/css" href="offline-theme-x.css">
+<script src="offline.min.js"></script>```
+You're done!
 
 To use only the JavaScript API without a UI indicator, simply leave out the CSS file.
 
