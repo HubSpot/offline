@@ -1,0 +1,109 @@
+/* line 6, ../sass/_content.sass */
+.offline-ui .offline-ui-retry:before {
+    content: "Ponovo spojiti";
+  }
+  /* line 11, ../sass/_content.sass */
+  .offline-ui.offline-ui-up .offline-ui-content:before {
+    content: "Vaše računalo je povezano s internetom.";
+  }
+  @media (max-width: 1024px) {
+    /* line 11, ../sass/_content.sass */
+    .offline-ui.offline-ui-up .offline-ui-content:before {
+      content: "Vaš uređaj je povezan s internetom.";
+    }
+  }
+  @media (max-width: 568px) {
+    /* line 11, ../sass/_content.sass */
+    .offline-ui.offline-ui-up .offline-ui-content:before {
+      content: "Vaš uređaj je povezan.";
+    }
+  }
+  /* line 22, ../sass/_content.sass */
+  .offline-ui.offline-ui-down .offline-ui-content:before {
+    content: "Vaše računalo je izgubilo internetsku vezu.";
+  }
+  @media (max-width: 1024px) {
+    /* line 22, ../sass/_content.sass */
+    .offline-ui.offline-ui-down .offline-ui-content:before {
+      content: "Vaš uređaj je izgubio internetsku vezu.";
+    }
+  }
+  @media (max-width: 568px) {
+    /* line 22, ../sass/_content.sass */
+    .offline-ui.offline-ui-down .offline-ui-content:before {
+      content: "Vaš uređaj nije povezan.";
+    }
+  }
+  /* line 33, ../sass/_content.sass */
+  .offline-ui.offline-ui-down.offline-ui-connecting .offline-ui-content:before, .offline-ui.offline-ui-down.offline-ui-connecting-2s .offline-ui-content:before {
+    content: "Pokušaj ponovnog povezivanja...";
+  }
+  /* line 42, ../sass/_content.sass */
+  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"]:before {
+    content: "Veza izgubljena. Ponovno povezivanje za " attr(data-retry-in-value) "s...";
+  }
+  @media (max-width: 568px) {
+    /* line 42, ../sass/_content.sass */
+    .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"]:before {
+      content: "Ponovno povezivanje za " attr(data-retry-in-value) "s...";
+    }
+  }
+  /* line 50, ../sass/_content.sass */
+  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"][data-retry-in-value="1"]:before {
+    content: "Veza izgubljena. Ponovno povezivanje za " attr(data-retry-in-value) "s...";
+  }
+  @media (max-width: 568px) {
+    /* line 50, ../sass/_content.sass */
+    .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"][data-retry-in-value="1"]:before {
+      content: "Ponovno povezivanje za " attr(data-retry-in-value) "s...";
+    }
+  }
+  /* line 58, ../sass/_content.sass */
+  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"]:before {
+    content: "Veza izgubljena. Ponovno povezivanje za " attr(data-retry-in-value) "m...";
+  }
+  @media (max-width: 568px) {
+    /* line 58, ../sass/_content.sass */
+    .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"]:before {
+      content: "Ponovno povezivanje za " attr(data-retry-in-value) "m...";
+    }
+  }
+  /* line 66, ../sass/_content.sass */
+  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"][data-retry-in-value="1"]:before {
+    content: "Veza izgubljena. Ponovno povezivanje za " attr(data-retry-in-value) "m...";
+  }
+  @media (max-width: 568px) {
+    /* line 66, ../sass/_content.sass */
+    .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"][data-retry-in-value="1"]:before {
+      content: "Ponovno povezivanje za " attr(data-retry-in-value) "m...";
+    }
+  }
+  /* line 74, ../sass/_content.sass */
+  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"]:before {
+    content: "Veza izgubljena. Ponovno povezivanje za " attr(data-retry-in-value) "h...";
+  }
+  @media (max-width: 568px) {
+    /* line 74, ../sass/_content.sass */
+    .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"]:before {
+      content: "Ponovno povezivanje za " attr(data-retry-in-value) "h...";
+    }
+  }
+  /* line 82, ../sass/_content.sass */
+  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"][data-retry-in-value="1"]:before {
+    content: "Veza izgubljena. Ponovno povezivanje za " attr(data-retry-in-value) "h...";
+  }
+  @media (max-width: 568px) {
+    /* line 82, ../sass/_content.sass */
+    .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"][data-retry-in-value="1"]:before {
+      content: "Ponovno povezivanje za " attr(data-retry-in-value) "h...";
+    }
+  }
+  /* line 90, ../sass/_content.sass */
+  .offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s.offline-ui-waiting .offline-ui-retry {
+    display: none;
+  }
+  /* line 93, ../sass/_content.sass */
+  .offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s .offline-ui-content:before {
+    content: "Pokušaj povezivanja nije uspio.";
+  }
+  
