@@ -1,120 +1,100 @@
 /* line 6, ../sass/_content.sass */
 .offline-ui .offline-ui-retry:before {
-    /* content: "Reconnect"; */
     content: "Ponovo spojiti";
   }
   /* line 11, ../sass/_content.sass */
   .offline-ui.offline-ui-up .offline-ui-content:before {
-    /* content: "Your computer is connected to the internet."; */
-    content: "Vaše je računalo povezano s internetom.";
+    content: "Vaše računalo je povezano s internetom.";
   }
   @media (max-width: 1024px) {
     /* line 11, ../sass/_content.sass */
     .offline-ui.offline-ui-up .offline-ui-content:before {
-      /* content: "Your device is connected to the internet."; */
-      content: "Vaš je uređaj povezan s internetom.";
+      content: "Vaš uređaj je povezan s internetom.";
     }
   }
   @media (max-width: 568px) {
     /* line 11, ../sass/_content.sass */
     .offline-ui.offline-ui-up .offline-ui-content:before {
-      /* content: "Your device is connected."; */
-      content: "Vaš je uređaj povezan.";
+      content: "Vaš uređaj je povezan.";
     }
   }
   /* line 22, ../sass/_content.sass */
   .offline-ui.offline-ui-down .offline-ui-content:before {
-    /* content: "Your computer lost its internet connection."; */
-    content: "Vaše je računalo izgubilo internetsku vezu.";
+    content: "Vaše računalo je izgubilo internetsku vezu.";
   }
   @media (max-width: 1024px) {
     /* line 22, ../sass/_content.sass */
     .offline-ui.offline-ui-down .offline-ui-content:before {
-      /* content: "Your device lost its internet connection."; */
-      content: "Vaš je uređaj izgubio internetsku vezu.";
+      content: "Vaš uređaj je izgubio internetsku vezu.";
     }
   }
   @media (max-width: 568px) {
     /* line 22, ../sass/_content.sass */
     .offline-ui.offline-ui-down .offline-ui-content:before {
-      /* content: "Your device isn't connected."; */
       content: "Vaš uređaj nije povezan.";
     }
   }
   /* line 33, ../sass/_content.sass */
   .offline-ui.offline-ui-down.offline-ui-connecting .offline-ui-content:before, .offline-ui.offline-ui-down.offline-ui-connecting-2s .offline-ui-content:before {
-    /* content: "Attempting to reconnect..."; */
     content: "Pokušaj ponovnog povezivanja...";
   }
   /* line 42, ../sass/_content.sass */
   .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"]:before {
-    /* content: "Connection lost. Reconnecting in " attr(data-retry-in-value) " seconds..."; */
     content: "Veza izgubljena. Ponovno povezivanje za " attr(data-retry-in-value) "s...";
   }
   @media (max-width: 568px) {
     /* line 42, ../sass/_content.sass */
     .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"]:before {
-      /* content: "Reconnecting in " attr(data-retry-in-value) "s..."; */
       content: "Ponovno povezivanje za " attr(data-retry-in-value) "s...";
     }
   }
   /* line 50, ../sass/_content.sass */
   .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"][data-retry-in-value="1"]:before {
-    /* content: "Connection lost. Reconnecting in " attr(data-retry-in-value) " second..."; */
     content: "Veza izgubljena. Ponovno povezivanje za " attr(data-retry-in-value) "s...";
   }
   @media (max-width: 568px) {
     /* line 50, ../sass/_content.sass */
     .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"][data-retry-in-value="1"]:before {
-      /* content: "Reconnecting in " attr(data-retry-in-value) "s..."; */
       content: "Ponovno povezivanje za " attr(data-retry-in-value) "s...";
     }
   }
   /* line 58, ../sass/_content.sass */
   .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"]:before {
-    /* content: "Connection lost. Reconnecting in " attr(data-retry-in-value) " minutes..."; */
     content: "Veza izgubljena. Ponovno povezivanje za " attr(data-retry-in-value) "m...";
   }
   @media (max-width: 568px) {
     /* line 58, ../sass/_content.sass */
     .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"]:before {
-      /* content: "Reconnecting in " attr(data-retry-in-value) "m..."; */
       content: "Ponovno povezivanje za " attr(data-retry-in-value) "m...";
     }
   }
   /* line 66, ../sass/_content.sass */
   .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"][data-retry-in-value="1"]:before {
-    /* content: "Connection lost. Reconnecting in " attr(data-retry-in-value) " minute..."; */
     content: "Veza izgubljena. Ponovno povezivanje za " attr(data-retry-in-value) "m...";
   }
   @media (max-width: 568px) {
     /* line 66, ../sass/_content.sass */
     .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"][data-retry-in-value="1"]:before {
-      /* content: "Reconnecting in " attr(data-retry-in-value) "m..."; */
       content: "Ponovno povezivanje za " attr(data-retry-in-value) "m...";
     }
   }
   /* line 74, ../sass/_content.sass */
   .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"]:before {
-    /* content: "Connection lost. Reconnecting in " attr(data-retry-in-value) " hours..."; */
     content: "Veza izgubljena. Ponovno povezivanje za " attr(data-retry-in-value) "h...";
   }
   @media (max-width: 568px) {
     /* line 74, ../sass/_content.sass */
     .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"]:before {
-      /* content: "Reconnecting in " attr(data-retry-in-value) "h..."; */
       content: "Ponovno povezivanje za " attr(data-retry-in-value) "h...";
     }
   }
   /* line 82, ../sass/_content.sass */
   .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"][data-retry-in-value="1"]:before {
-    /* content: "Connection lost. Reconnecting in " attr(data-retry-in-value) " hour..."; */
     content: "Veza izgubljena. Ponovno povezivanje za " attr(data-retry-in-value) "h...";
   }
   @media (max-width: 568px) {
     /* line 82, ../sass/_content.sass */
     .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"][data-retry-in-value="1"]:before {
-      /* content: "Reconnecting in " attr(data-retry-in-value) "h..."; */
       content: "Ponovno povezivanje za " attr(data-retry-in-value) "h...";
     }
   }
@@ -124,7 +104,6 @@
   }
   /* line 93, ../sass/_content.sass */
   .offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s .offline-ui-content:before {
-    /* content: "Connection attempt failed."; */
     content: "Pokušaj povezivanja nije uspio.";
   }
   
