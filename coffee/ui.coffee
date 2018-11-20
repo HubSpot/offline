@@ -110,7 +110,7 @@ init = ->
     flashClass 'offline-ui-reconnect-succeeded-2s', 2
     flashClass 'offline-ui-reconnect-succeeded-5s', 5
 
-if document.readyState is 'complete'
+if document.readyState is 'complete' || document.readyState is 'interactive'
   init()
 else if document.addEventListener?
   document.addEventListener 'DOMContentLoaded', init, false
@@ -119,7 +119,7 @@ else
 
   _onreadystatechange = document.onreadystatechange
   document.onreadystatechange = ->
-    if document.readyState is 'complete'
+    if document.readyState is 'complete' || document.readyState is 'interactive'
       init()
 
     _onreadystatechange?(arguments...)

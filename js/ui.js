@@ -120,14 +120,14 @@
     });
   };
 
-  if (document.readyState === 'complete') {
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
     init();
   } else if (document.addEventListener != null) {
     document.addEventListener('DOMContentLoaded', init, false);
   } else {
     _onreadystatechange = document.onreadystatechange;
     document.onreadystatechange = function() {
-      if (document.readyState === 'complete') {
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
         init();
       }
       return typeof _onreadystatechange === "function" ? _onreadystatechange.apply(null, arguments) : void 0;
