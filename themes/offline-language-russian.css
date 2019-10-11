@@ -1,0 +1,108 @@
+/* line 6, ../sass/_content.sass */
+.offline-ui .offline-ui-retry:before {
+  content: "Переподключение";
+}
+/* line 11, ../sass/_content.sass */
+.offline-ui.offline-ui-up .offline-ui-content:before {
+  content: "Ваш компьютер подключён к Интернету.";
+}
+@media (max-width: 1024px) {
+  /* line 11, ../sass/_content.sass */
+  .offline-ui.offline-ui-up .offline-ui-content:before {
+    content: "Ваше устройство подключёно к Интернету.";
+  }
+}
+@media (max-width: 568px) {
+  /* line 11, ../sass/_content.sass */
+  .offline-ui.offline-ui-up .offline-ui-content:before {
+    content: "Ваше устройство подключено.";
+  }
+}
+/* line 22, ../sass/_content.sass */
+.offline-ui.offline-ui-down .offline-ui-content:before {
+  content: "Ваш компьютер потерял подключение к Интернету.";
+}
+@media (max-width: 1024px) {
+  /* line 22, ../sass/_content.sass */
+  .offline-ui.offline-ui-down .offline-ui-content:before {
+    content: "Ваше устройство потеряло подключение к Интернету.";
+  }
+}
+@media (max-width: 568px) {
+  /* line 22, ../sass/_content.sass */
+  .offline-ui.offline-ui-down .offline-ui-content:before {
+    content: "Ваше устройство не подключено.";
+  }
+}
+/* line 33, ../sass/_content.sass */
+.offline-ui.offline-ui-down.offline-ui-connecting .offline-ui-content:before, .offline-ui.offline-ui-down.offline-ui-connecting-2s .offline-ui-content:before {
+  content: "Попытка переподключиться...";
+}
+/* line 42, ../sass/_content.sass */
+.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"]:before {
+  content: "Соединение потеряно. Переподключение через " attr(data-retry-in-value) " секунд...";
+}
+@media (max-width: 568px) {
+  /* line 42, ../sass/_content.sass */
+  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"]:before {
+    content: "Переподключение через " attr(data-retry-in-value) "с...";
+  }
+}
+/* line 50, ../sass/_content.sass */
+.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"][data-retry-in-value="1"]:before {
+  content: "Соединение потеряно. Переподключение через " attr(data-retry-in-value) " секунд...";
+}
+@media (max-width: 568px) {
+  /* line 50, ../sass/_content.sass */
+  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="second"][data-retry-in-value="1"]:before {
+    content: "Переподключение через " attr(data-retry-in-value) "с...";
+  }
+}
+/* line 58, ../sass/_content.sass */
+.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"]:before {
+  content: "Соединение потеряно. Переподключение через " attr(data-retry-in-value) " минут...";
+}
+@media (max-width: 568px) {
+  /* line 58, ../sass/_content.sass */
+  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"]:before {
+    content: "Переподключение через " attr(data-retry-in-value) "м...";
+  }
+}
+/* line 66, ../sass/_content.sass */
+.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"][data-retry-in-value="1"]:before {
+  content: "Соединение потеряно. Переподключение через " attr(data-retry-in-value) " минут...";
+}
+@media (max-width: 568px) {
+  /* line 66, ../sass/_content.sass */
+  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="minute"][data-retry-in-value="1"]:before {
+    content: "Переподключение через " attr(data-retry-in-value) "м...";
+  }
+}
+/* line 74, ../sass/_content.sass */
+.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"]:before {
+  content: "Соединение потеряно. Переподключение через " attr(data-retry-in-value) " часов...";
+}
+@media (max-width: 568px) {
+  /* line 74, ../sass/_content.sass */
+  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"]:before {
+    content: "Переподключение через " attr(data-retry-in-value) "ч...";
+  }
+}
+/* line 82, ../sass/_content.sass */
+.offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"][data-retry-in-value="1"]:before {
+  content: "Соединение потеряно. Переподключение через " attr(data-retry-in-value) " часов...";
+}
+@media (max-width: 568px) {
+  /* line 82, ../sass/_content.sass */
+  .offline-ui.offline-ui-down.offline-ui-waiting .offline-ui-content[data-retry-in-unit="hour"][data-retry-in-value="1"]:before {
+    content: "Переподключение через " attr(data-retry-in-value) "ч...";
+  }
+}
+/* line 90, ../sass/_content.sass */
+.offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s.offline-ui-waiting .offline-ui-retry {
+  display: none;
+}
+/* line 93, ../sass/_content.sass */
+.offline-ui.offline-ui-down.offline-ui-reconnect-failed-2s .offline-ui-content:before {
+  content: "Неудачная попытка подключения.";
+}
