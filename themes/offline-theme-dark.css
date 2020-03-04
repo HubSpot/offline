@@ -1,7 +1,7 @@
 /* line 4, ../sass/_offline-theme-base.sass */
 .offline-ui, .offline-ui *, .offline-ui:before, .offline-ui:after, .offline-ui *:before, .offline-ui *:after {
-  -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -9,7 +9,7 @@
 .offline-ui {
   display: none;
   position: fixed;
-  background: white;
+  background: #fff;
   z-index: 2000;
   margin: auto;
   top: 0;
@@ -22,8 +22,9 @@
 }
 /* line 20, ../sass/_offline-theme-base.sass */
 .offline-ui .offline-ui-retry {
+  -moz-user-select: -moz-none;
+  -ms-user-select: none;
   -webkit-user-select: none;
-  -moz-user-select: none;
   user-select: none;
   display: none;
 }
@@ -49,7 +50,6 @@
 }
 
 @-webkit-keyframes offline-dropin {
-  /* line 40, ../sass/_keyframes.sass */
   0% {
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -58,8 +58,6 @@
     -o-transform: translateY(0);
     opacity: 0;
   }
-
-  /* line 43, ../sass/_keyframes.sass */
   1% {
     transform: translateY(-800px);
     -webkit-transform: translateY(-800px);
@@ -68,8 +66,6 @@
     -o-transform: translateY(-800px);
     opacity: 0;
   }
-
-  /* line 48, ../sass/_keyframes.sass */
   2% {
     transform: translateY(-800px);
     -webkit-transform: translateY(-800px);
@@ -78,8 +74,6 @@
     -o-transform: translateY(-800px);
     opacity: 1;
   }
-
-  /* line 51, ../sass/_keyframes.sass */
   100% {
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -89,9 +83,7 @@
     opacity: 1;
   }
 }
-
 @-moz-keyframes offline-dropin {
-  /* line 40, ../sass/_keyframes.sass */
   0% {
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -100,8 +92,6 @@
     -o-transform: translateY(0);
     opacity: 0;
   }
-
-  /* line 43, ../sass/_keyframes.sass */
   1% {
     transform: translateY(-800px);
     -webkit-transform: translateY(-800px);
@@ -110,8 +100,6 @@
     -o-transform: translateY(-800px);
     opacity: 0;
   }
-
-  /* line 48, ../sass/_keyframes.sass */
   2% {
     transform: translateY(-800px);
     -webkit-transform: translateY(-800px);
@@ -120,8 +108,6 @@
     -o-transform: translateY(-800px);
     opacity: 1;
   }
-
-  /* line 51, ../sass/_keyframes.sass */
   100% {
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -131,9 +117,7 @@
     opacity: 1;
   }
 }
-
 @-ms-keyframes offline-dropin {
-  /* line 40, ../sass/_keyframes.sass */
   0% {
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -142,8 +126,6 @@
     -o-transform: translateY(0);
     opacity: 0;
   }
-
-  /* line 43, ../sass/_keyframes.sass */
   1% {
     transform: translateY(-800px);
     -webkit-transform: translateY(-800px);
@@ -152,8 +134,6 @@
     -o-transform: translateY(-800px);
     opacity: 0;
   }
-
-  /* line 48, ../sass/_keyframes.sass */
   2% {
     transform: translateY(-800px);
     -webkit-transform: translateY(-800px);
@@ -162,8 +142,6 @@
     -o-transform: translateY(-800px);
     opacity: 1;
   }
-
-  /* line 51, ../sass/_keyframes.sass */
   100% {
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -173,9 +151,7 @@
     opacity: 1;
   }
 }
-
 @-o-keyframes offline-dropin {
-  /* line 40, ../sass/_keyframes.sass */
   0% {
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -184,8 +160,6 @@
     -o-transform: translateY(0);
     opacity: 0;
   }
-
-  /* line 43, ../sass/_keyframes.sass */
   1% {
     transform: translateY(-800px);
     -webkit-transform: translateY(-800px);
@@ -194,8 +168,6 @@
     -o-transform: translateY(-800px);
     opacity: 0;
   }
-
-  /* line 48, ../sass/_keyframes.sass */
   2% {
     transform: translateY(-800px);
     -webkit-transform: translateY(-800px);
@@ -204,8 +176,6 @@
     -o-transform: translateY(-800px);
     opacity: 1;
   }
-
-  /* line 51, ../sass/_keyframes.sass */
   100% {
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -215,9 +185,7 @@
     opacity: 1;
   }
 }
-
 @keyframes offline-dropin {
-  /* line 40, ../sass/_keyframes.sass */
   0% {
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -226,8 +194,6 @@
     -o-transform: translateY(0);
     opacity: 0;
   }
-
-  /* line 43, ../sass/_keyframes.sass */
   1% {
     transform: translateY(-800px);
     -webkit-transform: translateY(-800px);
@@ -236,8 +202,6 @@
     -o-transform: translateY(-800px);
     opacity: 0;
   }
-
-  /* line 48, ../sass/_keyframes.sass */
   2% {
     transform: translateY(-800px);
     -webkit-transform: translateY(-800px);
@@ -246,8 +210,6 @@
     -o-transform: translateY(-800px);
     opacity: 1;
   }
-
-  /* line 51, ../sass/_keyframes.sass */
   100% {
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -257,9 +219,7 @@
     opacity: 1;
   }
 }
-
 @-webkit-keyframes offline-dropout {
-  /* line 57, ../sass/_keyframes.sass */
   0% {
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -267,8 +227,6 @@
     -ms-transform: translateY(0);
     -o-transform: translateY(0);
   }
-
-  /* line 59, ../sass/_keyframes.sass */
   100% {
     transform: translateY(-800px);
     -webkit-transform: translateY(-800px);
@@ -277,9 +235,7 @@
     -o-transform: translateY(-800px);
   }
 }
-
 @-moz-keyframes offline-dropout {
-  /* line 57, ../sass/_keyframes.sass */
   0% {
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -287,8 +243,6 @@
     -ms-transform: translateY(0);
     -o-transform: translateY(0);
   }
-
-  /* line 59, ../sass/_keyframes.sass */
   100% {
     transform: translateY(-800px);
     -webkit-transform: translateY(-800px);
@@ -297,9 +251,7 @@
     -o-transform: translateY(-800px);
   }
 }
-
 @-ms-keyframes offline-dropout {
-  /* line 57, ../sass/_keyframes.sass */
   0% {
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -307,8 +259,6 @@
     -ms-transform: translateY(0);
     -o-transform: translateY(0);
   }
-
-  /* line 59, ../sass/_keyframes.sass */
   100% {
     transform: translateY(-800px);
     -webkit-transform: translateY(-800px);
@@ -317,9 +267,7 @@
     -o-transform: translateY(-800px);
   }
 }
-
 @-o-keyframes offline-dropout {
-  /* line 57, ../sass/_keyframes.sass */
   0% {
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -327,8 +275,6 @@
     -ms-transform: translateY(0);
     -o-transform: translateY(0);
   }
-
-  /* line 59, ../sass/_keyframes.sass */
   100% {
     transform: translateY(-800px);
     -webkit-transform: translateY(-800px);
@@ -337,9 +283,7 @@
     -o-transform: translateY(-800px);
   }
 }
-
 @keyframes offline-dropout {
-  /* line 57, ../sass/_keyframes.sass */
   0% {
     transform: translateY(0);
     -webkit-transform: translateY(0);
@@ -347,8 +291,6 @@
     -ms-transform: translateY(0);
     -o-transform: translateY(0);
   }
-
-  /* line 59, ../sass/_keyframes.sass */
   100% {
     transform: translateY(-800px);
     -webkit-transform: translateY(-800px);
@@ -357,9 +299,7 @@
     -o-transform: translateY(-800px);
   }
 }
-
 @-webkit-keyframes offline-rotation {
-  /* line 64, ../sass/_keyframes.sass */
   0% {
     transform: rotate(0deg);
     -webkit-transform: rotate(0deg);
@@ -367,8 +307,6 @@
     -ms-transform: rotate(0deg);
     -o-transform: rotate(0deg);
   }
-
-  /* line 66, ../sass/_keyframes.sass */
   100% {
     transform: rotate(359deg);
     -webkit-transform: rotate(359deg);
@@ -377,9 +315,7 @@
     -o-transform: rotate(359deg);
   }
 }
-
 @-moz-keyframes offline-rotation {
-  /* line 64, ../sass/_keyframes.sass */
   0% {
     transform: rotate(0deg);
     -webkit-transform: rotate(0deg);
@@ -387,8 +323,6 @@
     -ms-transform: rotate(0deg);
     -o-transform: rotate(0deg);
   }
-
-  /* line 66, ../sass/_keyframes.sass */
   100% {
     transform: rotate(359deg);
     -webkit-transform: rotate(359deg);
@@ -397,9 +331,7 @@
     -o-transform: rotate(359deg);
   }
 }
-
 @-ms-keyframes offline-rotation {
-  /* line 64, ../sass/_keyframes.sass */
   0% {
     transform: rotate(0deg);
     -webkit-transform: rotate(0deg);
@@ -407,8 +339,6 @@
     -ms-transform: rotate(0deg);
     -o-transform: rotate(0deg);
   }
-
-  /* line 66, ../sass/_keyframes.sass */
   100% {
     transform: rotate(359deg);
     -webkit-transform: rotate(359deg);
@@ -417,9 +347,7 @@
     -o-transform: rotate(359deg);
   }
 }
-
 @-o-keyframes offline-rotation {
-  /* line 64, ../sass/_keyframes.sass */
   0% {
     transform: rotate(0deg);
     -webkit-transform: rotate(0deg);
@@ -427,8 +355,6 @@
     -ms-transform: rotate(0deg);
     -o-transform: rotate(0deg);
   }
-
-  /* line 66, ../sass/_keyframes.sass */
   100% {
     transform: rotate(359deg);
     -webkit-transform: rotate(359deg);
@@ -437,9 +363,7 @@
     -o-transform: rotate(359deg);
   }
 }
-
 @keyframes offline-rotation {
-  /* line 64, ../sass/_keyframes.sass */
   0% {
     transform: rotate(0deg);
     -webkit-transform: rotate(0deg);
@@ -447,8 +371,6 @@
     -ms-transform: rotate(0deg);
     -o-transform: rotate(0deg);
   }
-
-  /* line 66, ../sass/_keyframes.sass */
   100% {
     transform: rotate(359deg);
     -webkit-transform: rotate(359deg);
@@ -457,30 +379,25 @@
     -o-transform: rotate(359deg);
   }
 }
-
 /* line 16, ../sass/offline-theme-dark.sass */
 .offline-ui {
-  -webkit-border-radius: 0 0 4px 4px;
   -moz-border-radius: 0 0 4px 4px;
-  -ms-border-radius: 0 0 4px 4px;
-  -o-border-radius: 0 0 4px 4px;
+  -webkit-border-radius: 0;
   border-radius: 0 0 4px 4px;
   font-family: "Helvetica Neue", sans-serif;
   font-weight: 300;
   padding: 1em;
   width: 38em;
   max-width: 100%;
-  background: black;
-  color: #cccccc;
+  background: #000;
+  color: #ccc;
   overflow: hidden;
 }
 @media (max-width: 38em) {
   /* line 16, ../sass/offline-theme-dark.sass */
   .offline-ui {
-    -webkit-border-radius: 0;
     -moz-border-radius: 0;
-    -ms-border-radius: 0;
-    -o-border-radius: 0;
+    -webkit-border-radius: 0;
     border-radius: 0;
   }
 }
@@ -494,10 +411,8 @@
 }
 /* line 36, ../sass/offline-theme-dark.sass */
 .offline-ui .offline-ui-content:after {
-  -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
+  -webkit-border-radius: 50%;
   border-radius: 50%;
   content: " ";
   display: block;
@@ -565,10 +480,8 @@
   -o-animation: offline-rotation 0.7s linear infinite;
   animation: offline-rotation 0.7s linear infinite;
   -webkit-backface-visibility: hidden;
-  -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
+  -webkit-border-radius: 50%;
   border-radius: 50%;
   content: " ";
   display: block;
