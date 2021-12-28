@@ -192,6 +192,9 @@
       for (key in requests) request = requests[key], makeRequest(request);
       return clear();
     }
+  },
+  getRequestsCount = function(){
+    return held.length;
   }, setTimeout(function() {
     if (!1 !== Offline.getOption("requests")) return Offline.on("confirmed-up", function() {
       if (waitingOnConfirm) return waitingOnConfirm = !1, clear();
@@ -211,7 +214,8 @@
       });
     }), Offline.requests = {
       flush:flush,
-      clear:clear
+      clear:clear,
+      getRequestsCount: getRequestsCount
     };
   }, 0);
 }.call(this), function() {

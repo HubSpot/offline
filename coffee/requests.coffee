@@ -54,6 +54,9 @@ flush = ->
 
   clear()
 
+getRequestsCount = -> 
+  return held.length;
+
 setTimeout ->
   unless Offline.getOption('requests') is false
     Offline.on 'confirmed-up', ->
