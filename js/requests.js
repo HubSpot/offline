@@ -78,6 +78,10 @@
     return clear();
   };
 
+  getRequestsCount = function(){
+    return held.length;
+  }
+
   setTimeout(function() {
     if (Offline.getOption('requests') !== false) {
       Offline.on('confirmed-up', function() {
